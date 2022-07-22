@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 20:04:43 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/19 21:40:49 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/22 09:45:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_split(char const *s, char c)
 	return (res);
 }
 
-int	_seplen(char *s, char c)
+static int	_seplen(char *s, char c)
 {
 	int				len;
 	size_t			idx;
