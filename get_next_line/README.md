@@ -93,6 +93,8 @@ fd -> node
 
 node 
 {
+	int		fd;
+
 	char	buf[BUFFER_SIZE];
 
 	char	*backup;
