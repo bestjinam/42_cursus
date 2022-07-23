@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_test_1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/23 16:49:31 by jinam             #+#    #+#             */
+/*   Updated: 2022/07/23 17:00:05 by jinam            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+
+#define	BUFFER_SIZE 1
+int main(void)
+{
+	char	buf[BUFFER_SIZE	+ 1];
+	int		fd;
+	int		temp_read_size = 0;
+
+	fd = open("./test.txt", O_RDONLY);
+	if (fd == -1)
+		printf("file open error");
+	else
+	{
+		while ((temp_read_size = read(fd, buf, BUFFER_SIZE)) > 0)
+		{
+			printf("%s", buf);
+			memset(buf, 0, BUFFER_SIZE);
+		}
+		close(fd);
+	}
+	return (0);
+}
