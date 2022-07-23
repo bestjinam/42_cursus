@@ -94,7 +94,10 @@ fd -> node
 node 
 {
 	char	buf[BUFFER_SIZE];
+
 	char	*backup;
+
 	size_t	backup_top; 
+
 	node	*next;
 }
