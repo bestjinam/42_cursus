@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/27 12:16:41 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/27 14:51:46 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -16,20 +16,21 @@
 #include <sys/fcntl.h>
 #include <string.h>
 
-static char	*_gnl_makeline(t_node *node, size_t size, char **line, size_t option)
+static char	*_gnl_makeline(t_list *node, size_t size,
+						char **line, size_t option)
 {
-	//copy할 부분= node.buff[node.eol - node.new]
 	const size_t	res_len = node->last_len + size + 1;
 	char			*res;
 
-	res = malloc(sizeof(char) * res_len);
+	res = malloc(sizeof(char) * (res_len));
 	if (*line)
 	{
 		_gnl_memmove(res, *line, node->last_len);
 		free(*line);
 	}
-	_gnl_memmove(&res[node->last_len], &node->buff[node->eol - size + 1], size + 1);
-	res[res_len] = 0;
+	_gnl_memmove(&res[node->last_len],
+		&node->buff[node->eol - size + 1], size + 1);
+	res[res_len - 1] = 0;
 	node->last_len += size;
 	if (option == IS_END)
 	{
@@ -41,23 +42,27 @@ static char	*_gnl_makeline(t_node *node, size_t size, char **line, size_t option
 	return (res);
 }
 
-static void	_gnl_getline(int fd, t_node *node, size_t size)
+static void	_gnl_getline(int fd, t_list *node, size_t size)
 {
 	node->rbytes = read(fd, node->buff, size);
 	node->eol = 0;
 	node->new = 1;
 }
 
-
 char	*get_next_line(int fd)
 {
-	static t_node	node = {"", BUFFER_SIZE, BUFFER_SIZE, 0, 0}; //buff & rbytes & eol & last_len & new
+	static t_list	node = {"", BUFFER_SIZE,
+		BUFFER_SIZE, 0, 0}; //buff & rbytes & eol & last_len & new
 	char			*line;
 
 	line = (void *) 0;
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL,0) < 0)
+		return (0);
 
 	while (1) //온전한 read가 되었을때까지만 돈다. -> while 빠져나온 마지막은eof
 	{
+		// 1234\n => read => return => gnl => read => bytes === 0 => return line = NULL;
+		// prev = "123"; prev = ""; => return prev;
 		if (node.eol == BUFFER_SIZE)
 			_gnl_getline(fd, &node, BUFFER_SIZE); //read -> buffer  &  last_len ++ & start idx 초기화 & node.rbytes 갱신 
 		if (node.rbytes == 0 || ((size_t)node.rbytes == node.eol))
@@ -71,21 +76,22 @@ char	*get_next_line(int fd)
 		node.new ++;
 	}
 }
-
+/*
 int	main(void)
 {
 	int		fd;
 	char	*str;
 
 	fd = open("test.txt", O_RDONLY);
-	/*str = get_next_line(fd);
+	str = get_next_line(fd);
 	printf("fd : %d\n", fd);
 	printf("fd str: %s", str);
 	str = get_next_line(fd);
 	str = get_next_line(fd);
 	printf("fd : %d\n", fd);
 	printf("fd str: %s", str);*/
-	str = get_next_line(fd);
+/*
+str = get_next_line(fd);
 	while (str)
 	{
 		printf("fd str: %s", str);
@@ -93,4 +99,4 @@ int	main(void)
 	}
 	close(fd);
 
-}
+} */

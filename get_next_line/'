@@ -15,11 +15,11 @@
 #include <stdio.h>
 #include <sys/fcntl.h>
 
-t_node	*_gnl_init(int fd)
+t_list	*_gnl_init(int fd)
 {
-	t_node	*new;
+	t_list	*new;
 
-	new = malloc(sizeof(t_node));
+	new = malloc(sizeof(t_list));
 	if (!new)
 		return ((void *) 0);
 	new->fd = fd;
@@ -61,7 +61,7 @@ char *_gnl_strjoin(char const *s1, char const *s2, size_t len)
 
 }
 
-int	_gnl_make_line(t_node *node, char *line)
+int	_gnl_make_line(t_list *node, char *line)
 {
 	if (!line)
 	{
@@ -91,7 +91,7 @@ int	_gnl_make_line(t_node *node, char *line)
 
 char	*get_next_line(int fd)
 {
-	static t_node	*fd_node;
+	static t_list	*fd_node;
 	char			*line;
 	int				res;
 

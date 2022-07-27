@@ -33,14 +33,14 @@ typedef enum e_eof
 	READ_ERROR
 }	t_eof;
 
-typedef struct s_node
+typedef struct s_list
 {
 	char			buff[BUFFER_SIZE];
 	ssize_t			rbytes;
 	size_t			eol;
 	size_t			last_len;
 	size_t			new;
-}					t_node;
+}					t_list;
 void	*_gnl_memmove(void *s1, const void *s2, size_t n);
 #endif /* ifndef GET_NEXT_LINE_H
 # ifndef
