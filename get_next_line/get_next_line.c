@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/26 10:36:03 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/27 12:16:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -16,139 +16,81 @@
 #include <sys/fcntl.h>
 #include <string.h>
 
-t_node	*_gnl_init_node(t_node **head, int fd)
+static char	*_gnl_makeline(t_node *node, size_t size, char **line, size_t option)
 {
-	t_node	*curr;
+	//copy할 부분= node.buff[node.eol - node.new]
+	const size_t	res_len = node->last_len + size + 1;
+	char			*res;
 
-	if (!*head)
+	res = malloc(sizeof(char) * res_len);
+	if (*line)
 	{
-		*head = malloc(sizeof(t_node));
-		if (!*head)
-			return (0);
-		(*head) -> fd = fd;
-		(*head) -> buff_len = 0;
-		(*head) -> next = (void *) 0;
+		_gnl_memmove(res, *line, node->last_len);
+		free(*line);
 	}
-	curr = *head;
-	while (curr && curr->fd != fd)
+	_gnl_memmove(&res[node->last_len], &node->buff[node->eol - size + 1], size + 1);
+	res[res_len] = 0;
+	node->last_len += size;
+	if (option == IS_END)
 	{
-		if (!curr->next)
-		{
-			curr->next = malloc(sizeof(t_node));
-			if (!curr->next)
-				return (0);
-			curr->next->fd = fd;
-			curr->next->buff_len = 0;
-			curr->next->next = (void *) 0;
-		}
-		curr = curr->next;
+		node->last_len = 0;
+		node->eol ++;
 	}
-	return (curr);
-}
-
-size_t	_gnl_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	*_gnl_memcpy(void *s1, const void *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*tmp_s2;
-	unsigned char	*tmp_s1;
-
-	if (!s1 && !s2)
-		return (0);
-	tmp_s1 = (unsigned char *) s1;
-	tmp_s2 = (unsigned char *) s2;
-	i = 0;
-	while (i < n)
-	{
-		tmp_s1[i] = tmp_s2[i];
-		i ++;
-	}
-	return (s1);
-}
-
-char	*_gnl_strdup(const char *str, size_t len)
-{
-	char	*res;
-	size_t	s1_len;
-
-	s1_len = len + 1;
-	res = malloc(sizeof(char) * s1_len);
-	if (!res)
-		return (0);
-	_gnl_memcpy(res, str, s1_len);
-	res[len] = 0;
+	node->new = 1;
+	*line = res;
 	return (res);
 }
 
-char	*_gnl_memjoin(char *s1, char *s2, size_t size)
+static void	_gnl_getline(int fd, t_node *node, size_t size)
 {
-	size_t	s1_len;
-	char	*res;
-
-	s1_len = _gnl_strlen(s1);
-	res = malloc(sizeof(char) * (s1_len + size + 1));
-	if (!res)
-		return (0);
-	_gnl_memcpy(res, s1, s1_len);
-	free(s1);
-	_gnl_memcpy(res + s1_len, s2, size + 1);
-	res[s1_len + size] = 0;
-	return (res);
+	node->rbytes = read(fd, node->buff, size);
+	node->eol = 0;
+	node->new = 1;
 }
+
 
 char	*get_next_line(int fd)
 {
-	static t_node	*node = NULL;
-	t_node			*fd_node;
+	static t_node	node = {"", BUFFER_SIZE, BUFFER_SIZE, 0, 0}; //buff & rbytes & eol & last_len & new
 	char			*line;
 
-	if (fd == -1)
-		return (0);
-	fd_node = _gnl_init_node(&node, fd);
-	line = NULL;
-	if (!fd_node->buff_len)
-		fd_node->buff_len = read(fd, fd_node->buff, BUFFER_SIZE);
-	while (fd_node->buff_len > 0)
+	line = (void *) 0;
+
+	while (1) //온전한 read가 되었을때까지만 돈다. -> while 빠져나온 마지막은eof
 	{
-		if (!line)
-			line = _gnl_strdup(fd_node->buff, fd_node->buff_len);
-		else
-			line = _gnl_memjoin(line, fd_node->buff, fd_node->buff_len);
-		fd_node->buff_len = read(fd, fd_node->buff, BUFFER_SIZE);
+		if (node.eol == BUFFER_SIZE)
+			_gnl_getline(fd, &node, BUFFER_SIZE); //read -> buffer  &  last_len ++ & start idx 초기화 & node.rbytes 갱신 
+		if (node.rbytes == 0 || ((size_t)node.rbytes == node.eol))
+			return (line);
+		if (node.buff[node.eol] == '\n')
+			return (_gnl_makeline(&node, node.new, &line, IS_END));
+		//if (node.rbytes == BUFFER_SIZE && node.eol == BUFFER_SIZE - 1) //
+		if (node.eol == (size_t)node.rbytes - 1)
+			line = _gnl_makeline(&node, node.new, &line, NOT_END);
+		node.eol ++;
+		node.new ++;
 	}
-	return (line);
 }
 
 int	main(void)
 {
 	int		fd;
-	//int		fd2;
 	char	*str;
 
 	fd = open("test.txt", O_RDONLY);
-	//fd2 = open ("text.txt", O_RDONLY);
-	str = get_next_line(fd);
+	/*str = get_next_line(fd);
 	printf("fd : %d\n", fd);
 	printf("fd str: %s", str);
-
-	//str = get_next_line(fd2);
-	//printf("%s", str);
+	str = get_next_line(fd);
+	str = get_next_line(fd);
+	printf("fd : %d\n", fd);
+	printf("fd str: %s", str);*/
+	str = get_next_line(fd);
+	while (str)
+	{
+		printf("fd str: %s", str);
+		str = get_next_line(fd);
+	}
 	close(fd);
-	fd = open("test.txt", O_RDONLY);
-	printf("fd : %d\n", fd);
-	str = get_next_line(fd);
-	printf("fd str: %s", str);
-	printf("fd : %d\n", fd);
-	str = get_next_line(fd);
-	printf("%s", str);
 
 }

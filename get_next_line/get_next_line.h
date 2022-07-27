@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/25 09:07:01 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/27 12:11:15 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,29 @@
 # endif
 
 char	*get_next_line(int fd);
+
+typedef enum e_stat
+{
+	SUCCESS = 0,
+	ERROR
+}	t_stat;
+
+typedef enum e_eof
+{
+	IS_END = 0,
+	NOT_END,
+	READ_ERROR
+}	t_eof;
+
 typedef struct s_node
 {
-	int				fd;
 	char			buff[BUFFER_SIZE];
-	size_t			offset;
-	size_t			buff_len;
-	struct s_node	*next;
+	ssize_t			rbytes;
+	size_t			eol;
+	size_t			last_len;
+	size_t			new;
 }					t_node;
+void	*_gnl_memmove(void *s1, const void *s2, size_t n);
 #endif /* ifndef GET_NEXT_LINE_H
 # ifndef
  */
