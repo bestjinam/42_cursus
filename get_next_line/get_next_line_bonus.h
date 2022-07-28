@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 09:40:29 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 11:05:45 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
 # ifndef BUFFER_SIZE
@@ -35,13 +35,18 @@ typedef enum e_eof
 
 typedef struct s_list
 {
+	int				fd;
 	char			buff[BUFFER_SIZE];
 	ssize_t			rbytes;
 	size_t			eol;
 	size_t			last_len;
 	size_t			new_len;
+	struct s_list	*next;
 }					t_list;
-void	*_gnl_memmove(void *s1, const void *s2, size_t n);
+
+int		_gnl_find_node(t_list **head, t_list **node, int fd);
+void	_gnl_del_node(t_list **begin_list, t_list *node);
+
 #endif /* ifndef GET_NEXT_LINE_H
 # ifndef
  */

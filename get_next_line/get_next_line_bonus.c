@@ -1,20 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 09:42:30 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 11:06:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <sys/fcntl.h>
 #include <string.h>
+
+void	*_gnl_memmove(void *s1, const void *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*tmp_s1;
+	unsigned char	*tmp_s2;
+
+	if (!s1 & !s2)
+		return (0);
+	tmp_s1 = (unsigned char *) s1;
+	tmp_s2 = (unsigned char *) s2;
+	if (s2 < s1)
+	{
+		i = n;
+		while (i > 0)
+		{
+			tmp_s1[i - 1] = tmp_s2[i - 1];
+			i --;
+		}
+	}
+	else if (s2 > s1)
+	{
+		i = -1;
+		while (++i < n)
+			tmp_s1[i] = tmp_s2[i];
+	}
+	return (s1);
+}
 
 static char	*_gnl_makeline(t_list *node, size_t size,
 						char **line, size_t option)
@@ -42,57 +70,45 @@ static char	*_gnl_makeline(t_list *node, size_t size,
 	return (res);
 }
 
-static void	_gnl_getline(int fd, t_list *node, size_t size)
+static int	_gnl_getline(t_list **begin_list, t_list *node,
+						char *line, size_t size)
 {
-	node->rbytes = read(fd, node->buff, size);
+	node->rbytes = read(node->fd, node->buff, size);
+	if (node->rbytes < 0)
+	{
+		_gnl_del_node(begin_list, node);
+		free(line);
+		return (0);
+	}
 	node->eol = 0;
 	node->new_len = 1;
+	return (1);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	node = {"", BUFFER_SIZE,
-		BUFFER_SIZE, 0, 0};
+	static t_list	*head = NULL;
+	t_list			*node;
 	char			*line;
 
 	line = (void *) 0;
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
-		return (0);
+	if (fd < 0 || BUFFER_SIZE < 1 || !_gnl_find_node(&head, &node, fd))
+		return ((void *) 0);
 	while (1)
 	{
-		if (node.eol == BUFFER_SIZE)
-			_gnl_getline(fd, &node, BUFFER_SIZE);
-		if (node.rbytes == 0 || ((size_t)node.rbytes == node.eol))
+		if (node->eol == BUFFER_SIZE)
+			if (!_gnl_getline(&head, node, line, BUFFER_SIZE))
+				return ((void *) 0);
+		if (node->rbytes == 0 || ((size_t)node->rbytes == node->eol))
+		{
+			_gnl_del_node(&head, node);
 			return (line);
-		if (node.buff[node.eol] == '\n')
-			return (_gnl_makeline(&node, node.new_len, &line, IS_END));
-		if (node.eol == (size_t)node.rbytes - 1)
-			line = _gnl_makeline(&node, node.new_len, &line, NOT_END);
-		node.eol ++;
-		node.new_len ++;
+		}
+		if (node->buff[node->eol] == '\n')
+			return (_gnl_makeline(node, node->new_len, &line, IS_END));
+		if (node->eol == (size_t)node->rbytes - 1)
+			line = _gnl_makeline(node, node->new_len, &line, NOT_END);
+		node->eol ++;
+		node->new_len ++;
 	}
 }
-/*
-int	main(void)
-{
-	int		fd;
-	char	*str;
-
-	fd = open("test.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("fd : %d\n", fd);
-	printf("fd str: %s", str);
-	str = get_next_line(fd);
-	str = get_next_line(fd);
-	printf("fd : %d\n", fd);
-	printf("fd str: %s", str);*/
-/*
-str = get_next_line(fd);
-	while (str)
-	{
-		printf("fd str: %s", str);
-		str = get_next_line(fd);
-	}
-	close(fd);
-
-} */
