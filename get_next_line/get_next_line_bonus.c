@@ -6,17 +6,12 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 11:06:43 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 11:15:53 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
-#include <fcntl.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <sys/fcntl.h>
-#include <string.h>
 
-void	*_gnl_memmove(void *s1, const void *s2, size_t n)
+static void	*_gnl_memmove(void *s1, const void *s2, size_t n)
 {
 	size_t			i;
 	unsigned char	*tmp_s1;

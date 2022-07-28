@@ -6,15 +6,38 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 09:42:30 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 11:15:36 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <sys/fcntl.h>
-#include <string.h>
+
+static void	*_gnl_memmove(void *s1, const void *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*tmp_s1;
+	unsigned char	*tmp_s2;
+
+	if (!s1 & !s2)
+		return (0);
+	tmp_s1 = (unsigned char *) s1;
+	tmp_s2 = (unsigned char *) s2;
+	if (s2 < s1)
+	{
+		i = n;
+		while (i > 0)
+		{
+			tmp_s1[i - 1] = tmp_s2[i - 1];
+			i --;
+		}
+	}
+	else if (s2 > s1)
+	{
+		i = -1;
+		while (++i < n)
+			tmp_s1[i] = tmp_s2[i];
+	}
+	return (s1);
+}
 
 static char	*_gnl_makeline(t_list *node, size_t size,
 						char **line, size_t option)
@@ -72,27 +95,3 @@ char	*get_next_line(int fd)
 		node.new_len ++;
 	}
 }
-/*
-int	main(void)
-{
-	int		fd;
-	char	*str;
-
-	fd = open("test.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("fd : %d\n", fd);
-	printf("fd str: %s", str);
-	str = get_next_line(fd);
-	str = get_next_line(fd);
-	printf("fd : %d\n", fd);
-	printf("fd str: %s", str);*/
-/*
-str = get_next_line(fd);
-	while (str)
-	{
-		printf("fd str: %s", str);
-		str = get_next_line(fd);
-	}
-	close(fd);
-
-} */

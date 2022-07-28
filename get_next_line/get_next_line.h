@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 09:40:29 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/27 21:06:49 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_list
 	size_t			last_len;
 	size_t			new_len;
 }					t_list;
-void	*_gnl_memmove(void *s1, const void *s2, size_t n);
 #endif /* ifndef GET_NEXT_LINE_H
 # ifndef
  */
