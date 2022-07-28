@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 11:15:36 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:19:44 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -80,7 +80,7 @@ char	*get_next_line(int fd)
 
 	line = (void *) 0;
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
-		return (0);
+		return ((void *) 0);
 	while (1)
 	{
 		if (node.eol == BUFFER_SIZE)

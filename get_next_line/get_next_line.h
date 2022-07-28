@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/27 21:06:49 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:20:09 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # endif
 
 char	*get_next_line(int fd);
-
-typedef enum e_stat
-{
-	SUCCESS = 0,
-	ERROR
-}	t_stat;
 
 typedef enum e_eof
 {

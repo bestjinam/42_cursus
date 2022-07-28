@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 11:15:53 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:17:52 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -73,11 +73,11 @@ static int	_gnl_getline(t_list **begin_list, t_list *node,
 	{
 		_gnl_del_node(begin_list, node);
 		free(line);
-		return (0);
+		return (ERROR);
 	}
 	node->eol = 0;
 	node->new_len = 1;
-	return (1);
+	return (SUCCESS);
 }
 
 char	*get_next_line(int fd)
