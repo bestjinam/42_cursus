@@ -6,13 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:00:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/03 11:53:59 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/04 22:41:49 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	_printf_per(va_list ap)
+int	_printf_per(t_format *format, va_list ap)
 {
 	(void) ap;
+	(void) format;
 	return (write(1, "\%", 1));
 }

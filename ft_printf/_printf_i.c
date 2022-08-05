@@ -6,13 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/03 11:46:48 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/04 22:41:34 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	_printf_i(va_list ap)
+int	_printf_i(t_format *format, va_list ap)
 {
+	(void) format;
 	long	nbr;
 	int		res1;
 	int		res2;

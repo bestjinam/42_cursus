@@ -6,14 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/03 01:58:21 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/04 22:41:42 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	_printf_p(va_list ap)
+int	_printf_p(t_format *format, va_list ap)
 {
+	(void) format;
 	unsigned long	pointer;
 	int				res1;
 	int				res2;
