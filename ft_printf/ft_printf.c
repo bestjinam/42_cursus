@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 20:00:09 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/05 22:22:02 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/06 18:53:39 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -15,21 +15,13 @@
 static int	_va_printf(va_list ap, t_format *format)
 {
 	static t_funcptr	fp[9] = {_printf_c, _printf_s, _printf_p,
-		_printf_d, _printf_i, _printf_u, _printf_x, _printf_xx, _printf_per};
+		_printf_d, _printf_d, _printf_u, _printf_x, _printf_xx, _printf_per};
 	static char			*options = "cspdiuxX%";
 	int					f_number;
 	const char			option = format->specifier;
 
 	f_number = ft_strchr(options, option) - options;
 	return (fp[f_number](format, ap));
-}
-
-static void	_bit_mod_flags(t_format *format)
-{
-	if (format->precision || (format->flags & 02) == 02)
-		format->flags &= ~020;
-	if ((format -> flags & 01) == 01)
-		format->flags &= ~040;
 }
 
 static int	_processing_printf(va_list ap, const char *str)

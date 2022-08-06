@@ -6,32 +6,92 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/04 22:41:42 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/06 23:07:03 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
+static int	_nbr_len(unsigned long nbr)
+{
+	int	i;
+
+	i = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr)
+	{
+		nbr /= 16;
+		i ++;
+	}
+	return (i);
+}
+
+static int	_p_plain_process_width(t_format *format, int len)
+{
+	int	res2;
+	int	pre;
+
+	if (format->specifier == 'p' || (format->flags & 010) == 010)
+		pre = 2;
+	else
+		pre = 0;
+	if (format->precision > len)
+		res2 = _printf_p_width(format->width - (format->precision) - pre, ' ');
+	else
+		res2 = _printf_p_width(format->width - (len) - pre, ' ');
+	if (res2 < 0)
+		return (-1);
+	return (res2);
+}
+
+int	_p_plain_process(t_format *format, unsigned long nbr, int len, char *base)
+{
+	int		res2;
+	int		tmp;
+
+	res2 = _p_plain_process_width(format, len);
+	if (res2 < 0)
+		return (-1);
+	tmp = _p_prenumber_print(format, nbr);
+	if (tmp < 0)
+		return (-1);
+	res2 += tmp;
+	if ((format->flags & 040) == 040)
+	{
+		tmp = _printf_p_width(format->precision - len, '0');
+		if (tmp < 0)
+			return (-1);
+		res2 += tmp;
+	}
+
+	tmp = _convert_base(nbr, base);
+	if (tmp < 0)
+		return (-1);
+	return (res2 + tmp);
+}
+
+int	_printf_base16_process(t_format *format, unsigned long nbr, char *base)
+{
+	int	nbr_len;
+	int	idx;
+
+	nbr_len = _nbr_len(nbr);
+	idx = 0;
+	format->flags &= ~05;
+	if ((format->flags & 040) == 040 && format->precision == 0 && nbr == 0)
+		return (_p_zero_precision_zero_process(format));
+	if ((format->flags & 02) == 02)
+		return (_p_minus_process(format, nbr, nbr_len, (char *) base));
+	else if ((format->flags & 020) == 020)
+		return (_p_zero_process(format, nbr, nbr_len, (char *) base));
+	else
+		return (_p_plain_process(format, nbr, nbr_len, (char *) base));
+}
+
 int	_printf_p(t_format *format, va_list ap)
 {
-	(void) format;
 	unsigned long	pointer;
-	int				res1;
-	int				res2;
-	int				idx;
 
 	pointer = (unsigned long) va_arg(ap, void *);
-	idx = 0;
-	res1 = 0;
-	while (idx < 2)
-	{
-		if (write(1, &"0x"[idx], 1) == -1)
-			return (-1);
-		else
-			res1 ++;
-		idx ++;
-	}
-	res2 = _convert_base(pointer, "0123456789abcdef");
-	if (res2 == -1)
-		return (-1);
-	return (res1 + res2);
+	return (_printf_base16_process(format, pointer, "0123456789abcdef"));
 }

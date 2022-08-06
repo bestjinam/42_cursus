@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:16:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/05 22:16:45 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/06 18:32:58 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -18,7 +18,7 @@ static void	_make_flags(t_format *format, char c)
 	int			flags_idx;
 
 	flags_idx = ft_strchr(flags, c) - flags;
-	if (flags_idx != 0)
+	if (flags_idx >= 0)
 		format->flags |= (1 << (ft_strchr(flags, c) - flags));
 	else
 		return ;
@@ -51,6 +51,14 @@ int	_parsing_flags(const char *str, t_format *format)
 	else
 		format->specifier = str[i++];
 	return (i);
+}
+
+void	_bit_mod_flags(t_format *format)
+{
+	if ((format->flags & 040) == 040 || (format->flags & 02) == 02)
+		format->flags &= ~020;
+	if ((format -> flags & 01) == 01)
+		format->flags &= ~04;
 }
 
 int	_init_str(t_format *format, int size)
