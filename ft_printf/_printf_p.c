@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/06 23:07:03 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 14:07:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -63,7 +63,6 @@ int	_p_plain_process(t_format *format, unsigned long nbr, int len, char *base)
 			return (-1);
 		res2 += tmp;
 	}
-
 	tmp = _convert_base(nbr, base);
 	if (tmp < 0)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:16:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/06 18:32:58 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 14:30:47 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -70,6 +70,8 @@ int	_init_str(t_format *format, int size)
 	else
 		str_size = format->width;
 	format->str = malloc(sizeof(char) * (str_size + 1));
+	if (!(format->str))
+		return (-1);
 	format->str[str_size] = 0;
 	return (str_size);
 }

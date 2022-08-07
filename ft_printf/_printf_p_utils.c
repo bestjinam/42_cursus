@@ -6,11 +6,11 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 16:39:33 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/06 23:18:41 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 14:07:30 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-#include <stdio.h>
+
 int	_printf_p_width(int width, char c)
 {
 	int	tmp;
@@ -43,7 +43,6 @@ int	_p_prenumber_print(t_format *format, unsigned long nbr)
 		pre = "0X";
 	else
 		pre = "0x";
-
 	if (!((format->flags & 040) == 040 && format->precision == 0 && nbr == 0))
 	{
 		while (idx < 2)
