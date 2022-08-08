@@ -87,9 +87,10 @@
 ## - flag
 '-' flag 는 공백과 0 플래그를 무효화 한다. 
 
-### flags + width + precision examples 
+## examples 
 
-#### width 
+
+### width 
 printf("*%d*\n", PAGES);    \*959\*
 
 printf("*%2d*\n", PAGES);   \*959\*
@@ -98,11 +99,11 @@ printf("*%10d*\n", PAGES);  \* 959\*
 
 printf("*%-10d*\n", PAGES); \*959 \*
 
-#### x/X + '#'
+### x/X + '#'
 
 printf("%x %X %#x\n", 31, 31, 31); 1f 1F 0x1f
 
-#### d width / width + precision / 0 + width / 0 + width + precision 
+### d width / width + precision / 0 + width / 0 + width + precision 
 
 printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);
 1. %5d -> ** 6**
@@ -110,7 +111,7 @@ printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);
 3. %05d -> **00006**
 4. %05.3d -> ** 006**
 
-#### string 
+### string 
 printf("[%2s]\n", BLURB);   [Authentic imitation!]
 
 printf("[%24s]\n", BLURB);  [ Authentic imitation!]
