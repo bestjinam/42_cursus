@@ -65,10 +65,13 @@
 ### flags + width + precision examples 
 
 #### width 
-printf("*%d*\n", PAGES);    *959*
-printf("*%2d*\n", PAGES);   *959*
-printf("*%10d*\n", PAGES);  * 959*
-printf("*%-10d*\n", PAGES); *959 *
+printf("*%d*\n", PAGES);    \*959\*
+
+printf("*%2d*\n", PAGES);   \*959\*
+
+printf("*%10d*\n", PAGES);  \* 959\*
+
+printf("*%-10d*\n", PAGES); \*959 \*
 
 #### x/X + '#'
 
@@ -84,8 +87,11 @@ printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);
 
 #### string 
 printf("[%2s]\n", BLURB);   [Authentic imitation!]
+
 printf("[%24s]\n", BLURB);  [ Authentic imitation!]
+
 printf("[%24.5s]\n", BLURB);[               Authe]
+
 printf("[%-24.5s]\n", BLURB);[Authe              ]
 
 
