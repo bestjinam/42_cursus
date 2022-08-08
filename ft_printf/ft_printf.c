@@ -45,6 +45,7 @@ int	ft_printf(const char *str, ...)
 			res += temp;
 		i ++;
 	}
+	va_end(ap);
 	return (res);
 }
 
