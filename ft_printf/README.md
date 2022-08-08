@@ -67,7 +67,7 @@
 
 		‘-’	‘0’	‘#’	‘ ’	‘+’
 	
-	c	O	O	사용안함	사용안함	사용안함
+	c	O	사용안함	사용안함	사용안함	사용안함
 
 	s	O	사용안함	사용안함	사용안함	사용안함
 
@@ -86,10 +86,22 @@
 	%	O	O	사용안함	사용안함	사용안함
 
 ## - flag
-'-' flag 는 공백과 0 플래그를 무효화 한다. 
+'-' flag 는 0 플래그를 무효화 한다. 
+
+## + flag
+'+' flag 는 공백 플래그를 무효화 한다. 
+
+## precision 
+s에서는 문자열의 길이 보다 precision 이 작을 경우 문자열을 precision만큼만 출력한다.
+
+숫자 출력( d, i, u, x, X)에서는 자릿수 보다 precision이 작을 경우 무시되고, precision이 클 경우에는 앞에 0이 붙는다. 
+
+부호 와 0x는 precision에 포함 되지 않는다. 
+
+## 0 flag
+0 flag는 -와 precision에 무효화 된다.  
 
 ## examples 
-
 
 ### width 
 printf("*%d*\n", PAGES);    \*959\*
@@ -109,7 +121,7 @@ printf("%x %X %#x\n", 31, 31, 31); 1f 1F 0x1f
 printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);
 1. %5d -> ** 6**
 2. %5.3d -> ** 006**
-3. %05d -> **00006**
+3. %05d -> ** 00006 **
 4. %05.3d -> ** 006**
 
 ### string 
@@ -121,4 +133,10 @@ printf("[%24.5s]\n", BLURB);[               Authe]
 
 printf("[%-24.5s]\n", BLURB);[Authe              ]
 
+
+# FUNCTIONS 
+
+## ft_printf.c
+
+### int	ft_printf(const char *str, ...)
 
