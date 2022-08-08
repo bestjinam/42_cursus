@@ -21,4 +21,24 @@
 	- 자료형이 다른 가변인자 함수
 		- variable_argument_multiple_types.c
 
+# printf mandatory
+<img width="1094" alt="ft_printf (mandatory)" src="https://user-images.githubusercontent.com/107545007/183350417-c8fb6246-988c-4d50-aea3-e7a1d5516b19.png">
 
+## ft_printf 함수
+- 가변인자 받기, 끝내기 
+- string 하나씩 읽으면서 %가 나오는지 확인
+ - % 가 아니면 : 그대로 출력 + 출력 값을 저장하기
+ - % 면 : 다음 문자를 specifier 로 인식 하고 va_printf 호출, 
+ - va_printf 리턴 값 확인 (-1 인 경우와 정상 출력된 경우) + 리턴 값 저장
+- 함수 호출 끝 
+
+## _va_printf 
+- 매개변수에 맞는 함수 포인터 찾아서 호출 + 리턴 값 넘기기
+ - 함수 포인터 배열 선언 
+ - 맞는 인덱스 찾기
+ - 인자 넣어서 함수 호출 및 리턴
+
+## 출력 함수 
+- convert_base
+ - d, p, i u, x, xx 함수에서 모두 사용 
+ - ft_itoa_base 호출 하여 문자열을 10진수로 인지 하고 -> 원하는 진법으로 변환 출력
