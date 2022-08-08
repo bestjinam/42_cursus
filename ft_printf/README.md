@@ -84,6 +84,9 @@
 
 	%	O	O	사용안함	사용안함	사용안함
 
+## - flag
+'-' flag 는 공백과 0 플래그를 무효화 한다. 
+
 ### flags + width + precision examples 
 
 #### width 
