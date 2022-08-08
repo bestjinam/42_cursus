@@ -46,7 +46,8 @@
 
 # printf bonus (bonus branch)
 
-<img width="1282" alt="ft_printf (bonus)" src="https://user-images.githubusercontent.com/107545007/183358609-975552d1-638d-4ecc-8c84-972611557ed4.png">
+![image](https://user-images.githubusercontent.com/107545007/183407736-8fea52d8-a713-4fd9-8724-8494034387d5.png)
+
 
 ## parsing ? 
 
