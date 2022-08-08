@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:00:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/07 14:29:25 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 15:24:12 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -51,7 +51,10 @@ int	_printf_c(t_format *format, va_list ap)
 	while (res < format->space_size)
 	{
 		if (write(1, &format->str[res], 1) < 0)
+		{
+			free(format->str);
 			return (-1);
+		}
 		else
 			res ++;
 	}

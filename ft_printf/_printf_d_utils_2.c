@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 17:30:40 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/06 17:45:09 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 16:46:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,24 @@ int	_printf_d_zero_precision_zero_process(t_format *format)
 			return (-1);
 	}
 	return (res1 + res2);
+}
+
+int	_printf_d_width(int width, char c)
+{
+	int	tmp;
+	int	res;
+
+	res = 0;
+	if (width <= 0)
+		return (0);
+	while (width)
+	{
+		tmp = write(1, &c, 1);
+		if (tmp < 0)
+			return (-1);
+		else
+			res += tmp;
+		width --;
+	}
+	return (res);
 }

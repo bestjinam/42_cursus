@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:11:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/05 21:14:21 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/07 15:48:58 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -66,7 +66,7 @@ static int	_printf_s_print(char *str)
 	while (*str)
 	{
 		tmp = write(1, str, 1);
-		if (!tmp)
+		if (tmp < 0)
 			return (-1);
 		else
 			res += tmp;
