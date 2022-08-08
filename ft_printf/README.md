@@ -61,3 +61,31 @@
 		- (number)	Minimum number of characters to be printed. If the value to be printed is shorter than this number, the result is padded with blank spaces. The value is not truncated even if the result is larger.
 	- precision 
 		- (.number)	For integer specifiers (d, i, o, u, x, X): precision specifies the minimum number of digits to be written. If the value to be written is shorter than this number, the result is padded with leading zeros. The value is not truncated even if the result is longer. A precision of 0 means that no character is written for the value 0.
+
+### flags + width + precision examples 
+
+#### width 
+printf("*%d*\n", PAGES);    *959*
+printf("*%2d*\n", PAGES);   *959*
+printf("*%10d*\n", PAGES);  * 959*
+printf("*%-10d*\n", PAGES); *959 *
+
+#### x/X + '#'
+
+printf("%x %X %#x\n", 31, 31, 31); 1f 1F 0x1f
+
+#### d width / width + precision / 0 + width / 0 + width + precision 
+
+printf("**%5d**%5.3d**%05d**%05.3d**\n", 6, 6, 6, 6);
+1. %5d -> ** 6**
+2. %5.3d -> ** 006**
+3. %05d -> **00006**
+4. %05.3d -> ** 006**
+
+#### string 
+printf("[%2s]\n", BLURB);   [Authentic imitation!]
+printf("[%24s]\n", BLURB);  [ Authentic imitation!]
+printf("[%24.5s]\n", BLURB);[               Authe]
+printf("[%-24.5s]\n", BLURB);[Authe              ]
+
+
