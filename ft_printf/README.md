@@ -34,11 +34,30 @@
 
 ## _va_printf 
 - 매개변수에 맞는 함수 포인터 찾아서 호출 + 리턴 값 넘기기
- - 함수 포인터 배열 선언 
- - 맞는 인덱스 찾기
- - 인자 넣어서 함수 호출 및 리턴
+	- 함수 포인터 배열 선언 
+	- 맞는 인덱스 찾기
+ 	- 인자 넣어서 함수 호출 및 리턴
 
 ## 출력 함수 
 - convert_base
- - d, p, i u, x, xx 함수에서 모두 사용 
- - ft_itoa_base 호출 하여 문자열을 10진수로 인지 하고 -> 원하는 진법으로 변환 출력
+	- d, p, i u, x, xx 함수에서 모두 사용 
+	- ft_itoa_base 호출 하여 문자열을 10진수로 인지 하고 -> 원하는 진법으로 변환 출력
+
+
+# printf bonus (bonus branch)
+
+<img width="1282" alt="ft_printf (bonus)" src="https://user-images.githubusercontent.com/107545007/183358609-975552d1-638d-4ecc-8c84-972611557ed4.png">
+
+## parsing ? 
+
+- %[flags][width][.precision][length]specifier
+	- flags
+		- (-) : Left-justify within the given field width; Right justification is the default (see width sub-specifier).
+		- (+) : Forces to preceed the result with a plus or minus sign (+ or -) even for positive numbers. By default, only negative numbers are preceded with a - sign.
+		- (space) : If no sign is going to be written, a blank space is inserted before the value.
+		- (#) : Used with o, x or X specifiers the value is preceeded with 0, 0x or 0X respectively for values different than zero.
+		- (0) : Left-pads the number with zeroes (0) instead of spaces when padding is specified (see width sub-specifier).
+	- width 
+		- (number)	Minimum number of characters to be printed. If the value to be printed is shorter than this number, the result is padded with blank spaces. The value is not truncated even if the result is larger.
+	- precision 
+		- (.number)	For integer specifiers (d, i, o, u, x, X): precision specifies the minimum number of digits to be written. If the value to be written is shorter than this number, the result is padded with leading zeros. The value is not truncated even if the result is longer. A precision of 0 means that no character is written for the value 0.
