@@ -62,6 +62,28 @@
 	- precision 
 		- (.number)	For integer specifiers (d, i, o, u, x, X): precision specifies the minimum number of digits to be written. If the value to be written is shorter than this number, the result is padded with leading zeros. The value is not truncated even if the result is longer. A precision of 0 means that no character is written for the value 0.
 
+## specifier and flags
+
+		‘-’	‘0’	‘#’	‘ ’	‘+’
+	
+	c	O	O	사용안함	사용안함	사용안함
+
+	s	O	사용안함	사용안함	사용안함	사용안함
+
+	p	O	사용안함	사용안함	사용안함	사용안함
+
+	d	O	O	사용안함	O	O
+
+	i	O	O	사용안함	O	O
+
+	u	O	O	사용안함	사용안함	사용안함
+
+	x	O	O	O	사용안함	사용안함
+
+	X	O	O	O	사용안함	사용안함
+
+	%	O	O	사용안함	사용안함	사용안함
+
 ### flags + width + precision examples 
 
 #### width 
