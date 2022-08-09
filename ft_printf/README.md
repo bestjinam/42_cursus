@@ -138,5 +138,41 @@ printf("[%-24.5s]\n", BLURB);[Authe              ]
 
 ## ft_printf.c
 
-### int	ft_printf(const char *str, ...)
+### int	ft_printf(const char *str, ...);
+
+- 가변인자를 처리하기 위한 처리 
+- processing_printf 호출 및 리턴
+
+### static int	_processing_printf(va_list ap, const char *str);
+- ft_printf의 고정 매개변수인 str 을 한 글자씩 읽고 확인 
+- % 라면
+	- _parsing_flags호출 하여 % 다음 문자부터 파싱하여 구조체 정리 => specifier 가 나온 후 인덱스 반환받아 i 갱신
+	- _bit_mod_flags 를 호출 하여 flags 간의 관계 정리 
+	- _va_printf 호출 하여 프린트 함수 실행
+- % 아니면 
+	- 그대로 출력 
+	- 출력 리턴 값 확인 
+
+### static int	_va_printf(va_list ap, t_format *format);
+- typedef int	(*t_funcptr)(t_format *, va_list); 로 선언된 함수들의 함수 포인터 배열을 사용
+- *options = "cspdiuxX%"; 문자열 배열을 사용하여 specifier를 처리 하는 함수를 찾아내고 해당 함수를 호출
+
+## ft_printf_bonus.c
+
+### int	_parsing_flags(const char *str, t_format *format);
+- % 이후의 문자 부터 specifier 까지의 문자들을 모두 파싱 하여 구조체에 담는 함수
+- flags 파싱 (+- #0.)
+	- 해당 문자가 숫자가 아닌경우 -> _make_flags 를 호출 하여 flag로 처리 
+	- 해당 문자가 0인데 문자열의 첫번째에 위치하거나 해당 문자의 앞의 문자가 '.'이 아닌 경우에도(0) -> _make_flags 를 호출 
+- 그 외의 경우 
+	- 첫 문자가 아니고, 해당 문자의 앞 문자가 '.' -> precision 
+	- 그 외의 경우 -> width
+-  spercifier 저장 
+### static void	_make_flags(t_format *format, char c)
+- flags =  "+- #0." (1 2 4 8 16 32 | 01 02 04 010 020 040)
+- 
+
+### void	_bit_mod_flags(t_format *format)
+
+### int	_init_str(t_format *format, int size)
 
