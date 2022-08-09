@@ -6,17 +6,16 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/06 19:24:12 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:23:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static int	_nbr_len(long nbr)
+static int	_nbr_len(unsigned int nbr)
 {
 	int	i;
 
 	i = 0;
-	nbr = (nbr * ((nbr > 0) - (nbr < 0)));
 	if (nbr == 0)
 		return (1);
 	while (nbr)
@@ -29,11 +28,11 @@ static int	_nbr_len(long nbr)
 
 int	_printf_u(t_format *format, va_list ap)
 {
-	unsigned long	nbr;
+	unsigned int	nbr;
 	int				nbr_len;
 	const char		*base = "0123456789";
 
-	nbr = (unsigned long) va_arg(ap, unsigned int);
+	nbr = va_arg(ap, unsigned int);
 	nbr_len = _nbr_len(nbr);
 	format->flags &= ~05;
 	if ((format->flags & 040) == 040 && format->precision == 0 && nbr == 0)

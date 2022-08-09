@@ -1,13 +1,10 @@
 #include <stdio.h>
-#include "ft_printf.h"
-#include "libft/libft.h"
-#include <limits.h>
 
 int	main(void)
 {
 	int	test1;
 	int	test2;
-	char *str = NULL;
+	//char *str = NULL;
 	//1. char check;
 	//test1 = ft_printf("ft c -> 1234 1234 test : 1. %c 2. %c\n", 'a', 'b');
 	//test2 = printf("std -> 1234 1234 test : 1. %c 2. %c\n", 'a', 'b');
@@ -23,8 +20,9 @@ int	main(void)
 	//test2 = ft_printf("%15p\n", NULL);
 	//test1 = printf(" %-9p %-10p\n", LONG_MIN, LONG_MAX);
 	//test2 = ft_printf(" %-9p %-10p\n", LONG_MIN, LONG_MAX);
-	test1 = printf("%#X\n",0);
-	test2 = ft_printf("%#X\n",0);
-	printf("\n%d\n", test1);
-	printf("%d\n", test2);
+	//test1 = printf("%#X\n",0);
+	//test2 = ft_printf("%#X\n",0);
+	//printf("\n%d\n", test1);
+	//printf("%d\n", test2);
+	printf("%.100p\n", a);
 }

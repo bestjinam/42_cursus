@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 12:08:43 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 14:20:54 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:55:22 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_list	*_gnl_init_node(int fd)
 	t_list	*new;
 
 	new = malloc(sizeof(t_list));
+	if (!new)
+		return (0);
 	new->fd = fd;
 	new->eol = BUFFER_SIZE;
 	new->rbytes = BUFFER_SIZE;

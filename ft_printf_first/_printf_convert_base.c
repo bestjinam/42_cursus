@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:22:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/07 16:02:41 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:01:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./libft/libft.h"
@@ -15,20 +15,11 @@
 static int	_convert_base_print(char *str)
 {
 	int	res;
-	int	i;
 
 	res = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (write(1, &str[i++], 1) < 0)
-		{
-			free(str);
-			return (-1);
-		}
-	}
+	res = write(1, str, ft_strlen(str));
 	free(str);
-	return (i);
+	return (res);
 }
 
 int	_convert_base(unsigned long nbr, char *base_from)
