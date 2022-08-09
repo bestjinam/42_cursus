@@ -6,8 +6,8 @@ int main(void)
 {
 	int	temp;
 
-	temp = ft_printf("%s", (char *)NULL);
-	printf("\n>> %d\n", temp);
+	//temp = ft_printf("%s", (char *)NULL);
+	ft_printf("%2147483648d\n>>\n", 10);
 	system("leaks a.out");
 	return 0;
 }

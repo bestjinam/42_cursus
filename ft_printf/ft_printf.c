@@ -5,65 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 20:00:09 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/09 11:50:57 by jinam            ###   ########.fr       */
+/*   Created: 2022/08/09 14:06:07 by jinam             #+#    #+#             */
+/*   Updated: 2022/08/09 15:27:44 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static int	_va_printf(va_list ap, t_format *format)
+static int	_va_printf(va_list ap, t_format *format, t_temp_str *t_str)
 {
 	static t_funcptr	fp[9] = {_printf_c, _printf_s, _printf_p,
 		_printf_d, _printf_d, _printf_u, _printf_x, _printf_xx, _printf_per};
-	static char			*options = "cspdiuxX%";
-	int					f_number;
-	const char			option = format->specifier;
-
-	f_number = ft_strchr(options, option) - options;
-	return (fp[f_number](format, ap));
 }
 
-static int	_processing_printf(va_list ap, const char *str)
+static int	_processing_printf(t_format *format, t_temp_str *t_str,
+					va_list ap, const char *str)
 {
-	int			i;
-	int			res;
-	t_format	format;
-	int			temp;
+	int		i;
+	int		res;
+	int		temp;
 
 	i = 0;
 	res = 0;
 	while (str[i])
 	{
-		if (str[i] != '%')
-			temp = write(1, &str[i], 1);
-		else
+		while (str[i] && str[i] != '%')
+			ft_c_append(t_str, str[i++]);
+		if (t_str->len > 0)
 		{
-			ft_memset(&format, 0, sizeof(t_format));
-			temp = _parsing_flags(&str[i + 1], &format);
-			if (temp == -1)
-				return (0);
-			i += temp;
-			_bit_mod_flags(&format);
-			temp = _va_printf(ap, &format);
-		}
-		if (temp < 0)
-			return (-1);
-		else
+			temp = ft_temp_print(t_str, 1);
+			if (temp < 0)
+				return (-1);
 			res += temp;
+		}
+		if (str[i] == '%')
+		{
+			ft_memset(format, 0, sizeof(t_format));
+			temp = _parsing_flags(&str[i + 1], format);
+			if (temp < 0)
+				return (-1);
+			i += temp;
+			_bit_mod_flags(format);
+			temp = _va_printf(ap, format, t_str);
+		}
 		i ++;
 	}
-	va_end(ap);
 	return (res);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	int			res;
 	va_list		ap;
+	int			res;
+	t_format	format;
+	t_temp_str	temp_str;
 
 	va_start(ap, str);
-	res = _processing_printf(ap, str);
+	ft_string_init(&temp_str);
+	res = _processing_printf(&format, &temp_str, ap, str);
 	va_end(ap);
 	return (res);
 }

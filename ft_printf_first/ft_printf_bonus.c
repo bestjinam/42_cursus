@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:16:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/07 16:30:34 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/09 11:48:07 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -41,7 +41,11 @@ int	_parsing_flags(const char *str, t_format *format)
 			if (i != 0 && str[i - 1] == '.')
 				format->precision = ft_atoi(&str[i]);
 			else
+			{
 				format->width = ft_atoi(&str[i]);
+				if (format->width < 0)
+					return (-1);
+			}
 			while (ft_isdigit(str[i]))
 				i++;
 		}

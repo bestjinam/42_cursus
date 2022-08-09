@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/09 12:38:07 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/19 13:26:22 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,26 +122,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*END*/
-
-char	*ft_itoa_base(int n, char *base);
-int		ft_atoi_base(const char *str, char *base);
-
-/* make string */
-typedef struct s_temp_str
-{
-	char	*str;
-	size_t	len;
-	size_t	cap;
-}	t_temp_str;
-
-/* ft_string_temp.c */
-void	ft_string_init(t_temp_str *temp_str);
-void	ft_s_append(t_temp_str *temp_str, char *str);
-void	ft_c_append(t_temp_str *temp_str, char c);
-void	ft_string_clear(t_temp_str *temp_str);
-void	ft_string_delete(t_temp_str *temp_str);
-
-/* ft_string_temp_function.c*/
-int		ft_temp_print(t_temp_str *temp_str, int fd);
-
 #endif
