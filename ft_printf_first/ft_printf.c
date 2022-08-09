@@ -50,6 +50,7 @@ static int	_processing_printf(va_list ap, const char *str)
 			res += temp;
 		i ++;
 	}
+	va_end(ap);
 	return (res);
 }
 
