@@ -170,7 +170,9 @@ printf("[%-24.5s]\n", BLURB);[Authe              ]
 -  spercifier 저장 
 ### static void	_make_flags(t_format *format, char c)
 - flags =  "+- #0." (1 2 4 8 16 32 | 01 02 04 010 020 040)
-- 
+- 비트 연산자로 플래그 처리하기
+	- 8비트(1바이트) 크기의 자료형은 비트가 8개가 들어가므로 8가지 상태를 저장 (unsigned char 8bit)
+	- or 연산 (|) : 대응하는
 
 ### void	_bit_mod_flags(t_format *format)
 
