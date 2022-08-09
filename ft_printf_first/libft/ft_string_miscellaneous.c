@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _printf_i.c                                        :+:      :+:    :+:   */
+/*   ft_string_miscellaneous.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/03 11:46:48 by jinam            ###   ########.fr       */
+/*   Created: 2022/07/12 18:59:51 by jinam             #+#    #+#             */
+/*   Updated: 2022/08/05 20:21:50 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
 
-int	_printf_i(va_list ap)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
-	long	nbr;
-	int		res1;
-	int		res2;
+	size_t	i;
 
-	nbr = (long) va_arg(ap, int);
-	res1 = 0;
-	if (nbr < 0)
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i ++;
+	return (i);
+}
+
+void	*ft_memset(void	*s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*tmp_s;
+	unsigned char	tmp_c;
+
+	tmp_s = (unsigned char *)s;
+	tmp_c = (unsigned char)c;
+	i = 0;
+	while (i < n)
 	{
-		res1 += write(1, "-", 1);
-		nbr *= -1;
+		tmp_s[i] = tmp_c;
+		i++;
 	}
-	res2 = _convert_base(nbr, "0123456789");
-	if (res1 == -1 || res2 == -1)
-		return (-1);
-	return (res1 + res2);
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
 }

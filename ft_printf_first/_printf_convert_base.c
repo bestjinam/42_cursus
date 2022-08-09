@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _printf_u.c                                        :+:      :+:    :+:   */
+/*   _printf_convert_base.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:12:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/03 10:37:22 by jinam            ###   ########.fr       */
+/*   Created: 2022/08/02 16:22:08 by jinam             #+#    #+#             */
+/*   Updated: 2022/08/08 21:01:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "./libft/libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	_printf_u(va_list ap)
+static int	_convert_base_print(char *str)
 {
-	long	nbr;
-	int		res2;
+	int	res;
 
-	nbr = (unsigned long) va_arg(ap, unsigned int);
-	res2 = _convert_base(nbr, "0123456789");
-	if (res2 == -1)
+	res = 0;
+	res = write(1, str, ft_strlen(str));
+	free(str);
+	return (res);
+}
+
+int	_convert_base(unsigned long nbr, char *base_from)
+{
+	char	*res1;
+
+	res1 = ft_itoa_base(nbr, base_from);
+	if (!res1)
 		return (-1);
-	return (res2);
+	return (_convert_base_print(res1));
 }

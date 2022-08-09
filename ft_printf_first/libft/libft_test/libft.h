@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/02 16:51:31 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/19 13:26:22 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*END*/
-
-char	*ft_itoa_base(int n, char *base);
-int		ft_atoi_base(const char *str, char *base);
-
 #endif
