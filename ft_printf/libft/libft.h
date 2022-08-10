@@ -6,14 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/09 12:38:07 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/10 23:58:49 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
-
+# include <stdio.h>
 /*PART1 : libc*/
 /* 1. ctype.h :  ft_ctype_classification.c*/
 int		ft_isalpha(int c);

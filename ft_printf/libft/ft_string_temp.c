@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 11:53:25 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/10 16:58:44 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/10 23:59:39 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -35,9 +35,9 @@ void	ft_s_append(t_temp_str *temp_str, char *str)
 		free(temp_str->str);
 		temp_str->str = temp;
 	}
+	printf("in s append : %s\n", str);
 	while (str[i])
 		temp_str->str[(temp_str->len)++] = str[i++];
-	temp_str->len += i;
 }
 
 void	ft_c_append(t_temp_str *temp_str, char c)

@@ -13,7 +13,7 @@ int main(void)
 	printf("ft: %d\n", t);
 	printf("std: %d\n", t1); */
 	// s test
-	t = ft_printf(" NULL %s NULL ", NULL);
+	t = ft_printf("%p\n", t);
 	printf("%d\n", t);
 	return 0;
 }

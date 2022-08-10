@@ -6,13 +6,14 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/08/10 20:06:57 by ggul_jam         ###   ########.fr        #
+#    Updated: 2022/08/10 23:43:33 by ggul_jam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		= libftprintf.a
 SRCS		=  _printf_c.c \
 			   _printf_s.c \
-			  ft_printf.c ft_printf_common_utils.c
+			   _printf_p.c \
+			  ft_printf.c ft_printf_common_utils.c ft_printf_nbr_utils.c
 LBFT_DIR	= "./libft/"
 
 OBJS		= $(SRCS:.c=.o)

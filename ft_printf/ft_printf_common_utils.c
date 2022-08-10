@@ -6,14 +6,14 @@
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 20:05:42 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/10 23:15:29 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/10 23:47:34 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
 void	_printf_width(t_temp_str *t_str, int width, char c)
 {
-	if (width == 0)
+	if (width <= 0)
 		return ;
 	while (width)
 	{

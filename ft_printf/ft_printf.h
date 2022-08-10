@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:40:55 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/10 22:47:45 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:10:44 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,14 @@ int	_printf_per(t_temp_str *t, t_format *f, va_list *v);
 /* common utils */
 void	_printf_width(t_temp_str *t_str, int width, char c);
 /* nbr */
+void	_pf_base16_process(t_temp_str *t_str, t_format *f, \
+					unsigned long n, char *base);
 int		_pf_nbr_len(long long nbr, size_t len);
 void	_nbr_noflag_process(t_format *f, t_temp_str *t, \
-					unsigned long long n, char *b);
-void	_pf_base16_process(t_temp_str *t_str, t_format *f, \
-					unsigned long long n, char *base);
+					unsigned long n, char *b);
+void	_nbr_zero_process(t_format *format, t_temp_str *t_str, \
+						unsigned long long n, char *base);
+void	_nbr_zero_precision_zero_process(t_format *format, t_temp_str *t_str);
+void	_nbr_minus_process(t_format *format, t_temp_str *t_str, \
+						unsigned long long n, char *base);
 #endif
