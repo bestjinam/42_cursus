@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 11:53:25 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/09 12:39:55 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:58:44 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -42,10 +42,8 @@ void	ft_s_append(t_temp_str *temp_str, char *str)
 
 void	ft_c_append(t_temp_str *temp_str, char c)
 {
-	size_t	i;
 	char	*temp;
 
-	i = 0;
 	if (temp_str->len == temp_str->cap)
 	{
 		temp_str->cap *= 2;
@@ -66,7 +64,6 @@ void	ft_string_delete(t_temp_str *temp_str)
 {
 	if (!temp_str)
 		return ;
-	free(temp_str->str);
-	free(temp_str);
-	temp_str = (void *) 0;
+	if (temp_str->str)
+		free(temp_str->str);
 }

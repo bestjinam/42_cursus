@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:56 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/02 16:50:32 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:09:27 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ static int	_isspace(int c)
 static int	_atoi_conv(const char *str, int sign, char *base)
 {
 	int				res;
-	size_t			idx;
 	int				conv_chr;
 	const size_t	base_len = ft_strlen(base);
 
 	res = 0;
-	idx = 0;
 	conv_chr = 1;
 	while (conv_chr)
 	{
