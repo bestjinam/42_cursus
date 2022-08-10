@@ -13,7 +13,9 @@ int main(void)
 	printf("ft: %d\n", t);
 	printf("std: %d\n", t1); */
 	// s test
-	t = ft_printf("%p\n", t);
+	t = ft_printf("%p\n",&t);
 	printf("%d\n", t);
+	t1 = printf("%p\n", &t);
+	printf("%d\n", t1);
 	return 0;
 }

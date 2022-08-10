@@ -6,21 +6,21 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:31:55 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/11 00:26:11 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:39:05 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-static size_t	_nbr_len(long nbr)
+static size_t	_nbr_len(long nbr, int base_len)
 {
 	size_t	len;
 
 	len = 1;
-	while (nbr > 9)
+	while (nbr > base_len - 1)
 	{
-		nbr /= 10;
+		nbr /= base_len;
 		len ++;
 	}
 	return (len);
@@ -35,7 +35,7 @@ char	*ft_itoa_base(int n, char *base)
 
 	nbr = (long) n;
 	nbr = nbr * ((nbr > 0) - (nbr < 0));
-	nbr_len = (n < 0) + _nbr_len(nbr);
+	nbr_len = (n < 0) + _nbr_len(nbr, base_len);
 	res = malloc(sizeof(char) * (nbr_len + 1));
 	if (!res)
 		return ((void *) 0);
@@ -44,7 +44,7 @@ char	*ft_itoa_base(int n, char *base)
 		res[0] = '-';
 	else if (n == 0)
 		res[0] = '0';
-	while (nbr)
+	while (nbr > 0)
 	{
 		res[nbr_len - 1] = base[nbr % base_len];
 		nbr /= base_len;

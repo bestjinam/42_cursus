@@ -6,7 +6,7 @@
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:05:09 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/11 00:17:47 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:35:21 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,9 +27,8 @@ void	_nbr_noflag_process(t_format *format, t_temp_str *t_str, \
 	int			pre;
 
 	pre = 0;
-	printf("%lu\n", n);
 	conv_n = ft_itoa_base(n, base);
-	printf(">> %s\n", ft_itoa_base(n, base));
+	printf("%s\n", conv_n);
 	if (format->specifier == 'p' || (format->flags & PLUS) == PLUS)
 		pre = 2;
 	if (format->precision > len)
