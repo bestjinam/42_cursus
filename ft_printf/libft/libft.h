@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/10 23:58:49 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 01:09:18 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*END*/
 
-char	*ft_itoa_base(int n, char *base);
+char	*ft_itoa_base(long long n, char *base);
 int		ft_atoi_base(const char *str, char *base);
 
 /* make string */

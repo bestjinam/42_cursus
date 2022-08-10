@@ -6,13 +6,13 @@
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 21:18:34 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/11 00:11:09 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:51:24 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
 void	_pf_base16_process(t_temp_str *t_str, t_format *f,
-						unsigned long n, char *base)
+						long long n, char *base)
 {
 	f->flags &= ~SPACE;
 	if ((f ->flags & PRECISION) == PRECISION && f -> precision == 0 && n == 0)
@@ -27,9 +27,9 @@ void	_pf_base16_process(t_temp_str *t_str, t_format *f,
 
 int	_printf_p(t_temp_str *t_str, t_format *format, va_list *ap)
 {
-	unsigned long	pointer;
+	long long	pointer;
 
-	pointer = (unsigned long) va_arg(*ap, void *);
+	pointer = (long long) va_arg(*ap, void *);
 	_pf_base16_process(t_str, format, pointer, "0123456789abcdef");
 	return (ft_temp_print(t_str, 1));
 }
