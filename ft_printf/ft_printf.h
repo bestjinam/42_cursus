@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinam <jinam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:40:55 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/11 00:51:48 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:59:55 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_format
 	int				width;
 	int				precision;
 	char			specifier;
+	int				str_len;
 }	t_format;
 
 typedef enum e_flags
@@ -43,23 +44,30 @@ int		ft_printf(const char *str, ...);
 int		_printf_c(t_temp_str *t, t_format *f, va_list *v);
 int		_printf_s(t_temp_str *t, t_format *f, va_list *v);
 int		_printf_p(t_temp_str *t, t_format *f, va_list *v);
-/*int	_printf_d(t_temp_str *t, t_format *f, va_list *v);
-int	_printf_u(t_temp_str *t, t_format *f, va_list *v);
-int	_printf_x(t_temp_str *t, t_format *f, va_list *v);
-int	_printf_xx(t_temp_str *t, t_format *f, va_list *v);
-int	_printf_per(t_temp_str *t, t_format *f, va_list *v);
-*/
+int		_printf_d(t_temp_str *t, t_format *f, va_list *v);
+int		_printf_u(t_temp_str *t, t_format *f, va_list *v);
+int		_printf_x(t_temp_str *t, t_format *f, va_list *v);
+int		_printf_per(t_temp_str *t, t_format *f, va_list *v);
+
 /* common utils */
 void	_printf_width(t_temp_str *t_str, int width, char c);
+void	_processing_init(t_format *f, t_temp_str *t_str);
 /* nbr */
-void	_pf_base16_process(t_temp_str *t_str, t_format *f, \
-					long long n, char *base);
-int		_pf_nbr_len(long long nbr, size_t len);
-void	_nbr_noflag_process(t_format *f, t_temp_str *t, \
-					long long n, char *b);
-void	_nbr_zero_process(t_format *format, t_temp_str *t_str, \
-						unsigned long long n, char *base);
-void	_nbr_zero_precision_zero_process(t_format *format, t_temp_str *t_str);
-void	_nbr_minus_process(t_format *format, t_temp_str *t_str, \
-						unsigned long long n, char *base);
+/*p & x*/
+int		_pf_base16_process(t_temp_str *t_str, t_format *f, \
+					unsigned long n, char *base);
+int		_pf_nbr_len(unsigned long nbr, size_t len);
+int		_nbr_noflag_process(t_format *f, t_temp_str *t, \
+					unsigned long n, char *b);
+int		_nbr_zero_process(t_format *format, t_temp_str *t_str, \
+						unsigned long n, char *base);
+int		_nbr_zero_precision_zero_process(t_format *format, t_temp_str *t_str);
+int		_nbr_minus_process(t_format *format, t_temp_str *t_str, \
+						unsigned long n, char *base);
+/*d and u*/
+int		_nbr_d_noflag_process(t_format *f, t_temp_str *t_str, long n, char *b);
+int		_nbr_d_zero_process(t_format *f, t_temp_str *t_str, long n, char *b);
+int		_nbr_d_minus_process(t_format *f, t_temp_str *t_str, long n, char *b);
+int		_nbr_d_zero_precision_zero_process(t_format *f, t_temp_str *t_str);
+
 #endif

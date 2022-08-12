@@ -6,7 +6,7 @@
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 20:05:42 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/10 23:47:34 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/12 10:55:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -22,12 +22,11 @@ void	_printf_width(t_temp_str *t_str, int width, char c)
 	}
 }
 
-int	_pf_nbr_len(long long nbr, size_t len)
+int	_pf_nbr_len(unsigned long nbr, size_t len)
 {
 	int	i;
 
 	i = 0;
-	nbr = nbr * ((nbr > 0) - (nbr < 0));
 	if (nbr == 0)
 		return (1);
 	while (nbr)
@@ -36,4 +35,10 @@ int	_pf_nbr_len(long long nbr, size_t len)
 		i ++;
 	}
 	return (i);
+}
+
+void	_processing_init(t_format *f, t_temp_str *t_str)
+{
+	ft_string_clear(t_str);
+	ft_memset(f, 0, sizeof(t_format));
 }

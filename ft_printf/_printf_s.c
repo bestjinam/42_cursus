@@ -6,28 +6,35 @@
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:32:56 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/10 21:04:15 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:09:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
+static void	_temp_copy_str(t_temp_str *t_str, char *str, int len)
+{
+	while (len)
+	{
+		ft_c_append(t_str, *str);
+		str ++;
+		len --;
+	}
+}
+
 static void	_printf_s_fill_str(t_temp_str *t_str, t_format *format,
 							char *str, int str_len)
 {
-	const int	width = t_str->len - str_len;
+	const int	width = format->str_len - str_len;
 
 	if ((format->flags & MINUS) == MINUS)
 	{
-		ft_memcpy(&t_str->str[0], str, str_len);
-		t_str->len = str_len;
+		_temp_copy_str(t_str, str, str_len);
 		_printf_width(t_str, width, ' ');
 	}
 	else
 	{
-		t_str->len = 0;
 		_printf_width(t_str, width, ' ');
-		ft_memcpy(&t_str->str[width], str, str_len);
-		t_str->len += str_len;
+		_temp_copy_str(t_str, str, str_len);
 	}
 }
 
@@ -64,7 +71,7 @@ int	_printf_s(t_temp_str *t_str, t_format *format, va_list *ap)
 		len = format->precision;
 	else
 		len = str_len;
-	t_str->len = len * (len > format->width) + \
+	format->str_len = len * (len > format->width) + \
 		format->width * (format->width >= len);
 	return (_printf_s_make_str(format, str, t_str));
 }
