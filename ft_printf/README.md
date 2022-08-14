@@ -1,3 +1,8 @@
+# printtf
+
+<img width="830" alt="Screen Shot 2022-08-12 at 4 47 40 PM" src="https://user-images.githubusercontent.com/107545007/184310777-0d1b903d-1a3e-42cf-b141-f6d3e2b0900c.png">
+
+
 # printf? 
 - 다양한 자료형을 문자열의 일부로 받아(서식문자?) 문자열을 standard output stream으로 출력? 
 - 가변 인자
