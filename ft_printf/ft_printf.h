@@ -52,6 +52,8 @@ int		_printf_per(t_temp_str *t, t_format *f, va_list *v);
 /* common utils */
 void	_printf_width(t_temp_str *t_str, int width, char c);
 void	_processing_init(t_format *f, t_temp_str *t_str);
+void	_make_sign(t_format *f, t_temp_str *t_str, long n);
+
 /* nbr */
 /*p & x*/
 int		_pf_base16_process(t_temp_str *t_str, t_format *f, \

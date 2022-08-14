@@ -37,6 +37,16 @@ int	_pf_nbr_len(unsigned long nbr, size_t len)
 	return (i);
 }
 
+void	_make_sign(t_format *f, t_temp_str *t_str, long n)
+{
+	if (n < 0)
+		ft_c_append(t_str, '-');
+	else if ((f->flags & PLUS) == PLUS)
+		ft_c_append(t_str, '+');
+	else if ((f->flags & SPACE) == SPACE)
+		ft_c_append(t_str, ' ');
+}
+
 void	_processing_init(t_format *f, t_temp_str *t_str)
 {
 	ft_string_clear(t_str);

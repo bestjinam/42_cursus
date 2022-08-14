@@ -20,19 +20,13 @@ int	_nbr_d_zero_precision_zero_process(t_format *f, t_temp_str *t_str)
 
 	if ((f->flags & MINUS) == MINUS)
 	{
-		if ((f->flags & PLUS) == PLUS)
-			ft_c_append(t_str, '+');
-		else if ((f->flags & SPACE) == SPACE)
-			ft_c_append(t_str, ' ');
+		_make_sign(f, t_str, 0);
 		_printf_width(t_str, f->width - res1, ' ');
 	}
 	else
 	{
 		_printf_width(t_str, f->width - res1, ' ');
-		if ((f->flags & PLUS) == PLUS)
-			ft_c_append(t_str, '+');
-		else if ((f->flags & SPACE) == SPACE)
-			ft_c_append(t_str, ' ');
+		_make_sign(f, t_str, 0);
 	}
 	return (0);
 }
@@ -45,12 +39,7 @@ int	_nbr_d_minus_process(t_format *f, t_temp_str *t_str, long n, char *b)
 	if (!conv_n)
 		return (-1);
 	len = ft_strlen(conv_n);
-	if (n < 0)
-		ft_c_append(t_str, '-');
-	else if ((f->flags & PLUS) == PLUS)
-		ft_c_append(t_str, '+');
-	else if ((f->flags & SPACE) == SPACE)
-		ft_c_append(t_str, ' ');
+	_make_sign(f, t_str, n);
 	if ((f->flags & PRECISION) == PRECISION)
 		_printf_width(t_str, f->precision - len, '0');
 	ft_s_append(t_str, (char *) conv_n);
@@ -67,12 +56,7 @@ int	_nbr_d_zero_process(t_format *f, t_temp_str *t_str, long n, char *b)
 	if (!conv_n)
 		return (-1);
 	len = ft_strlen(conv_n);
-	if (n < 0)
-		ft_c_append(t_str, '-');
-	else if ((f->flags & PLUS) == PLUS)
-		ft_c_append(t_str, '+');
-	else if ((f->flags & SPACE) == SPACE)
-		ft_c_append(t_str, ' ');
+	_make_sign(f, t_str, n);
 	_printf_width(t_str, f->width - (t_str->len + len), '0');
 	ft_s_append(t_str, (char *) conv_n);
 	free((void *)conv_n);
@@ -94,12 +78,7 @@ int	_nbr_d_noflag_process(t_format *f, t_temp_str *t_str, long n, char *b)
 		_printf_width(t_str, f->width - (f->precision + res1), ' ');
 	else
 		_printf_width(t_str, f->width - (len + res1), ' ');
-	if (n < 0)
-		ft_c_append(t_str, '-');
-	else if ((f->flags & PLUS) == PLUS)
-		ft_c_append(t_str, '+');
-	else if ((f->flags & SPACE) == SPACE)
-		ft_c_append(t_str, ' ');
+	_make_sign(f, t_str, n);
 	if ((f->flags & PRECISION) == PRECISION)
 		_printf_width(t_str, f->precision - len, '0');
 	ft_s_append(t_str, (char *) conv_n);
