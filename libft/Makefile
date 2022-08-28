@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/08/09 12:38:51 by jinam            ###   ########.fr        #
+#    Updated: 2022/08/28 15:58:32 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		=	libft.a
@@ -47,6 +47,7 @@ $(NAME) : $(OBJECTS)
 	@ar -rc $@ $^
 
 bonus :
+	sleep 1
 	@make WITH_BONUS=1 all
 
 %.o : %.c
