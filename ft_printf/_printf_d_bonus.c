@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _printf_d.c                                        :+:      :+:    :+:   */
+/*   _printf_d_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 13:42:21 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/24 18:45:34 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/24 18:45:18 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft/libft.h"
+#include "ft_printf_bonus.h"
 
 int	_nbr_d_zero_precision_zero_process(t_format *f, t_temp_str *t_str)
 {

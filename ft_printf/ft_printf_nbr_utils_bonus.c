@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_nbr_utils.c                              :+:      :+:    :+:   */
+/*   ft_printf_nbr_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggul_jam <ggul_jam@icloud.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:05:09 by ggul_jam          #+#    #+#             */
-/*   Updated: 2022/08/24 17:15:28 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/24 18:43:16 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static void	_pf_nbr_pre_process(t_format *format, t_temp_str *t_str, \
 								unsigned long n)
@@ -40,8 +40,6 @@ int	_nbr_noflag_process(t_format *format, t_temp_str *t_str, \
 	if (format->specifier == 'p' || \
 		(format->flags & SHARP) == SHARP)
 		pre = 2;
-	else
-		pre = 0;
 	if (format->precision > len)
 		_printf_width(t_str, format->width - (format->precision) - pre, ' ');
 	else
@@ -71,7 +69,13 @@ int	_nbr_zero_process(t_format *format, t_temp_str *t_str, \
 
 int	_nbr_zero_precision_zero_process(t_format *format, t_temp_str *t_str)
 {
-	_printf_width(t_str, (format->width), ' ');
+	if (format->specifier == 'p')
+	{
+		_printf_width(t_str, (format->width - 2), ' ');
+		_pf_nbr_pre_process(format, t_str, 0);
+	}
+	else
+		_printf_width(t_str, (format->width), ' ');
 	return (0);
 }
 
