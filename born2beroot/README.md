@@ -7,7 +7,7 @@ mac os 에 가상머신을 이용하여 linux를 설치, 운영하는 과제?
 ## subject 정리 
 (https://github.com/bestjinam/42_cursus/blob/main/born2beroot/0_subject.md)
 ## 개념 정리 
-
+[가상화가 뭐냐? 왜함?](https://github.com/bestjinam/42_cursus/blob/main/born2beroot/virtualization.md)
 ## 수행 방법 찾기 
 
 ## 정리
