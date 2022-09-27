@@ -8,6 +8,7 @@
 - systemctl start
 - systemctl reboot
 - systemctl poweroff
+- sudo apt list --installed
 
 - cat /etc/os-release : os 정보 확인 
 - lsblk : 파티션 확인
