@@ -8,4 +8,5 @@
 - systemctl start
 - systemctl reboot
 - systemctl poweroff
+- sudo apt list --installed
 
