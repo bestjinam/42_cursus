@@ -9,3 +9,15 @@
 - systemctl reboot
 - systemctl poweroff
 
+- cat /etc/os-release : os 정보 확인 
+- lsblk : 파티션 확인
+- apt --version
+- date 
+
+## LVM 관련 명령어 
+
+- lsblk : 블록 스토리지 리스트 확인
+- pvdisplay : 생성된 pv 확인
+- vgdisplay : 생성된 vg 확인
+- lvdisplay : 생성된 lv 확인
+- fdisk -l : 알려진 파티션 유형 목록 출력 
