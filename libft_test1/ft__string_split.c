@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft__string_split.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 14:32:23 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/18 14:33:23 by jinam            ###   ########.fr       */
+/*   Created: 2022/07/13 20:04:43 by jinam             #+#    #+#             */
+/*   Updated: 2022/07/22 09:45:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int	_seplen(char *s, char c);
@@ -64,10 +64,10 @@ static int	_seplen(char *s, char c)
 
 static int	_split_element(char **res, char const *s, char c)
 {
-	size_t		s_idx;
-	int			res_idx;
-	size_t		sub_len;
-	char		*sub_address;
+	size_t	s_idx;
+	int		res_idx;
+	size_t	sub_len;
+	char	*sub_address;
 
 	s_idx = 0;
 	res_idx = 0;

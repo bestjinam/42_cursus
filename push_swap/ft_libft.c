@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:18:18 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/17 20:39:32 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:40:59 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -14,7 +14,7 @@
 
 void	*ft_memcpy(void *s1, const void *s2, size_t n)
 {
-	size_t	i;
+	size_t			i;
 	unsigned char	*t_s2;
 	unsigned char	*t_s1;
 
@@ -36,6 +36,25 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i ++;
 	return (i);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	res_len;
+
+	res_len = ft_strlen(src);
+	if (dstsize)
+	{
+		i = 0;
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i ++;
+		}
+		dst[i] = 0;
+	}
+	return (res_len);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -70,7 +89,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	res = malloc(sizeof(char) * (sub_len));
 	if (!res)
 		return (0);
-	ft_memcpy(res, s + start, sub_len);
+	ft_strlcpy(res, s + start, sub_len);
 	return (res);
 }
-

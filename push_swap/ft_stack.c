@@ -6,13 +6,13 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:09:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/17 21:29:51 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:28:51 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include "push_swap.h"
 
-int	stack_init(t_int_stack *tmp, int cap)
+int	stack_init(t_stack *tmp, int cap)
 {
 	tmp->buffer = malloc(sizeof(int) * cap);
 	if (!tmp->buffer)
@@ -24,10 +24,11 @@ int	stack_init(t_int_stack *tmp, int cap)
 	return (1);
 }
 
-int	stack_append(t_int_stack *tmp, int c)
+int	stack_append(t_stack *tmp, int c)
 {
 	size_t	i;
 	int		*cpy_list;
+
 	i = -1;
 	if (tmp->len == tmp->cap)
 	{
@@ -43,7 +44,7 @@ int	stack_append(t_int_stack *tmp, int c)
 	return (1);
 }
 
-int	stack_delete(t_int_stack *temp)
+int	stack_delete(t_stack *temp)
 {
 	if (!temp)
 		return (-1);

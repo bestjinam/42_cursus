@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*   ft_stdlib.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:40:56 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:36 by jinam            ###   ########.fr       */
+/*   Created: 2022/07/13 10:38:48 by jinam             #+#    #+#             */
+/*   Updated: 2022/07/19 22:07:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int	_isspace(int c)
@@ -17,34 +17,25 @@ static int	_isspace(int c)
 	return ((9 <= c && c <= 13) || (c == 32));
 }
 
-static int	_isnum(char c)
+static int	_atoi_conv(const char *str, int sign)
 {
-	return (('0'<= c && c <= '9'));
-}
-
-static long	_atoi_conv(const char *str, int sign, char *base)
-{
-	long				res;
-	long				conv_chr;
-	const size_t		base_len = ft_strlen(base);
+	int		res;
+	size_t	idx;
 
 	res = 0;
-	conv_chr = 1;
-	while (*str)
+	idx = 0;
+	while (ft_isdigit(str[idx]))
 	{
-		conv_chr = ft_strchr(base, *str++) - base;
-		res *= base_len;
-		res += conv_chr * sign;
-		//if (-2147483648 > res || 2147483647 < res)
-		//	return (0);
+		res *= 10;
+		res += (str[idx] - '0') * sign;
+		idx ++;
 	}
 	return (res);
 }
 
-long	ft_atol_base(const char *str, char *base)
+int	ft_atoi(const char *str)
 {
 	size_t	i;
-	size_t	j;
 	int		sign;
 
 	i = 0;
@@ -57,11 +48,17 @@ long	ft_atol_base(const char *str, char *base)
 			sign *= -1;
 		i ++;
 	}
-	j = i - 1;
-	while (str[++j])
-	{
-		if (!_isnum(str[j]))
-			return (0);
-	}
-	return (_atoi_conv(str + i, sign, base));
+	return (_atoi_conv(str + i, sign));
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t	total;
+	void	*tmp;
+
+	total = count * size;
+	tmp = malloc(total);
+	if (!tmp)
+		return (0);
+	return (ft_memset(tmp, 0, total));
 }
