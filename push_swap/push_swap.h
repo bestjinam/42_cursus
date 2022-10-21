@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/20 14:44:28 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/21 16:16:25 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_stacks
 int		stack_init(t_stack *tmp, int cap);
 int		stack_append(t_stack *tmp, int c);
 int		stack_delete(t_stack *temp);
+
+void	merge_sort(int left, int right, t_stacks *stacks);
 
 /*operations*/
 int		sa(t_stack *stack_a, t_stack *stack_b);
