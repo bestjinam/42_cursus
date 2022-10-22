@@ -6,34 +6,24 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/21 20:14:13 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/23 00:40:40 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 #include <stdlib.h>
-#include <stdio.h>
-
-void	print_array(t_stacks *stacks)
-{
-	int	i;
-
-	i = -1;
-	while (++i < stacks->buffer.len)
-		printf("%d\n", stacks->array[i]);
-}
 
 int	_filtering_sorting(t_stacks *stacks)
 {
 	int	i;
 
 	i = -1;
-	while (++i < stacks->buffer.len)
-		printf("input : %d\n", stacks->buffer.buffer[i]);
 	stacks->array = malloc(sizeof(int) * stacks->buffer.len);
-	ft_memcpy(stacks->array, stacks->buffer.buffer, 
+	ft_memcpy(stacks->array, stacks->buffer.buffer, \
 			stacks->buffer.len * sizeof(int));
 	merge_sort(0, stacks->buffer.len - 1, stacks);
-	print_array(stacks);
+	while (++i + 1 < stacks->buffer.len)
+		if (stacks->array[i] == stacks->array[i + 1])
+			return (-1);
 	return (0);
 }
 
@@ -46,7 +36,7 @@ int	__conv_str_to_int(char **str, t_stacks *stacks)
 	while (str[++i])
 	{
 		num = ft_atol_base(str[i], "0123456789");
-		if (num == 0 && !ft_memcmp("0", str[i], ft_strlen(str[i])))
+		if (num == 0 && ft_memcmp("0", str[i], ft_strlen(str[i])))
 			return (-1);
 		else if (-2147483648 > num || num > 2147483647)
 			return (-1);
@@ -55,7 +45,7 @@ int	__conv_str_to_int(char **str, t_stacks *stacks)
 	return (0);
 }
 
-int	_read_argvs(int argc, char **argv, t_stacks *stacks)
+static int	_read_argvs(int argc, char **argv, t_stacks *stacks)
 {
 	int		i;
 	char	**tmp;
@@ -69,16 +59,26 @@ int	_read_argvs(int argc, char **argv, t_stacks *stacks)
 		if (!tmp || (tmp && !*tmp))
 			return (-1);
 		if (__conv_str_to_int(tmp, stacks) == -1)
-		{
-			free(tmp);
-			return (-1);
-		}
+			exit(0); //func
 		free(tmp);
-	} 
-	_filtering_sorting(stacks);
+	}
+	if (_filtering_sorting(stacks) == -1)
+		return (-1);
 	return (0);
 }
 
+static void	_init_stacks(t_stacks *stacks)
+{
+	int	i;
+
+	stack_init(&stacks->stack_a, stacks->buffer.len);
+	stack_init(&stacks->stack_b, stacks->buffer.len);
+	i = -1;
+	while (++i < stacks->buffer.len)
+	{
+		add_rear(&stacks->stack_a, stacks->buffer.buffer[i]);
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -88,5 +88,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (_read_argvs(argc, argv, &stacks) == -1)
 		return (-1);
-	printf("%ld\n", stacks.buffer.len);
+	_init_stacks(&stacks);
+	exit(0);
 }

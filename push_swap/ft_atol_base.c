@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*   ft_atol_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:40:56 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:36 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/22 19:08:21 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -19,7 +19,7 @@ static int	_isspace(int c)
 
 static int	_isnum(char c)
 {
-	return (('0'<= c && c <= '9'));
+	return (('0' <= c && c <= '9'));
 }
 
 static long	_atoi_conv(const char *str, int sign, char *base)
@@ -35,8 +35,6 @@ static long	_atoi_conv(const char *str, int sign, char *base)
 		conv_chr = ft_strchr(base, *str++) - base;
 		res *= base_len;
 		res += conv_chr * sign;
-		//if (-2147483648 > res || 2147483647 < res)
-		//	return (0);
 	}
 	return (res);
 }

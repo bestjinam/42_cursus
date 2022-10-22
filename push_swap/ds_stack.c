@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:09:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/18 16:28:51 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/22 18:58:43 by ggul_jam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -14,13 +14,13 @@
 
 int	stack_init(t_stack *tmp, int cap)
 {
-	tmp->buffer = malloc(sizeof(int) * cap);
+	tmp->buffer = malloc(sizeof(int) * (cap + 1));
 	if (!tmp->buffer)
 		return (-1);
 	tmp->len = 0;
-	tmp->cap = cap;
-	tmp->front = -1;
-	tmp->rear = -1;
+	tmp->cap = cap + 1;
+	tmp->front = 0;
+	tmp->rear = 0;
 	return (1);
 }
 
