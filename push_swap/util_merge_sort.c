@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _merge_sort.c                                      :+:      :+:    :+:   */
+/*   util_merge_sort.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:52:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/21 19:59:12 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/24 16:10:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -52,4 +52,11 @@ void	merge_sort(int left, int right, t_stacks *stacks)
 		merge_sort(mid + 1, right, stacks);
 		merge(left, mid, right, stacks);
 	}
+}
+
+void	get_max_min(int *arr, int size, t_min_max *min_max)
+{
+	min_max->min = arr[0];
+	min_max->mid = arr[size / 2];
+	min_max->max = arr[size - 1];
 }

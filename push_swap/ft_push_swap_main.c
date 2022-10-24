@@ -6,13 +6,13 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 13:42:56 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/24 21:51:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 #include <stdlib.h>
 
-int	_filtering_sorting(t_stacks *stacks)
+static int	_filtering_sorting(t_stacks *stacks)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ int	_filtering_sorting(t_stacks *stacks)
 	return (0);
 }
 
-int	__conv_str_to_int(char **str, t_stacks *stacks)
+static int	__conv_str_to_int(char **str, t_stacks *stacks)
 {
 	int		i;
 	long	num;
@@ -59,7 +59,7 @@ static int	_read_argvs(int argc, char **argv, t_stacks *stacks)
 		if (!tmp || (tmp && !*tmp))
 			return (-1);
 		if (__conv_str_to_int(tmp, stacks) == -1)
-			exit(0); //func
+			exit(0);
 		free(tmp);
 	}
 	if (_filtering_sorting(stacks) == -1)
@@ -78,16 +78,22 @@ static void	_init_stacks(t_stacks *stacks)
 	{
 		add_rear(&stacks->stack_a, stacks->buffer.buffer[i]);
 	}
+	printf("stack a status  front %ld rear : %ld\n", stacks->stack_a.front, stacks->stack_a.rear);
 }
 
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
+	int			i;
 
 	if (argc < 2)
 		return (-1);
 	if (_read_argvs(argc, argv, &stacks) == -1)
 		return (-1);
 	_init_stacks(&stacks);
+	init_sorting(&stacks);
+ 	i = -1;
+ 	while (++i < stacks.buffer.len)
+ 		printf("%d\n", delete_front(&stacks.stack_a));
 	exit(0);
 }
