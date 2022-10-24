@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/23 00:40:40 by ggul_jam         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:42:56 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -36,7 +36,7 @@ int	__conv_str_to_int(char **str, t_stacks *stacks)
 	while (str[++i])
 	{
 		num = ft_atol_base(str[i], "0123456789");
-		if (num == 0 && ft_memcmp("0", str[i], ft_strlen(str[i])))
+		if (num == 0 && ft_memcmp("0", str[i], ft_strlen(str[i]) != 0))
 			return (-1);
 		else if (-2147483648 > num || num > 2147483647)
 			return (-1);

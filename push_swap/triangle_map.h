@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_rev_rotate.c                                    :+:      :+:    :+:   */
+/*   triangle_map.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:38:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 14:38:45 by jinam            ###   ########.fr       */
+/*   Created: 2022/10/24 14:08:35 by jinam             #+#    #+#             */
+/*   Updated: 2022/10/24 14:38:09 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef	TRIANGLE_MAP_H
+# define	TRIANGLE_MAP_H
 
-void	rra(t_stack *stack_a)
-{
-	add_front(stack_a, delete_rear(stack_a));
-}
+# include <stdlib.h>
+# define UP 0
+# define DOWN 1
 
-void	rrb(t_stack *stack_b)
+typedef struct s_triangle_map
 {
-	add_front(stack_b, delete_rear(stack_b));
-}
+	int		*values;
+	char	*shapes;
+	int		size;
+	int		depth;
+} t_triangle_map;
 
-void	rrr(t_stack *stack_a, t_stack *stack_b)
-{
-	rra(stack_a);
-	rrb(stack_b);
-}
+t_triangle_map	*triangle_map_create(int input_size);
+void			triangle_map_destroy(t_triangle_map *map);
+#endif
