@@ -6,36 +6,39 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:39:04 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 16:33:54 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 00:36:52 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_stack *stack_a)
+void	sa(t_stacks *stacks)
 {
 	int	tmp1;
 	int	tmp2;
 
-	tmp1 = delete_front(stack_a);
-	tmp2 = delete_front(stack_a);
-	add_front(stack_a, tmp1);
-	add_front(stack_a, tmp2);
+	tmp1 = delete_front(&stacks->stack_a);
+	tmp2 = delete_front(&stacks->stack_a);
+	add_front(&stacks->stack_a, tmp1);
+	add_front(&stacks->stack_a, tmp2);
+	ft_putstr("sa\n");
 }
 
-void	sb(t_stack *stack_b)
+void	sb(t_stacks *stacks)
 {
 	int	tmp1;
 	int	tmp2;
 
-	tmp1 = delete_front(stack_b);
-	tmp2 = delete_front(stack_b);
-	add_front(stack_b, tmp1);
-	add_front(stack_b, tmp2);
+	tmp1 = delete_front(&stacks->stack_b);
+	tmp2 = delete_front(&stacks->stack_b);
+	add_front(&stacks->stack_b, tmp1);
+	add_front(&stacks->stack_b, tmp2);
+	ft_putstr("sb\n");
 }
 
-void	ss(t_stack *stack_a, t_stack *stack_b)
+void	ss(t_stacks *stacks)
 {
-	sa(stack_a);
-	sb(stack_b);
+	sa(stacks);
+	sb(stacks);
+	ft_putstr("ss\n");
 }

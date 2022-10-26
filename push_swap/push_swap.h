@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 16:42:06 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 02:17:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include "triangle_map.h"
 
 typedef struct s_stack
 {
@@ -31,8 +32,24 @@ typedef struct s_stacks
 	t_stack	buffer;
 	t_stack	stack_a;
 	t_stack	stack_b;
+	t_stack	commands;
 	int		*array;
 }	t_stacks;
+
+enum e_op
+{
+	SA = 0,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR
+};
 
 typedef struct s_min_max
 {
@@ -52,22 +69,28 @@ int		delete_rear(t_stack *stack);
 int		delete_front(t_stack *stack);
 int		is_empty(t_stack *stack);
 
+/* show queue */
+int	show_front(t_stack *stack);
+int	show_rear(t_stack *stack);
+int show_nxt_front(t_stack *stack);
+int show_value(t_stack *stack, int loc, int idx);
+
 /*pre sort*/
 void	merge_sort(int left, int right, t_stacks *stacks);
 void	get_max_min(int *arr, int size, t_min_max *min_max);
 
 /*operations*/
-void	sa(t_stack *stack_a);
-void	sb(t_stack *stack_a);
-void	ss(t_stack *stack_a, t_stack *stack_b);
-void	pa(t_stack *stack_a, t_stack *stack_b);
-void	pb(t_stack *stack_a, t_stack *stack_b);
-void	ra(t_stack *stack_a);
-void	rb(t_stack *stack_b);
-void	rr(t_stack *stack_a, t_stack *stack_b);
-void	rra(t_stack *stack_a);
-void	rrb(t_stack *stack_b);
-void	rrr(t_stack *stack_a, t_stack *stack_b);
+void	sa(t_stacks *stacks);
+void	sb(t_stacks *stacks);
+void	ss(t_stacks *stacks);
+void	pa(t_stacks *stacks);
+void	pb(t_stacks *stacks);
+void	ra(t_stacks *stacks);
+void	rb(t_stacks *stacks);
+void	rr(t_stacks *stacks);
+void	rra(t_stacks *stacks);
+void	rrb(t_stacks *stacks);
+void	rrr(t_stacks *stacks);
 
 /* ft_series */
 void	*ft_memcpy(void *s1, const void *s2, size_t n);
@@ -81,6 +104,8 @@ void	ft_putnbr(int n);
 int		ft_putstr(char *temp_str);
 
 /*sorting process*/
-int	init_sorting(t_stacks *stacks);
+int		init_sorting(t_stacks *stacks);
+void	show_stack_status(t_stack *stack);
+void first_stack_a_move(t_stacks *stack, t_triangle_map *map);
 
 #endif

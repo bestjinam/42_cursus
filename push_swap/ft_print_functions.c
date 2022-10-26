@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:23:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 16:30:16 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/25 13:01:20 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,17 @@ void	ft_putnbr(int n)
 		nbr *= -1;
 	}
 	_write_nbr(nbr);
+}
+
+void	show_stack_status(t_stack *stack)
+{
+	int	i;
+	const int	used_size = (stack->rear - stack->front + stack->cap) % stack->cap;
+
+	printf("front : %ld rear : %ld\n", stack->front, stack->rear);
+	i = -1;
+	while (++i < used_size)
+	{
+		printf("%d values: %d\n", i, stack->buffer[(stack->front + i) % stack->cap]);
+	}
 }

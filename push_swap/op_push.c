@@ -6,22 +6,24 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:38:26 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 22:57:35 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 00:31:00 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(t_stack *stack_a, t_stack *stack_b)
+void	pa(t_stacks *stacks)
 {
-	if (is_empty(stack_b) == 1)
+	if (is_empty(&stacks->stack_b) == 1)
 		return ;
-	add_front(stack_a, delete_front(stack_b));
+	add_front(&stacks->stack_a, delete_front(&stacks->stack_b));
+	ft_putstr("pa\n");
 }
 
-void	pb(t_stack *stack_b, t_stack *stack_a)
+void	pb(t_stacks *stacks)
 {
-	if (is_empty(stack_a) == 1)
+	if (is_empty(&stacks->stack_a) == 1)
 		return ;
-	add_front(stack_b, delete_front(stack_a));
+	add_front(&stacks->stack_b, delete_front(&stacks->stack_a));
+	ft_putstr("pb\n");
 }

@@ -6,24 +6,27 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:38:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 14:38:45 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 00:33:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra(t_stack *stack_a)
+void	rra(t_stacks *stacks)
 {
-	add_front(stack_a, delete_rear(stack_a));
+	add_front(&stacks->stack_a, delete_rear(&stacks->stack_a));
+	ft_putstr("rra\n");
 }
 
-void	rrb(t_stack *stack_b)
+void	rrb(t_stacks *stacks)
 {
-	add_front(stack_b, delete_rear(stack_b));
+	add_front(&stacks->stack_b, delete_rear(&stacks->stack_b));
+	ft_putstr("rrb\n");
 }
 
-void	rrr(t_stack *stack_a, t_stack *stack_b)
+void	rrr(t_stacks *stacks)
 {
-	rra(stack_a);
-	rrb(stack_b);
+	rra(stacks);
+	rrb(stacks);
+	ft_putstr("rrr\n");
 }

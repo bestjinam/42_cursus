@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/24 21:51:10 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 04:40:55 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -78,7 +78,6 @@ static void	_init_stacks(t_stacks *stacks)
 	{
 		add_rear(&stacks->stack_a, stacks->buffer.buffer[i]);
 	}
-	printf("stack a status  front %ld rear : %ld\n", stacks->stack_a.front, stacks->stack_a.rear);
 }
 
 int	main(int argc, char **argv)
@@ -92,8 +91,8 @@ int	main(int argc, char **argv)
 		return (-1);
 	_init_stacks(&stacks);
 	init_sorting(&stacks);
- 	i = -1;
- 	while (++i < stacks.buffer.len)
- 		printf("%d\n", delete_front(&stacks.stack_a));
+	i = -1;
+	while (++i < stacks.buffer.len)
+		printf("%d\n", delete_front(&stacks.stack_b));
 	exit(0);
 }
