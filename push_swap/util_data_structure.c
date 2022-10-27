@@ -6,11 +6,17 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:01:31 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 14:46:56 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 01:53:31 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+
+int get_stk_len(t_stack *stk)
+{
+	return ((stk->rear - stk->front + stk->cap) % stk->cap);
+}
 
 int	show_front(t_stack *stack)
 {

@@ -6,15 +6,15 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:47:07 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/27 17:27:48 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:30:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "triangle_map.h"
 #include <stdlib.h>
 
-static void	trg_map_init(t_trg_map *map, int size);
-static void	trg_map_fill_values(t_trg_map *map, int idx);
-static void	trg_map_fill_molds(t_trg_map *map, int idx);
+static void	trg_map_init(t_triangle_map *map, int size);
+static void	trg_map_fill_values(t_triangle_map *map, int idx);
+static void	trg_map_fill_molds(t_triangle_map *map, int idx);
 
 t_triangle_map	*trg_map_create(int size)
 {

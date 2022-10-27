@@ -6,12 +6,26 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:57:40 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 16:36:42 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 07:36:15 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "triangle_map.h"
 #include "push_swap.h"
+
+int		calculate_len(t_triangle_map *map, int m_idx, int size)
+{
+	int	cnt;
+	int	i;
+
+	cnt = 0;
+	i = -1;
+	while (++i < size)
+	{
+		cnt += map->val[m_idx + i];
+	}
+	return (cnt);
+}
 
 void	calculate_idx_and_size(int depth, int *m_idx, int *size)
 {	
@@ -42,6 +56,8 @@ int	calculate_depth(int size)
 
 void	push_tri_to_b(t_stacks *stacks, int size, int opt)
 {
+	if (size == 1)
+		pb(stacks);
 	if (size == 2)
 	{
 		two_elements_sorting_a(stacks, opt);
@@ -66,11 +82,9 @@ void	dividing_processing(t_stacks *stacks, t_triangle_map *map)
 	calculate_idx_and_size(map->depth, &m_idx, &size);
 	while (++i < size)
 	{
-		if (map->shapes[m_idx + i] == UP)
-			push_tri_to_b(stacks, map->values[m_idx + i], UP);
+		if (map->mold[m_idx + i] == UP)
+			push_tri_to_b(stacks, map->val[m_idx + i], UP);
 		else
-			push_tri_to_b(stacks, map->values[m_idx + i], DOWN);
+			push_tri_to_b(stacks, map->val[m_idx + i], DOWN);
 	}
-	triangle_map_show(map, 0, 0);
-	triangle_map_destroy(map);
-}
+}	

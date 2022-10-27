@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:32:04 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 16:20:04 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 07:08:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -16,7 +16,7 @@ void	merge_sorting_process(t_stacks *stacks)
 	t_triangle_map	*map;
 	const int		size = stacks->buffer.len;
 
-	map = triangle_map_create(size);
+	map = trg_map_create(size);
 	stack_init(&stacks->commands, 1024);
 	dividing_processing(stacks, map);
 	conquering_processing(stacks, map);

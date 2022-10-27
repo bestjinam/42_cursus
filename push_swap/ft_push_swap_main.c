@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 16:44:37 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 07:36:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -78,7 +78,7 @@ static void	_init_stacks(t_stacks *stacks)
 		add_rear(&stacks->stk_a, stacks->buffer.buffer[i]);
 	}
 }
-/*
+
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
@@ -90,15 +90,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	_init_stacks(&stacks);
 	init_sorting(&stacks);
-	i = -1;
-	while (++i < stacks.buffer.len)
-		printf("%d\n", delete_front(&stacks.stk_a));
 	exit(0);
-}*/
-
-int	main(int argc, char **argv)
-{
-	const t_triangle_map	*map = triangle_map_create(atoi(argv[1]));
-	argc = 0;
-	triangle_map_show(map, 0, 0);
 }
+

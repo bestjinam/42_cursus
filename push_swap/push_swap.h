@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 15:42:16 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 05:08:29 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		show_front(t_stack *stack);
 int		show_rear(t_stack *stack);
 int		show_nxt_front(t_stack *stack);
 int		show_value(t_stack *stack, int loc, int idx);
-
+int		get_stk_len(t_stack *stk);
 /*pre sort*/
 void	merge_sort(int left, int right, t_stacks *stacks);
 void	get_max_min(int *arr, int size, t_min_max *min_max);
@@ -91,6 +91,8 @@ void	four_elements_sorting_a(t_stacks *stks, int opt);
 void	five_elements_sorting_a(t_stacks *stks, int opt);
 
 /*operations*/
+typedef void	(*t_op_ptr)(t_stacks *);
+
 void	sa(t_stacks *stacks);
 void	sb(t_stacks *stacks);
 void	ss(t_stacks *stacks);
@@ -119,5 +121,8 @@ int		init_sorting(t_stacks *stacks);
 void	show_stack_status(t_stack *stack);
 void	dividing_processing(t_stacks *stacks, t_triangle_map *map);
 void	conquering_processing(t_stacks *stks, t_triangle_map *map);
-
+long	get_max_int(long n1, long n2, long n3);
+long	get_min_int(long n1, long n2, long n3);
+t_stack	*get_cur_stk(t_stacks *stks, int opt);
+t_stack	*get_opposit_stk(t_stacks *stks, int opt);
 #endif
