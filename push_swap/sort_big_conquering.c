@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_rev_rotate.c                                    :+:      :+:    :+:   */
+/*   sort_big_conquering.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:38:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 00:33:01 by jinam            ###   ########.fr       */
+/*   Created: 2022/10/26 15:40:09 by jinam             #+#    #+#             */
+/*   Updated: 2022/10/26 15:53:55 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	rra(t_stacks *stacks)
+void	conquering_processing(t_stacks *stks, t_triangle_map *map)
 {
-	add_front(&stacks->stk_a, delete_rear(&stacks->stk_a));
-	ft_putstr("rra\n");
-}
-
-void	rrb(t_stacks *stacks)
-{
-	add_front(&stacks->stk_b, delete_rear(&stacks->stk_b));
-	ft_putstr("rrb\n");
-}
-
-void	rrr(t_stacks *stacks)
-{
-	rra(stacks);
-	rrb(stacks);
-	ft_putstr("rrr\n");
 }

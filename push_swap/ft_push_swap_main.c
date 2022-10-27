@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 04:40:55 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 16:44:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -49,7 +49,6 @@ static int	_read_argvs(int argc, char **argv, t_stacks *stacks)
 {
 	int		i;
 	char	**tmp;
-	int		num;
 
 	stack_init(&stacks->buffer, 500);
 	i = 0;
@@ -71,15 +70,15 @@ static void	_init_stacks(t_stacks *stacks)
 {
 	int	i;
 
-	stack_init(&stacks->stack_a, stacks->buffer.len);
-	stack_init(&stacks->stack_b, stacks->buffer.len);
+	stack_init(&stacks->stk_a, stacks->buffer.len);
+	stack_init(&stacks->stk_b, stacks->buffer.len);
 	i = -1;
 	while (++i < stacks->buffer.len)
 	{
-		add_rear(&stacks->stack_a, stacks->buffer.buffer[i]);
+		add_rear(&stacks->stk_a, stacks->buffer.buffer[i]);
 	}
 }
-
+/*
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
@@ -93,6 +92,13 @@ int	main(int argc, char **argv)
 	init_sorting(&stacks);
 	i = -1;
 	while (++i < stacks.buffer.len)
-		printf("%d\n", delete_front(&stacks.stack_b));
+		printf("%d\n", delete_front(&stacks.stk_a));
 	exit(0);
+}*/
+
+int	main(int argc, char **argv)
+{
+	const t_triangle_map	*map = triangle_map_create(atoi(argv[1]));
+	argc = 0;
+	triangle_map_show(map, 0, 0);
 }

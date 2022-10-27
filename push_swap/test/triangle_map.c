@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   triangle_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyeyukim <hyeyukim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:47:07 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 16:47:35 by jinam            ###   ########.fr       */
+/*   Created: 2022/10/22 14:51:41 by hyeyukim          #+#    #+#             */
+/*   Updated: 2022/10/26 19:54:21 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include <stdio.h>
 #include "triangle_map.h"
+
+static void	triangle_map_fill(t_triangle_map *map, int idx);
+static int	triangle_map_get_depth(int size);
+
+t_triangle_map	*triangle_map_create(int size)
+{
+	t_triangle_map	*map;
+
+	if (size <= 2)
+		return (NULL);
+	map = malloc(sizeof(t_triangle_map));
+	if (!map)
+		return (NULL);
+	map->values = malloc(sizeof(int) * size);
+	map->shapes = malloc(sizeof(char) * size);
+	if (!map->values || !map->shapes)
+	{
+		triangle_map_destroy(map);
+		return (NULL);
+	}
+	map->depth = triangle_map_get_depth(size);
+	map->values[0] = size;
+	map->shapes[0] = (map->depth % 2 == 0) * DOWN + (map->depth % 2 == 1) * UP;
+	map->size = 1;
+	triangle_map_fill(map, 0);
+	return (map);
+}
 
 static void	triangle_map_fill(t_triangle_map *map, int idx)
 {
@@ -20,51 +47,25 @@ static void	triangle_map_fill(t_triangle_map *map, int idx)
 	const int	end_idx = start_idx - 1 + level_size;
 	int			i;
 
-	if (map->values[idx] <= 2)
+	i = 0;
+	while (idx + i < start_idx && map->values[idx + i] < 6)
+		i++;
+	if (idx + i == start_idx)
 		return ;
 	map->size += level_size;
 	i = 0;
 	while (idx + i < start_idx)
 	{
 		map->values[start_idx + i] = map->values[idx + i] / 3;
-		map->values[mid_idx - i] = map->values[idx + i] - 2 \
-								* (map->values[idx + i] / 3);
+		map->values[mid_idx - i] = \
+			map->values[idx + i] - 2 * (map->values[idx + i] / 3);
 		map->values[end_idx - i] = map->values[idx + i] / 3;
 		map->shapes[start_idx + i] = map->shapes[idx + i];
 		map->shapes[mid_idx - i] = (map->shapes[idx + i] + 1) % 2;
 		map->shapes[end_idx - i] = (map->shapes[idx + i] + 1) % 2;
-		i ++;
+		i++;
 	}
 	triangle_map_fill(map, start_idx);
-}
-
-void	triangle_map_destroy(t_triangle_map *map)
-{
-	free(map->values);
-	free(map->shapes);
-	free(map);
-}
-
-t_triangle_map	*triangle_map_create(int size)
-{
-	t_triangle_map	*new_map;
-
-	new_map = malloc(sizeof(t_triangle_map));
-	if (size <= 0 || !new_map)
-		return (NULL);
-	new_map->values = malloc(sizeof(int) * size * 3);
-	new_map->shapes = malloc(sizeof(char) * size * 3);
-	if (!new_map->values || !new_map->shapes)
-	{
-		triangle_map_destroy(new_map);
-		return (NULL);
-	}
-	new_map->depth = calculate_depth(size);
-	new_map->values[0] = size;
-	new_map->shapes[0] = (new_map->depth % 2) * UP + (!(new_map->depth % 2)) * DOWN;
-	new_map->size = 1;
-	triangle_map_fill(new_map, 0);
-	return (new_map);
 }
 
 void	triangle_map_show(const t_triangle_map *map, int cur_depth, int idx)
@@ -87,3 +88,29 @@ void	triangle_map_show(const t_triangle_map *map, int cur_depth, int idx)
 	triangle_map_show(map, cur_depth + 1, 3 * idx + 3);
 }
 
+void	triangle_map_destroy(t_triangle_map *map)
+{
+	free(map->values);
+	free(map->shapes);
+	free(map);
+}
+
+int	triangle_map_get_depth(int size)
+{
+	int	depth;
+
+	depth = 0;
+	while (size >= 6)
+	{
+		size = size - 2 * (size / 3);
+		depth++;
+	}
+	return (depth);
+}
+
+int	main(int argc, char **argv)
+{
+	const t_triangle_map	*map = triangle_map_create(atoi(argv[1]));
+	argc = 0;
+	triangle_map_show(map, 0, 0);
+}

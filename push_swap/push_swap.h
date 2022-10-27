@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 02:17:02 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/26 15:42:16 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_stack
 typedef struct s_stacks
 {
 	t_stack	buffer;
-	t_stack	stack_a;
-	t_stack	stack_b;
+	t_stack	stk_a;
+	t_stack	stk_b;
 	t_stack	commands;
 	int		*array;
 }	t_stacks;
@@ -70,14 +70,25 @@ int		delete_front(t_stack *stack);
 int		is_empty(t_stack *stack);
 
 /* show queue */
-int	show_front(t_stack *stack);
-int	show_rear(t_stack *stack);
-int show_nxt_front(t_stack *stack);
-int show_value(t_stack *stack, int loc, int idx);
+int		show_front(t_stack *stack);
+int		show_rear(t_stack *stack);
+int		show_nxt_front(t_stack *stack);
+int		show_value(t_stack *stack, int loc, int idx);
 
 /*pre sort*/
 void	merge_sort(int left, int right, t_stacks *stacks);
 void	get_max_min(int *arr, int size, t_min_max *min_max);
+
+/*sorting process*/
+void	small_sorting_process(t_stacks *stks, t_min_max *min_max);
+void	big_sorting_process(t_stacks *stks);
+
+/*dividing process*/
+
+void	two_elements_sorting_a(t_stacks *stacks, int opt);
+void	three_elements_sorting_a(t_stacks *stks, int opt);
+void	four_elements_sorting_a(t_stacks *stks, int opt);
+void	five_elements_sorting_a(t_stacks *stks, int opt);
 
 /*operations*/
 void	sa(t_stacks *stacks);
@@ -106,6 +117,7 @@ int		ft_putstr(char *temp_str);
 /*sorting process*/
 int		init_sorting(t_stacks *stacks);
 void	show_stack_status(t_stack *stack);
-void first_stack_a_move(t_stacks *stack, t_triangle_map *map);
+void	dividing_processing(t_stacks *stacks, t_triangle_map *map);
+void	conquering_processing(t_stacks *stks, t_triangle_map *map);
 
 #endif

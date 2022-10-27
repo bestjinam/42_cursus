@@ -14,13 +14,13 @@
 
 void	ra(t_stacks *stacks)
 {
-	add_rear(&stacks->stack_a, delete_front(&stacks->stack_a));
+	add_rear(&stacks->stk_a, delete_front(&stacks->stk_a));
 	ft_putstr("ra\n");
 }
 
 void	rb(t_stacks *stacks)
 {
-	add_rear(&stacks->stack_b, delete_front(&stacks->stack_b));
+	add_rear(&stacks->stk_b, delete_front(&stacks->stk_b));
 	ft_putstr("rb\n");
 }
 

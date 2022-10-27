@@ -14,16 +14,16 @@
 
 void	pa(t_stacks *stacks)
 {
-	if (is_empty(&stacks->stack_b) == 1)
+	if (is_empty(&stacks->stk_b) == 1)
 		return ;
-	add_front(&stacks->stack_a, delete_front(&stacks->stack_b));
+	add_front(&stacks->stk_a, delete_front(&stacks->stk_b));
 	ft_putstr("pa\n");
 }
 
 void	pb(t_stacks *stacks)
 {
-	if (is_empty(&stacks->stack_a) == 1)
+	if (is_empty(&stacks->stk_a) == 1)
 		return ;
-	add_front(&stacks->stack_b, delete_front(&stacks->stack_a));
+	add_front(&stacks->stk_b, delete_front(&stacks->stk_a));
 	ft_putstr("pb\n");
 }

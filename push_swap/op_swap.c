@@ -17,10 +17,10 @@ void	sa(t_stacks *stacks)
 	int	tmp1;
 	int	tmp2;
 
-	tmp1 = delete_front(&stacks->stack_a);
-	tmp2 = delete_front(&stacks->stack_a);
-	add_front(&stacks->stack_a, tmp1);
-	add_front(&stacks->stack_a, tmp2);
+	tmp1 = delete_front(&stacks->stk_a);
+	tmp2 = delete_front(&stacks->stk_a);
+	add_front(&stacks->stk_a, tmp1);
+	add_front(&stacks->stk_a, tmp2);
 	ft_putstr("sa\n");
 }
 
@@ -29,10 +29,10 @@ void	sb(t_stacks *stacks)
 	int	tmp1;
 	int	tmp2;
 
-	tmp1 = delete_front(&stacks->stack_b);
-	tmp2 = delete_front(&stacks->stack_b);
-	add_front(&stacks->stack_b, tmp1);
-	add_front(&stacks->stack_b, tmp2);
+	tmp1 = delete_front(&stacks->stk_b);
+	tmp2 = delete_front(&stacks->stk_b);
+	add_front(&stacks->stk_b, tmp1);
+	add_front(&stacks->stk_b, tmp2);
 	ft_putstr("sb\n");
 }
 
