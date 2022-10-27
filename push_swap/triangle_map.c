@@ -6,84 +6,102 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:47:07 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/26 16:47:35 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:27:48 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
 #include "triangle_map.h"
+#include <stdlib.h>
 
-static void	triangle_map_fill(t_triangle_map *map, int idx)
+static void	trg_map_init(t_trg_map *map, int size);
+static void	trg_map_fill_values(t_trg_map *map, int idx);
+static void	trg_map_fill_molds(t_trg_map *map, int idx);
+
+t_triangle_map	*trg_map_create(int size)
+{
+	t_triangle_map	*map;
+
+	if (size <= 0)
+		return (FT_NULL);
+	map = malloc(sizeof(t_triangle_map));
+	if (!map)
+		return (FT_NULL);
+	map->val = malloc(sizeof(int) * size);
+	map->mold = malloc(sizeof(char) * size);
+	if (!map->val || !map->mold)
+	{
+		trg_map_destroy(map);
+		return (FT_NULL);
+	}
+	trg_map_init(map, size);
+	return (map);
+}
+
+void	trg_map_init(t_triangle_map *map, int size)
+{
+	map->depth = 0;
+	map->val[0] = size;
+	map->size = 1;
+	trg_map_fill_values(map, 0);
+	map->size = 1;
+	map->mold[0] = (map->depth % 2 == 0) * DOWN + (map->depth % 2 == 1) * UP;
+	trg_map_fill_molds(map, 0);
+}
+
+void	trg_map_fill_values(t_triangle_map *map, int idx)
 {
 	const int	level_size = map->size * 2 + 1;
-	const int	start_idx = map->size;
-	const int	mid_idx = start_idx - 1 + 2 * (level_size / 3);
-	const int	end_idx = start_idx - 1 + level_size;
+	const int	start = map->size;
+	const int	mid = start - 1 + 2 * (level_size / 3);
+	const int	end = start - 1 + level_size;
 	int			i;
 
-	if (map->values[idx] <= 2)
+	i = 0;
+	while (idx + i < start && map->val[idx + i] <= 5)
+		i++;
+	if (idx + i == start)
+		return ;
+	map->depth++;
+	map->size += level_size;
+	i = 0;
+	while (idx + i < start)
+	{
+		map->val[start + i] = map->val[idx + i] / 3;
+		map->val[mid - i] = map->val[idx + i] - 2 * (map->val[idx + i] / 3);
+		map->val[end - i] = map->val[idx + i] / 3;
+		i++;
+	}
+	trg_map_fill_values(map, start);
+}
+
+void	trg_map_fill_molds(t_triangle_map *map, int idx)
+{
+	const int	level_size = map->size * 2 + 1;
+	const int	start = map->size;
+	const int	mid = start - 1 + 2 * (level_size / 3);
+	const int	end = start - 1 + level_size;
+	int			i;
+
+	i = 0;
+	while (idx + i < start && map->val[idx + i] <= 5)
+		i++;
+	if (idx + i == start)
 		return ;
 	map->size += level_size;
 	i = 0;
-	while (idx + i < start_idx)
+	while (idx + i < start)
 	{
-		map->values[start_idx + i] = map->values[idx + i] / 3;
-		map->values[mid_idx - i] = map->values[idx + i] - 2 \
-								* (map->values[idx + i] / 3);
-		map->values[end_idx - i] = map->values[idx + i] / 3;
-		map->shapes[start_idx + i] = map->shapes[idx + i];
-		map->shapes[mid_idx - i] = (map->shapes[idx + i] + 1) % 2;
-		map->shapes[end_idx - i] = (map->shapes[idx + i] + 1) % 2;
-		i ++;
+		map->mold[start + i] = map->mold[idx + i];
+		map->mold[mid - i] = (map->mold[idx + i] + 1) % 2;
+		map->mold[end - i] = (map->mold[idx + i] + 1) % 2;
+		i++;
 	}
-	triangle_map_fill(map, start_idx);
+	trg_map_fill_molds(map, start);
 }
 
-void	triangle_map_destroy(t_triangle_map *map)
+void	trg_map_destroy(t_triangle_map *map)
 {
-	free(map->values);
-	free(map->shapes);
+	free(map->val);
+	free(map->mold);
 	free(map);
-}
-
-t_triangle_map	*triangle_map_create(int size)
-{
-	t_triangle_map	*new_map;
-
-	new_map = malloc(sizeof(t_triangle_map));
-	if (size <= 0 || !new_map)
-		return (NULL);
-	new_map->values = malloc(sizeof(int) * size * 3);
-	new_map->shapes = malloc(sizeof(char) * size * 3);
-	if (!new_map->values || !new_map->shapes)
-	{
-		triangle_map_destroy(new_map);
-		return (NULL);
-	}
-	new_map->depth = calculate_depth(size);
-	new_map->values[0] = size;
-	new_map->shapes[0] = (new_map->depth % 2) * UP + (!(new_map->depth % 2)) * DOWN;
-	new_map->size = 1;
-	triangle_map_fill(new_map, 0);
-	return (new_map);
-}
-
-void	triangle_map_show(const t_triangle_map *map, int cur_depth, int idx)
-{
-	int	i;
-
-	if (cur_depth > map->depth)
-		return ;
-	i = -1;
-	while (++i < cur_depth)
-		printf("    ");
-	if (cur_depth > 0)
-		printf("+--");
-	if (map->shapes[idx] == UP)
-		printf("%d(%dU)\n", map->values[idx], cur_depth);
-	else
-		printf("%d(%dD)\n", map->values[idx], cur_depth);
-	triangle_map_show(map, cur_depth + 1, 3 * idx + 1);
-	triangle_map_show(map, cur_depth + 1, 3 * idx + 2);
-	triangle_map_show(map, cur_depth + 1, 3 * idx + 3);
 }
 
