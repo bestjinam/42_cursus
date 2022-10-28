@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:05:19 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/27 19:31:44 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 12:45:16 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,27 @@ static void	rev_three_tri_to_b(t_stacks *stks, int opt)
 
 void	four_elements_sorting_a(t_stacks *stks, int opt)
 {
-	int		i;
-	t_stack	*stk_b;
-	t_stack	*stk_a;
+	int	val[3];
 
-	i = -1;
-	stk_b = &stks->stk_b;
-	stk_a = &stks->stk_a;
-	rev_three_tri_to_b(stks, opt);
-	while ((opt == 0 && (++i < 3 && (show_front(stk_a)) < show_rear(stk_b))))
-		rrb(stks);
-	while ((opt == 1 && (++i < 3 && (show_front(stk_a)) > show_rear(stk_b))))
-		rrb(stks);
+	val[0] = 1;
+	val[1] = 2;
+	val[2] = 1;
+
 	pb(stks);
-	while (++i <= 3)
-		rrb(stks);
+	rb(stks);
+	two_elements_sorting_a(stks, opt);
+	while (val[0] || val[1] || val[2])
+	{
+		if (get_stk_len(&stks->stk_a) == 1)
+		{
+			val[2] = 0;
+			val[1] = 1;
+		}
+		if (opt == 0)
+			val[making_up(stks, val, 1)] --;
+		else
+			val[making_down(stks, val, 1)] --;
+	}
 }
 
 void	five_elements_sorting_a(t_stacks *stks, int opt)

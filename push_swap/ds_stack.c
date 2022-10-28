@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:09:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/25 21:01:11 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 13:15:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -26,10 +26,8 @@ int	stack_init(t_stack *tmp, int cap)
 
 int	stack_append(t_stack *tmp, int c)
 {
-	size_t	i;
 	int		*cpy_list;
 
-	i = -1;
 	if (tmp->len == tmp->cap)
 	{
 		tmp->cap *= 2;
@@ -41,6 +39,7 @@ int	stack_append(t_stack *tmp, int c)
 		tmp->buffer = cpy_list;
 	}
 	tmp->buffer[(tmp->len)++] = c;
+	tmp->rear = tmp->len;
 	return (1);
 }
 

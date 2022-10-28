@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:47:07 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/27 17:30:23 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 12:06:39 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "triangle_map.h"
@@ -25,8 +25,8 @@ t_triangle_map	*trg_map_create(int size)
 	map = malloc(sizeof(t_triangle_map));
 	if (!map)
 		return (FT_NULL);
-	map->val = malloc(sizeof(int) * size);
-	map->mold = malloc(sizeof(char) * size);
+	map->val = malloc(sizeof(int) * size * 3);
+	map->mold = malloc(sizeof(char) * size * 3);
 	if (!map->val || !map->mold)
 	{
 		trg_map_destroy(map);

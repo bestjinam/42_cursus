@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:40:09 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 07:39:31 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 07:47:04 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -132,7 +132,6 @@ void	merging_triangles(t_stacks *stks, int p_idx, t_triangle_map *map, int opt)
 void	conquering_processing(t_stacks *stks, t_triangle_map *map)
 {
 	int map_info[3];
-	int i;
 	int	p_idx;
 
 	map_info[0] = map->depth + 1;

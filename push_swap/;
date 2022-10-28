@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 14:52:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 12:03:32 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 12:01:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -44,6 +44,7 @@ void	merge(int start, int mid, int end, t_stacks *stacks)
 void	merge_sort(int left, int right, t_stacks *stacks)
 {
 	int	mid;
+	int i;
 
 	if (left < right)
 	{
@@ -52,6 +53,9 @@ void	merge_sort(int left, int right, t_stacks *stacks)
 		merge_sort(mid + 1, right, stacks);
 		merge(left, mid, right, stacks);
 	}
+	i = -1;
+	while (left + ++i < right)
+		printf("array -> %d\n", stacks->array[left + i]);
 }
 
 void	get_max_min(int *arr, int size, t_min_max *min_max)

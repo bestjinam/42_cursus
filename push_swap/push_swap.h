@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 05:08:29 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 12:22:40 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ void	two_elements_sorting_a(t_stacks *stacks, int opt);
 void	three_elements_sorting_a(t_stacks *stks, int opt);
 void	four_elements_sorting_a(t_stacks *stks, int opt);
 void	five_elements_sorting_a(t_stacks *stks, int opt);
+
+int		making_up(t_stacks *stks, int *val, int opt);
+int		making_down(t_stacks *stks, int *val, int opt);
 
 /*operations*/
 typedef void	(*t_op_ptr)(t_stacks *);
