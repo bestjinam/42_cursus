@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:32:04 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 07:08:17 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 21:20:28 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -20,6 +20,7 @@ void	merge_sorting_process(t_stacks *stacks)
 	stack_init(&stacks->commands, 1024);
 	dividing_processing(stacks, map);
 	conquering_processing(stacks, map);
+	trg_map_destroy(map);
 }
 
 int	init_sorting(t_stacks *stacks)

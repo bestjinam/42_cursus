@@ -6,41 +6,87 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/10/28 07:46:17 by jinam            ###   ########.fr        #
+#    Updated: 2022/10/28 18:59:15 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME		= push_swap 
-SRCS		=	ds_circular_queue.c          init_sorting_process.c       sort_big_dividing.c \
-			  	ds_stack.c                   op_push.c                    sort_big_dividing_elements.c \
-				ft_atol_base.c               op_rev_rotate.c              triangle_map.c \
-				ft_libft.c                   op_rotate.c                  triangle_map_show.c \
-				ft_memcmp.c                  op_swap.c                    util_data_structure.c \
-				ft_print_functions.c         small_sorting_process.c      util_merge_sort.c \
-				ft_push_swap_main.c          sort_big_conquering.c \
-				ft_split.c                   sort_big_conquering_utils.c
 
-OBJS		= $(SRCS:.c=.o)
+NAME = push_swap
 
-CFLAGS		=	-Wall -Wextra -Werror
-CC			=	cc
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+AR = ar
+ARFLAGS = crs
+RM = rm
+RMFLAGS = -rf
 
+# library
+LIB_NAME= pushswap_ds.a
+LIB_DIR = ds
+LIB = $(LIB_DIR)/$(LIB_NAME)
+# file name
+PS_FILES = push_swap_main \
+			push_swap_process_inputs \
+			push_swap_sort_exceptional_cases \
+			push_swap_reduce_commands
+
+CMD_FILES = cmd_multiple_cmds \
+			cmd_push \
+			cmd_reverse_rotate \
+			cmd_rotate \
+			cmd_swap \
+
+MG_FILES = merge_sort_compare \
+			merge_sort_conquer \
+			merge_sort_divide_and_push \
+			merge_sort_get_idx_highest_priority \
+			merge_sort
+
+# file directory
+PS_DIR = ps
+CMD_DIR = push_swap_commands
+MG_DIR = push_swap_merge_sort
+OUT_DIR = objcs
+# object file
+PS_OBJCS = $(addprefix $(OUT_DIR)/, $(addsuffix .o ,$(PS_FILES)))
+CMD_OBJCS = $(addprefix $(OUT_DIR)/$(CMD_DIR)/, $(addsuffix .o ,$(CMD_FILES)))
+MG_OBJCS = $(addprefix $(OUT_DIR)/$(MG_DIR)/, $(addsuffix .o ,$(MG_FILES)))
+OBJCS = $(PS_OBJCS) $(CMD_OBJCS) $(MG_OBJCS)
+
+$(NAME) : build
+	make -C $(LIB_DIR) all
+	$(CC) $(CFLAGS) $(OBJCS) $(LIB) -o $@
+
+.PHONY : build
+build :
+	@mkdir -p $(OUT_DIR)
+	@mkdir -p $(OUT_DIR)/$(CMD_DIR)
+	@mkdir -p $(OUT_DIR)/$(MG_DIR)
+	@make compile
+
+.PHONY : compile
+compile : $(OBJCS)
+
+$(OUT_DIR)/%.o : $(PS_DIR)/%.c
+	@$(CC) -c $(CFLAGS) $< -o $@
+$(OUT_DIR)/$(CMD_DIR)/%.o : $(PS_DIR)/$(CMD_DIR)/%.c
+	@$(CC) -c $(CFLAGS) $< -o $@
+$(OUT_DIR)/$(MG_DIR)/%.o : $(PS_DIR)/$(MG_DIR)/%.c
+	@$(CC) -c $(CFLAGS) $< -o $@
+
+.PHONY : all
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
-bonus : all
-
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
+.PHONY : clean
 clean :
-	@rm -f $(OBJS)
+	make -C $(LIB_DIR) fclean
+	@$(RM) $(RMFLAGS) $(OBJCS)
+	@$(RM) $(RMFLAGS) $(OUT_DIR)
 
+.PHONY : fclean
 fclean : clean
-	@rm -f $(NAME)
+	$(RM) $(RMFLAGS) $(NAME)
 
-re:
+.PHONY : re
+re :
 	make fclean
 	make all
-
-.PHONY: all bonus clean fclean re

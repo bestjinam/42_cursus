@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:09:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 13:15:24 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 13:20:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -34,7 +34,7 @@ int	stack_append(t_stack *tmp, int c)
 		cpy_list = malloc(sizeof(int) * tmp->cap);
 		if (!cpy_list)
 			return (-1);
-		ft_memcpy(cpy_list, tmp->buffer, tmp->len);
+		ft_memcpy(cpy_list, tmp->buffer, sizeof(int) * tmp->len);
 		free(tmp->buffer);
 		tmp->buffer = cpy_list;
 	}

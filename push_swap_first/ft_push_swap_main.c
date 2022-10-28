@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 13:08:48 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/28 21:22:19 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -48,6 +48,7 @@ static int	__conv_str_to_int(char **str, t_stacks *stacks)
 		else if (-2147483648 > num || num > 2147483647)
 			return (-1);
 		stack_append(&stacks->buffer, num);
+		free(str[i]);
 	}
 	return (0);
 }
@@ -70,6 +71,7 @@ static int	_read_argvs(int argc, char **argv, t_stacks *stacks)
 	}
 	if (_filtering_sorting(stacks) == -1)
 		return (-1);
+	
 	return (0);
 }
 
@@ -96,6 +98,11 @@ int	main(int argc, char **argv)
 		return (-1);
 	_init_stacks(&stacks);
 	init_sorting(&stacks);
+	free(stacks.array);
+	stack_delete(&stacks.buffer);
+	stack_delete(&stacks.stk_a);
+	stack_delete(&stacks.stk_b);
+	stack_delete(&stacks.commands);
 	exit(0);
 }
 
