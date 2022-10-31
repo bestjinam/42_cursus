@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 14:17:26 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/31 11:58:32 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ typedef enum e_eof
 	READ_ERROR
 }	t_eof;
 
-typedef struct s_list
+typedef struct s_gnl_list
 {
-	int				fd;
-	char			buff[BUFFER_SIZE];
-	ssize_t			rbytes;
-	size_t			eol;
-	size_t			last_len;
-	size_t			new_len;
-	struct s_list	*next;
-}					t_list;
+	int					fd;
+	char				buff[BUFFER_SIZE];
+	ssize_t				rbytes;
+	size_t				eol;
+	size_t				last_len;
+	size_t				new_len;
+	struct s_gnl_list	*next;
+}						t_g_list;
 
-int		_gnl_find_node(t_list **head, t_list **node, int fd);
-void	_gnl_del_node(t_list **begin_list, t_list *node);
+int		_gnl_find_node(t_g_list **head, t_g_list **node, int fd);
+void	_gnl_del_node(t_g_list **begin_list, t_g_list *node);
 
 #endif /* ifndef GET_NEXT_LINE_H
 # ifndef

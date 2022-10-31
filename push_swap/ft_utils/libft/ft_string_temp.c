@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 11:53:25 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/09 12:39:55 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/31 20:33:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -67,6 +67,5 @@ void	ft_string_delete(t_temp_str *temp_str)
 	if (!temp_str)
 		return ;
 	free(temp_str->str);
-	free(temp_str);
 	temp_str = (void *) 0;
 }

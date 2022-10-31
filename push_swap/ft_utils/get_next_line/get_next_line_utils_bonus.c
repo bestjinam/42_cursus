@@ -12,11 +12,11 @@
 
 #include "get_next_line_bonus.h"
 
-static t_list	*_gnl_init_node(int fd)
+static t_g_list	*_gnl_init_node(int fd)
 {
-	t_list	*new;
+	t_g_list	*new;
 
-	new = malloc(sizeof(t_list));
+	new = malloc(sizeof(t_g_list));
 	new->fd = fd;
 	new->eol = BUFFER_SIZE;
 	new->rbytes = BUFFER_SIZE;
@@ -26,9 +26,9 @@ static t_list	*_gnl_init_node(int fd)
 	return (new);
 }
 
-int	_gnl_find_node(t_list **head, t_list **node, int fd)
+int	_gnl_find_node(t_g_list **head, t_g_list **node, int fd)
 {
-	t_list	*curr;
+	t_g_list	*curr;
 
 	if (!*head)
 	{
@@ -51,9 +51,9 @@ int	_gnl_find_node(t_list **head, t_list **node, int fd)
 	return (SUCCESS);
 }
 
-void	_gnl_del_node(t_list **begin_list, t_list *node)
+void	_gnl_del_node(t_g_list **begin_list, t_g_list *node)
 {
-	t_list	*curr;
+	t_g_list	*curr;
 
 	if (!*begin_list)
 		return ;

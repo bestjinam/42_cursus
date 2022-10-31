@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 14:17:52 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/31 12:00:27 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -39,7 +39,7 @@ static void	*_gnl_memmove(void *s1, const void *s2, size_t n)
 	return (s1);
 }
 
-static char	*_gnl_makeline(t_list *node, size_t size,
+static char	*_gnl_makeline(t_g_list *node, size_t size,
 						char **line, size_t option)
 {
 	const size_t	res_len = node->last_len + size + 1;
@@ -65,7 +65,7 @@ static char	*_gnl_makeline(t_list *node, size_t size,
 	return (res);
 }
 
-static int	_gnl_getline(t_list **begin_list, t_list *node,
+static int	_gnl_getline(t_g_list **begin_list, t_g_list *node,
 						char *line, size_t size)
 {
 	node->rbytes = read(node->fd, node->buff, size);
@@ -82,8 +82,8 @@ static int	_gnl_getline(t_list **begin_list, t_list *node,
 
 char	*get_next_line(int fd)
 {
-	static t_list	*head = NULL;
-	t_list			*node;
+	static t_g_list	*head = NULL;
+	t_g_list		*node;
 	char			*line;
 
 	line = (void *) 0;

@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/10/29 20:52:57 by jinam            ###   ########.fr        #
+#    Updated: 2022/10/29 21:20:20 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		=	libft.a
@@ -67,18 +67,18 @@ GNL_FILES = 	get_next_line_bonus \
 
 # objects
 
-LIBFT_OBJS		=	$(addprefix $(OBJCS_DIR)/$(LIBFT_DIR)/, $(addsuffix .c, $(LIBFT_FILES)))
-PRINTF_OBJS		=	$(addprefix $(OBJCS_DIR)/$(PRINTF_DIR)/, $(addsuffix .c, $(PRINTF_FILES)))
-GNL_OBJS		=	$(addprefix $(OBJCS_DIR)/$(GNL_DIR)/, $(addsuffix .c, $(GNL_FILES)))
+LIBFT_OBJCS		=	$(addprefix $(OBJCS_DIR)/$(LIBFT_DIR)/, $(addsuffix .o, $(LIBFT_FILES)))
+PRINTF_OBJCS	=	$(addprefix $(OBJCS_DIR)/$(PRINTF_DIR)/, $(addsuffix .o, $(PRINTF_FILES)))
+GNL_OBJCS		=	$(addprefix $(OBJCS_DIR)/$(GNL_DIR)/, $(addsuffix .o, $(GNL_FILES)))
 
 # options 
 
 ifdef WITH_PRINTF
-	P_OBJCS = $(PRINTF_OBJS)
+	P_OBJCS = $(PRINTF_OBJCS)
 endif
 
 ifdef WITH_GNL
-	G_OBJCS = $(GNL_OBJS)
+	G_OBJCS = $(GNL_OBJCS)
 endif
 
 .PHONY : all printf gnl clean fclean re
@@ -87,6 +87,8 @@ all : $(NAME)
 
 $(NAME)	:	$(LIBFT_OBJCS) $(P_OBJCS) $(G_OBJCS)
 	$(AR) $(ARFLAGS) $@ $^
+
+# make directorys
 
 $(OBJCS_DIR)/$(LIBFT_DIR)/%.o : $(LIBFT_DIR)/%.c
 	@mkdir -p $(OBJCS_DIR)
@@ -103,11 +105,15 @@ $(OBJCS_DIR)/$(GNL_DIR)/%.o : $(GNL_DIR)/%.c
 	@mkdir -p $(OBJCS_DIR)/$(GNL_DIR)
 	@$(CC) -c $(CFLAGS) $< -o $@
 
+
 printf : 
-	make WITH_PRINTF=1 $(NAME)
+	make WITH_PRINTF=1 all
 
 gnl : 
-	make WITH_GNL=1 $(NAME)
+	make WITH_GNL=1 all
+
+printf_gnl:
+	make WITH_PRINTF=1 WITH_GNL=1 all
 
 clean : 
 	$(RM) $(RMFLAGS) $(OBJCS_DIR)
