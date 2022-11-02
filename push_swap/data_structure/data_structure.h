@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 16:12:08 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 11:24:32 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/01 15:06:59 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_stacks
 	t_stack	buffer;
 	t_stack	stk_a;
 	t_stack	stk_b;
-	t_stack	commands;
 	int		*array;
 }	t_stacks;
 

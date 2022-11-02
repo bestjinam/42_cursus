@@ -6,10 +6,10 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:34:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/29 21:44:58 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/02 10:21:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "../ft_utils/ft_printf/ft_printf.h"
 #include "triangle_map.h"
 

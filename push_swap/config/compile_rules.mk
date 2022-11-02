@@ -22,3 +22,8 @@ $(OUT_DIR)/$(TRG_DIR)/%.o : $(TRG_DIR)/%.c
 	mkdir -p $(OUT_DIR)
 	mkdir -p $(OUT_DIR)/$(TRG_DIR)
 	$(CC) -c $(CFLAGS) $< -o $@
+
+$(OUT_DIR)/$(BONUS_DIR)/%.o : $(BONUS_DIR)/%.c
+	mkdir -p $(OUT_DIR)
+	mkdir -p $(OUT_DIR)/$(BONUS_DIR)
+	$(CC) -c $(CFLAGS) $< -o $@

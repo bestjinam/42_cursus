@@ -6,15 +6,18 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/10/31 20:28:37 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/01 19:45:35 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
 NAME = 				push_swap
 
+# bonus target
+BONUS_NAME =		checker
+
 # cmd & options 
 CC = 				cc
-CFLAGS =			-Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS =			-Wall -Wextra -Werror #-fsanitize=address -g3
 AR = 				ar
 ARFLAGS = 			crs
 RM = 				rm
@@ -29,12 +32,18 @@ PS_CMD_OBJCS = $(addprefix $(OUT_DIR)/$(PS_CMD_DIR)/, $(addsuffix .o, $(PS_CMD_F
 PS_SORTING_OBJCS = $(addprefix $(OUT_DIR)/$(PS_SORTING_DIR)/, $(addsuffix .o, $(PS_SORTING_FILES)))
 TRG_OBJCS = $(addprefix $(OUT_DIR)/$(TRG_DIR)/, $(addsuffix .o, $(TRG_FILES)))
 OBJCS = $(DS_OBJCS) $(PS_MAIN_OBJCS) $(PS_CMD_OBJCS) $(PS_SORTING_OBJCS) $(TRG_OBJCS)
+BONUS_OBJCS = $(addprefix $(OUT_DIR)/$(BONUS_DIR)/, $(addsuffix .o, $(BONUS_FILES)))
 
 $(NAME) : $(OBJCS)
 	make -C $(LIB_DIR) printf_gnl
 	$(CC) $(CFLAGS) $(OBJCS) $(LIB) -o $(NAME)
 
 include ./config/compile_rules.mk
+bonus : $(NAME) $(BONUS_NAME)
+
+$(BONUS_NAME) : $(BONUS_OBJCS) 
+	make -C $(LIB_DIR) printf_gnl
+	$(CC) $(CFLAGS) $(BONUS_OBJCS) $(LIB) -o $(BONUS_NAME)
 
 .PHONY : all
 all : $(NAME)
@@ -46,7 +55,7 @@ clean :
 
 .PHONY : fclean
 fclean : clean
-	$(RM) $(RMFLAGS) $(NAME)
+	$(RM) $(RMFLAGS) $(NAME) $(BONUS_NAME)
 
 .PHONY : re
 re :

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 16:32:04 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 15:38:34 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/01 15:07:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	merge_sorting_process(t_stacks *stacks)
 	const int		size = stacks->buffer.len;
 
 	map = trg_map_create(size);
-	stack_init(&stacks->commands, 1024);
 	dividing_processing(stacks, map);
 	conquering_processing(stacks, map);
 	trg_map_destroy(map);

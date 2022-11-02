@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 11:53:25 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 20:33:17 by jinam            ###   ########.fr       */
+/*   Updated: 2022/08/12 10:42:00 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -15,7 +15,7 @@
 void	ft_string_init(t_temp_str *temp_str)
 {
 	temp_str->str = malloc(1024);
-	if (!temp_str)
+	if (!temp_str->str)
 		return ;
 	temp_str->len = 0;
 	temp_str->cap = 1024;
@@ -31,25 +31,26 @@ void	ft_s_append(t_temp_str *temp_str, char *str)
 	{
 		temp_str->cap *= 2;
 		temp = malloc(temp_str->cap);
+		if (!temp)
+			return ;
 		ft_memcpy(temp, temp_str->str, temp_str->len);
 		free(temp_str->str);
 		temp_str->str = temp;
 	}
 	while (str[i])
 		temp_str->str[(temp_str->len)++] = str[i++];
-	temp_str->len += i;
 }
 
 void	ft_c_append(t_temp_str *temp_str, char c)
 {
-	size_t	i;
 	char	*temp;
 
-	i = 0;
 	if (temp_str->len == temp_str->cap)
 	{
 		temp_str->cap *= 2;
 		temp = malloc(temp_str->cap);
+		if (!temp)
+			return ;
 		ft_memcpy(temp, temp_str->str, temp_str->len);
 		free(temp_str->str);
 		temp_str->str = temp;
@@ -67,5 +68,5 @@ void	ft_string_delete(t_temp_str *temp_str)
 	if (!temp_str)
 		return ;
 	free(temp_str->str);
-	temp_str = (void *) 0;
+	temp_str->str = (void *) 0;
 }

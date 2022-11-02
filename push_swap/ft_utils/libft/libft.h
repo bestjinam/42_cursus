@@ -6,14 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/29 17:36:20 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/01 21:52:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
-
+# include <stdio.h>
 /*PART1 : libc*/
 /* 1. ctype.h :  ft_ctype_classification.c*/
 int		ft_isalpha(int c);
@@ -107,10 +107,10 @@ typedef struct s_list
 
 /* ft___lst_bonus.c */
 t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new_l);
+void	ft_lstadd_front(t_list **lst, t_list *n);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new_l);
+void	ft_lstadd_back(t_list **lst, t_list *n);
 /*END*/
 
 /*ft___lst_del_bonus.c*/
@@ -123,9 +123,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*END*/
 
-char	*ft_itoa_base(int n, char *base);
+char	*ft_itoa_base(unsigned long n, char *base);
 int		ft_atoi_base(const char *str, char *base);
-long	ft_atol_base(const char *str, char *base);
+
 /* make string */
 typedef struct s_temp_str
 {
@@ -143,4 +143,5 @@ void	ft_string_delete(t_temp_str *temp_str);
 
 /* ft_string_temp_function.c*/
 int		ft_temp_print(t_temp_str *temp_str, int fd);
+long	ft_atol_base(const char *str, char *base);
 #endif

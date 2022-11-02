@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 21:54:49 by jinam             #+#    #+#             */
-/*   Updated: 2022/08/28 16:02:49 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/20 09:33:08 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -38,7 +38,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *) tmp_s);
 		tmp_s++;
 	}
-	if ((unsigned char) c == 0)
+	if (c == 0)
 		return ((char *) tmp_s);
 	return (0);
 }
@@ -56,7 +56,7 @@ char	*ft_strrchr(const char *s, int c)
 			res = (char *) tmp_s;
 		tmp_s++;
 	}
-	if ((unsigned char) c == 0)
+	if (c == 0)
 		return ((char *) tmp_s);
 	return (res);
 }
