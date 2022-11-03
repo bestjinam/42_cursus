@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/11/02 10:57:20 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/03 22:06:29 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -17,7 +17,7 @@ BONUS_NAME =		checker
 
 # cmd & options 
 CC = 				cc
-CFLAGS =			-Wall -Wextra -Werror
+CFLAGS =			-Wall -Wextra -Werror -g3
 AR = 				ar
 ARFLAGS = 			crs
 RM = 				rm
