@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:41:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/03 17:31:45 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/03 19:49:14 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int	conv_str_to_int(char **str, t_stacks *stacks)
 		num = ft_atol_base(str[i], "0123456789");
 		if (num == 0 && ft_memcmp("0", str[i], ft_strlen(str[i]) != 0))
 		{
+			if (ft_memcmp("-", str[i], ft_strlen(str[i]) == 0)
+				|| ft_memcmp("+", str[i], ft_strlen(str[i]) == 0))
+				print_error();
 			if (ft_memcmp("-0", str[i], ft_strlen(str[i]) != 0)
 				&& ft_memcmp("+0", str[i], ft_strlen(str[i]) != 0))
 				print_error();

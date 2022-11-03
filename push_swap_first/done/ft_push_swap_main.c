@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:42:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/28 21:22:19 by jinam            ###   ########.fr       */
+/*   Updated: 2022/10/31 11:37:46 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -102,7 +102,7 @@ int	main(int argc, char **argv)
 	stack_delete(&stacks.buffer);
 	stack_delete(&stacks.stk_a);
 	stack_delete(&stacks.stk_b);
-	stack_delete(&stacks.commands);
+	//stack_delete(&stacks.commands);
 	exit(0);
 }
 
