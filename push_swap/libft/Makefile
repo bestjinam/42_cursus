@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 21:53:27 by jinam             #+#    #+#              #
-#    Updated: 2022/11/01 21:55:11 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/02 11:02:06 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ endif
 all : $(NAME)
 
 $(NAME)	:	$(LIBFT_OBJCS) $(P_OBJCS) $(G_OBJCS)
-	$(AR) $(ARFLAGS) $@ $^
+	@$(AR) $(ARFLAGS) $@ $^
 
 # make directorys
 
@@ -108,13 +108,13 @@ $(OBJCS_DIR)/$(GNL_DIR)/%.o : $(GNL_DIR)/%.c
 
 
 printf : 
-	make WITH_PRINTF=1 all
+	@make WITH_PRINTF=1 all
 
 gnl : 
-	make WITH_GNL=1 all
+	@make WITH_GNL=1 all
 
 printf_gnl:
-	make WITH_PRINTF=1 WITH_GNL=1 all
+	@make WITH_PRINTF=1 WITH_GNL=1 all
 
 clean : 
 	$(RM) $(RMFLAGS) $(OBJCS_DIR)

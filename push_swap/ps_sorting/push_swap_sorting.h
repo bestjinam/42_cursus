@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:15:33 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 20:04:55 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:34:29 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct s_min_max
 	int	max;
 	int	mid;
 }	t_min_max;
+
+enum e_direction
+{
+	TO_B = 0,
+	TO_A = 1
+};
 
 void	merge_sort(int left, int right, t_stacks *stacks);
 void	get_max_min(int *arr, int size, t_min_max *min_max);

@@ -6,13 +6,13 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 16:15:34 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 11:24:24 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/02 13:16:35 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "data_structure.h"
-#include "../ft_utils/ft_printf/ft_printf.h"
+#include "../libft/ft_printf/ft_printf.h"
 
 int	stack_init(t_stack *tmp, int cap)
 {

@@ -6,11 +6,11 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:34:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/02 10:21:23 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/02 13:17:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils/ft_printf/ft_printf.h"
+#include "../libft/ft_printf/ft_printf.h"
 #include "triangle_map.h"
 
 int	trg_map_get_level_start_idx(int depth)

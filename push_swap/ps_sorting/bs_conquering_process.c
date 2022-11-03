@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:40:09 by jinam             #+#    #+#             */
-/*   Updated: 2022/10/31 21:55:46 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:44:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap_sorting.h"
@@ -27,7 +27,8 @@ void	push_one_third(t_stacks *stks, int *map_info, t_triangle_map *map)
 	}
 }
 
-void	merge_triangles(t_stacks *stks, int p_idx, t_triangle_map *map, int opt)
+void	merge_triangles(t_stacks *stks, int p_idx, t_triangle_map *map, \
+						int direction)
 {
 	const int	mold = map->mold[p_idx];
 	int			val[3];
@@ -37,18 +38,17 @@ void	merge_triangles(t_stacks *stks, int p_idx, t_triangle_map *map, int opt)
 	val[2] = map->val[p_idx] / 3;
 	while (val[0] || val[1] || val[2])
 	{
-		if (get_stk_len(get_opposit_stk(stks, opt)) == 1)
+		if (get_stk_len(get_opposit_stk(stks, direction)) == 1)
 		{
 			val[2] = 0;
 			val[1] = 1;
 		}
 		if (mold == UP)
-			val[making_up(stks, val, opt)]--;
+			val[making_up(stks, val, direction)]--;
 		else
-			val[making_down(stks, val, opt)]--;
+			val[making_down(stks, val, direction)]--;
 	}
 }
-
 /*
  * map_info[0] = depth
  * map_info[1] = start_idx;

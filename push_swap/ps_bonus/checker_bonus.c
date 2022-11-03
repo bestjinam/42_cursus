@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 15:17:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/02 10:21:13 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:29:54 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,16 @@ int	pre_sorting_and_filtering(t_stacks *stacks)
 	return (0);
 }
 
+#include <stdlib.h>
+void leak(void)
+{system("leaks checker");}
+
 int	main(int argc, char **argv)
 {
 	t_stacks	stks;
 	char		*str;
 
+	atexit(leak);
 	if (argc < 2)
 		return (0);
 	if (read_argvs(argc, argv, &stks) == -1)
@@ -95,4 +100,9 @@ int	main(int argc, char **argv)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
+	stack_delete(&stks.buffer);
+	stack_delete(&stks.stk_a);
+	stack_delete(&stks.stk_b);
+	free(stks.array);
+	exit(0);
 }

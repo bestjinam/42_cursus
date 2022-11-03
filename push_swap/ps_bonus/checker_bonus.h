@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:43:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/02 10:12:04 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/02 13:18:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 # include "ds_bonus.h"
-# include "../ft_utils/ft_printf/ft_printf.h"
-# include "../ft_utils/get_next_line/get_next_line_bonus.h"
+# include "../libft/ft_printf/ft_printf.h"
+# include "../libft/get_next_line/get_next_line_bonus.h"
 # include "op_bonus.h"
 
 void	print_error(void);

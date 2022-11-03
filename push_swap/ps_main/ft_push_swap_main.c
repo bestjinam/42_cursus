@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:41:17 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/01 23:37:22 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:31:45 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,23 @@ void	init_stacks(t_stacks *stacks)
 	}
 }
 
+void leak(void)
+{
+	system("leaks push_swap");
+}
+
 int	main(int argc, char **argv)
 {
 	t_stacks	stks;
 
-	if (argc < 2)
+	atexit(leak);
+	if (argc < 1)
 		return (0);
 	if (read_argvs(argc, argv, &stks) == -1)
-		return (1);
+		exit (1);
 	init_stacks(&stks);
 	if (is_sorting(stks.array, stks.buffer.buffer, stks.buffer.len))
-		return (1);
+		exit (1);
 	init_sorting(&stks);
 	free(stks.array);
 	stack_delete(&stks.buffer);

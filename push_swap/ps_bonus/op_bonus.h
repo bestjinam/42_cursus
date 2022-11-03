@@ -6,14 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:05:21 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/01 17:59:50 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/02 13:18:16 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_BONUS_H
 # define OP_BONUS_H
 # include "ds_bonus.h"
-# include "../ft_utils/ft_printf/ft_printf.h"
+# include "../libft/ft_printf/ft_printf.h"
 
 enum e_op
 {

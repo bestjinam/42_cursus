@@ -1,6 +1,6 @@
 # library
 LIB_NAME = libft.a
-LIB_DIR = ft_utils
+LIB_DIR = libft
 LIB = $(LIB_DIR)/$(LIB_NAME)
 
 # file name
