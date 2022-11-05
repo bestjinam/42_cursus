@@ -1,3 +1,192 @@
+# 전체 파일 구조 
+
+.
+
+├── Makefile
+
+├── config
+
+│   ├── compile_rules.mk
+
+│   └── variables.mk
+
+├── data_structure
+
+│   ├── data_structure.h
+
+│   ├── ds_circular_queue.c
+
+│   ├── ds_get_utils.c
+
+│   ├── ds_show_utils.c
+
+│   └── ds_stack.c
+
+├── libft
+
+│   ├── Makefile
+
+│   ├── ft_printf
+
+│   │   ├── _printf_c.c
+
+│   │   ├── _printf_d.c
+
+│   │   ├── _printf_p.c
+
+│   │   ├── _printf_s.c
+
+│   │   ├── _printf_u.c
+
+│   │   ├── _printf_x.c
+
+│   │   ├── ft_printf.c
+
+│   │   ├── ft_printf.h
+
+│   │   ├── ft_printf_common_utils.c
+
+│   │   └── ft_printf_nbr_utils.c
+
+│   ├── get_next_line
+
+│   │   ├── get_next_line_bonus.c
+
+│   │   ├── get_next_line_bonus.h
+
+│   │   └── get_next_line_utils_bonus.c
+
+│   └── libft
+
+│       ├── ft___lst_bonus.c
+
+│       ├── ft___lst_del_bonus.c
+
+│       ├── ft___lst_function_bonus.c
+
+│       ├── ft__print_functions.c
+
+│       ├── ft__stdlib.c
+
+│       ├── ft__string.c
+
+│       ├── ft__string_function.c
+
+│       ├── ft__string_split.c
+
+│       ├── ft_atol_base.c
+
+│       ├── ft_ctype_case_mapping.c
+
+│       ├── ft_ctype_classification.c
+
+│       ├── ft_stdlib.c
+
+│       ├── ft_string_atoi_base.c
+
+│       ├── ft_string_comparison.c
+
+│       ├── ft_string_concat.c
+
+│       ├── ft_string_copying.c
+
+│       ├── ft_string_duplicate.c
+
+│       ├── ft_string_itoa_base.c
+
+│       ├── ft_string_miscellaneous.c
+
+│       ├── ft_string_search.c
+
+│       ├── ft_string_temp.c
+
+│       ├── ft_string_temp_function.c
+
+│       └── libft.h
+
+├── ps_bonus
+
+│   ├── checker_bonus.c
+
+│   ├── checker_bonus.h
+
+│   ├── ds_bonus.h
+
+│   ├── ds_circular_queue_bonus.c
+
+│   ├── ds_get_utils_bonus.c
+
+│   ├── ds_show_utils_bonus.c
+
+│   ├── ds_stack_bonus.c
+
+│   ├── ft_push_swap_error_handling_bonus.c
+
+│   ├── init_stacks_bonus.c
+
+│   ├── op_bonus.h
+
+│   ├── op_push_bonus.c
+
+│   ├── op_rev_rotate_bonus.c
+
+│   ├── op_rotate_bonus.c
+
+│   ├── op_swap_bonus.c
+
+│   └── util_pre_sorting_bonus.c
+
+├── ps_commands
+
+│   ├── op.h
+
+│   ├── op_push.c
+
+│   ├── op_rev_rotate.c
+
+│   ├── op_rotate.c
+
+│   └── op_swap.c
+
+├── ps_main
+
+│   ├── ft_push_swap_error_handling.c
+
+│   ├── ft_push_swap_main.c
+
+│   ├── is_sorting.c
+
+│   └── push_swap_main.h
+
+├── ps_sorting
+
+│   ├── bs_conquering_process.c
+
+│   ├── bs_conquering_utils.c
+
+│   ├── bs_dividing_elements.c
+
+│   ├── bs_dividing_process.c
+
+│   ├── bs_making_up_down.c
+
+│   ├── init_sorting_process.c
+
+│   ├── push_swap_sorting.h
+
+│   ├── small_sorting_process.c
+
+│   └── util_pre_sorting.c
+
+└── triangle_map
+
+├── triangle_map.c
+
+├── triangle_map.h
+
+└── triangle_map_show.c
+
+
 배열 순환 큐를 사용하기
 
 ## 자료 구조
