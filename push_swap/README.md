@@ -614,3 +614,15 @@ map에는 각 단계별 (depth)별 삼각형들의 갯수와 모양이 담겨져
     	pa(stacks);
     }
     ```
+    
+# 정복 하기 
+    
+스택 B에 triangle map에 따라서 다 옮겨줬으면 이제 합병을 진행하면 된다.
+
+먼저 스택 B에 담긴 삼각형들의 1/3을 스택 A에 옮긴 후 각 스택의 위와 아래를 비교해서 정렬을 해주자.
+
+계속해서 반복하면 언젠가 스택 A에 다 정렬되는 것을 확인할 수 있다.
+
+이때 생성한 triangle map의 depth가 짝수인지 홀수인지에 따라 마지막에 큰 하나의 삼각형 덩어리가 스택 A에 위치할지 스택 B에 위치할지가 달라짐을 기억하라!
+
+(https://github.com/bestjinam/42_cursus/blob/main/push_swap/ps_sorting/bs_conquering_process.c)
