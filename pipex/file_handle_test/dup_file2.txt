@@ -1,0 +1,3 @@
+write something!
+Can you duplicate it?
+inserting a new line in the new file.
