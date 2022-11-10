@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/04 15:16:00 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/10 18:16:08 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,7 @@ void	ft_string_delete(t_temp_str *temp_str);
 /* ft_string_temp_function.c*/
 int		ft_temp_print(t_temp_str *temp_str, int fd);
 long	ft_atol_base(const char *str, char *base, int *flag);
+
+void	*ft_malloc(size_t size);
+
 #endif

@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/08/28 15:58:32 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/10 18:14:12 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME		=	libft.a
@@ -23,7 +23,7 @@ SRCS		=	ft_ctype_classification.c ft_ctype_case_mapping.c \
 				ft__string_split.c \
 				ft__stdlib.c \
 				ft__string_function.c ft_string_atoi_base.c ft_string_itoa_base.c\
-				ft_string_temp.c ft_string_temp_function.c
+				ft_string_temp.c ft_string_temp_function.c ft_malloc.c
 
 OBJS		=	$(SRCS:.c=.o)
 
