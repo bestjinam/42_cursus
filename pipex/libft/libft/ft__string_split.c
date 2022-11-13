@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 20:04:43 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/22 09:45:23 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/13 16:57:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ char	**ft_split(char const *s, char c)
 	int		res_len;
 
 	res_len = _seplen((char *)s, c);
-	res = malloc(sizeof(char *) * (res_len + 1));
-	if (!res)
-		return (0);
+	res = ft_malloc(sizeof(char *) * (res_len + 1));
 	if (_split_element(res, s, c) == -1)
 	{
 		_split_free(res);

@@ -6,11 +6,12 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:09:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/10 18:13:19 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/13 16:54:13 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 void	*ft_malloc(size_t size)
 {
@@ -18,6 +19,9 @@ void	*ft_malloc(size_t size)
 
 	res = malloc(size);
 	if (!res)
+	{
+		perror("malloc");
 		exit(1);
+	}
 	return (res); 
 }
