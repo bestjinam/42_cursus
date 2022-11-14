@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 00:26:36 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/14 19:35:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,27 @@ static char	*_get_path(char *cmd, char *paths[])
 	i = -1;
 	while (paths[++i])
 	{
+		if (access(cmd, F_OK | X_OK) == 0)
+			return (cmd);
 		cmd_path = _make_whole_path(paths[i], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
 	}
-	free(cmd_path);
 	return (NULL);
+}
+
+static int	is_empty_str(char *str)
+{
+	int			i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != ' ')
+			return (0);
+	}
+	return (1);
 }
 
 t_cmd_node	**parsing_argv(int len, char **argv, char *envp[])
@@ -69,6 +83,8 @@ t_cmd_node	**parsing_argv(int len, char **argv, char *envp[])
 	i = -1;
 	while (++i < len)
 	{
+		if (is_empty_str(argv[i]) == 1)
+			ft_exit("pipex : syntax error", EXIT_FAILURE);
 		res[i] = ft_malloc(sizeof(t_cmd_node));
 		res[i]->cmd_args = ft_split(argv[i], ' ');
 		res[i]->cmd_path = _get_path(res[i]->cmd_args[0], envp_paths);

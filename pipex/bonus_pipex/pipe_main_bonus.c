@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_main.c                                        :+:      :+:    :+:   */
+/*   pipe_main_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:53:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/13 21:44:02 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/14 21:07:25 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "pipe.h"
+#include "pipe_bonus.h"
+
+static void	_close_fd(t_cmd_node *cmd)
+{
+	if (cmd->pipe[0] >= 0)
+		close(cmd->pipe[0]);
+	if (cmd->pipe[1] >= 0)
+		close(cmd->pipe[1]);
+}
 
 void	exe_process(t_cmd_node *cmd, char *envp[])
 {
@@ -23,19 +31,25 @@ void	exe_process(t_cmd_node *cmd, char *envp[])
 		ft_perror("pipex");
 	if (pid == 0)
 	{
+		if (cmd->pipe[0] < 0 || cmd->pipe[1] < 0)
+			exit(1);
+		if (cmd->executables == 0)
+		{
+			ft_putstr_fd("pipex : command not found\n", 2);
+			exit(1);
+		}
 		dup2(cmd->pipe[0], 0);
 		close(cmd->pipe[0]);
 		dup2(cmd->pipe[1], 1);
 		close(cmd->pipe[1]);
 		execve(cmd->cmd_path, cmd->cmd_args, envp);
-		ft_printf("pipex : command not found\n");
+		ft_putstr_fd("pipex : command not found\n", 2);
 		exit(1);
 	}
-	close(cmd->pipe[0]);
-	close(cmd->pipe[1]);
+	_close_fd(cmd);
 }
 
-void	_io_setting(int i, t_cmd_node *cmd, int fd1, int fd2)
+void	io_setting(int i, t_cmd_node *cmd, int fd1, int fd2)
 {
 	int			pip_res;
 	static int	pipe_fd[2];
@@ -69,11 +83,11 @@ void	pipe_m_init_process(char *f1, char *f2, t_cmd_node **cmds, char *envp[])
 	const int	fd2 = open(f2, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 
 	if (fd1 == -1 || fd2 == -1)
-		ft_perror("pipex");
+		perror("pipex");
 	i = -1;
 	while (cmds[++i] != NULL)
 	{
-		_io_setting(i, cmds[i], fd1, fd2);
+		io_setting(i, cmds[i], fd1, fd2);
 		exe_process(cmds[i], envp);
 	}
 	i = -1;
@@ -85,8 +99,11 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_cmd_node	**cmd_paths;
 
-	if (ft_memcmp("here_doc", argv[0], ft_strlen("here_doc")) == 0)
+	if (ft_strncmp("here_doc", argv[1], ft_strlen("here_doc")) == 0)
+	{
 		pipe_bonus(argc, argv, envp);
+		exit(0);
+	}
 	if (argc < 5)
 	{
 		ft_putstr_fd("input error : pipex infile \"cmd1\" \"cmd2\" outfile", 2);
@@ -94,4 +111,6 @@ int	main(int argc, char **argv, char *envp[])
 	}
 	cmd_paths = parsing_argv(argc - 3, argv + 2, envp);
 	pipe_m_init_process(argv[1], argv[argc - 1], cmd_paths, envp);
+	system("leaks pipex");
+	exit(0);
 }

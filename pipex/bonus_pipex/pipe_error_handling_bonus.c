@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   pipe_error_handling_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:09:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 14:05:02 by jinam            ###   ########.fr       */
+/*   Created: 2022/11/13 18:21:11 by jinam             #+#    #+#             */
+/*   Updated: 2022/11/14 18:59:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "pipe_bonus.h"
 
-void	*ft_malloc(size_t size)
+void	ft_perror(char *error)
 {
-	void	*res;
+	perror(error);
+	exit(1);
+}
 
-	res = malloc(size);
-	if (!res)
-	{
-		perror("malloc");
-		exit(1);
-	}
-	return (res);
+void	ft_exit(char *str, int sig)
+{
+	ft_putendl_fd(str, 2);
+	exit(sig);
 }

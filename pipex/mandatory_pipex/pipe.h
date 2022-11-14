@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_bonus.c                                       :+:      :+:    :+:   */
+/*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 16:38:56 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/13 16:40:31 by jinam            ###   ########.fr       */
+/*   Created: 2022/11/13 15:54:27 by jinam             #+#    #+#             */
+/*   Updated: 2022/11/14 19:36:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#ifndef PIPE_H
+# define PIPE_H
+# include "../includes/ft_printf.h"
+# include "../includes/libft.h"
 
-void	pipe_bonus(int argc, char **argv, char *envp[])
+typedef struct s_cmd_node
 {
-	(void) argc;
-	(void) argv;
-	(void) envp;
-}
+	int					len;
+	int					pipe[2];
+	char				executables;
+	char				*cmd_path;
+	char				**cmd_args;
+}	t_cmd_node;
+
+t_cmd_node	**parsing_argv(int len, char **argv, char *envp[]);
+void		ft_perror(char *error);
+void		ft_exit(char *str, int sig);
+#endif
