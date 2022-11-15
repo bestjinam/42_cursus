@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/28 14:19:44 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/14 03:54:20 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -72,6 +72,15 @@ static void	_gnl_getline(int fd, t_list *node, size_t size)
 	node->new_len = 1;
 }
 
+static void	*_gnl_clear(t_list *node, char *line)
+{
+	if (line)
+		free(line);
+	node->eol = BUFFER_SIZE;
+	node->last_len = 0;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static t_list	node = {"", BUFFER_SIZE,
@@ -80,13 +89,16 @@ char	*get_next_line(int fd)
 
 	line = (void *) 0;
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
-		return ((void *) 0);
+		return (_gnl_clear(&node, line));
 	while (1)
 	{
 		if (node.eol == BUFFER_SIZE)
 			_gnl_getline(fd, &node, BUFFER_SIZE);
-		if (node.rbytes == 0 || ((size_t)node.rbytes == node.eol))
+		if (node.rbytes <= 0 || ((size_t)node.rbytes == node.eol))
+		{
+			_gnl_clear(&node, NULL);
 			return (line);
+		}
 		if (node.buff[node.eol] == '\n')
 			return (_gnl_makeline(&node, node.new_len, &line, IS_END));
 		if (node.eol == (size_t)node.rbytes - 1)
