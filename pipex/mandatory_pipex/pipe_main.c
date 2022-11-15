@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:53:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 18:22:43 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 15:00:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	pipe_m_init_process(char *f1, char *f2, t_cmd_node **cmds, char *envp[])
 		exe_process(cmds[i], envp);
 	}
 	i = -1;
-	while (cmds[++i + 1] != NULL)
+	while (cmds[++i] != NULL)
 		wait(NULL);
 }
 
@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char *envp[])
 
 	if (argc < 5)
 	{
-		ft_putstr_fd("input error : pipex infile \"cmd1\" \"cmd2\" outfile", 2);
+		ft_putstr_fd("pipex infile \"cmd1\" \"cmd2\" outfile", 2);
 		exit(1);
 	}
 	cmd_paths = parsing_argv(argc - 3, argv + 2, envp);

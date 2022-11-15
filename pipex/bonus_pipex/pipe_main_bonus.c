@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:53:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 21:07:25 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 14:57:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	pipe_m_init_process(char *f1, char *f2, t_cmd_node **cmds, char *envp[])
 		exe_process(cmds[i], envp);
 	}
 	i = -1;
-	while (cmds[++i + 1] != NULL)
+	while (cmds[++i] != NULL)
 		wait(NULL);
 }
 
@@ -111,6 +111,5 @@ int	main(int argc, char **argv, char *envp[])
 	}
 	cmd_paths = parsing_argv(argc - 3, argv + 2, envp);
 	pipe_m_init_process(argv[1], argv[argc - 1], cmd_paths, envp);
-	system("leaks pipex");
 	exit(0);
 }
