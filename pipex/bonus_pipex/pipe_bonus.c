@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:38:56 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/15 17:15:38 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 18:19:44 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fcntl.h"
@@ -35,7 +35,7 @@ void	here_doc_process(char *end, int *hd_fd)
 	unlink(file);
 	while (1)
 	{
-		ft_printf("pipe here_doc > ");
+		ft_printf("> ");
 		line = get_next_line(0);
 		if (!line)
 			break ;
