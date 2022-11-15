@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/11/15 19:33:25 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/16 01:42:30 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -17,7 +17,7 @@ BONUS_NAME =		pipex
 
 # cmd & options 
 CC = 				cc
-CFLAGS =			-Wall -Wextra -Werror fsanitize=address -g3
+CFLAGS =			-Wall -Wextra -Werror -fsanitize=address -g3
 AR = 				ar
 ARFLAGS = 			crs
 RM = 				rm
@@ -29,21 +29,22 @@ include ./config/compile_rules.mk
 M_OBJCS = $(addprefix $(OUT_DIR)/$(M_DIR)/, $(addsuffix .o, $(M_FILES)))
 B_OBJCS = $(addprefix $(OUT_DIR)/$(B_DIR)/, $(addsuffix .o, $(B_FILES)))
 
+ifdef	WITH_BONUS
+	OBJECTS = $(B_OBJCS)
+else
+	OBJECTS = $(M_OBJCS)
+endif
+
 $(NAME) : all
 
-all : mandatory_all
+bonus :
+	@make WITH_BONUS=1 all
 
-bonus : bonus_all
-
-mandatory_all : $(M_OBJCS)
+all : $(OBJECTS)
 	@make -C $(LIB_DIR) printf_gnl
-	@$(CC) $(CFLAGS) $(M_OBJCS) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
 
-bonus_all : $(B_OBJCS) 
-	@make -C $(LIB_DIR) printf_gnl
-	@$(CC) $(CFLAGS) $(B_OBJCS) $(LIB) -o $(NAME)
-
-.PHONY : all
+.PHONY : all bonus
 
 .PHONY : clean
 clean :

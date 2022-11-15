@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/16 01:00:24 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/16 01:13:18 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static char	*_get_path(char *cmd, char *paths[])
 			return (cmd_path);
 		free(cmd_path);
 	}
-	if (ft_strchr(cmd, '/') != 0 && access(cmd, F_OK | X_OK) == 0)
+	ft_printf("%s\n", cmd);
+	if (ft_strchr(cmd, '/') != NULL && access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
 	return (NULL);
 }
@@ -94,7 +95,7 @@ t_cmd_node	**parsing_argv(int len, char **argv, char *envp[])
 		res[i]->len = len;
 	}
 	i = -1;
-	while (envp_paths[++i])
+	while (envp_paths && envp_paths[++i])
 		free(envp_paths[i]);
 	free(envp_paths);
 	return (res);
