@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/11/16 01:42:30 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/16 01:45:23 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -35,12 +35,12 @@ else
 	OBJECTS = $(M_OBJCS)
 endif
 
-$(NAME) : all
+all : $(NAME)
 
 bonus :
-	@make WITH_BONUS=1 all
+	make WITH_BONUS=1 all
 
-all : $(OBJECTS)
+$(NAME) : $(OBJECTS) 
 	@make -C $(LIB_DIR) printf_gnl
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
 
