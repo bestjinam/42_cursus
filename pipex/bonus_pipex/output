@@ -1,9 +1,0 @@
-total 40
-drwxr-xr-x   8 jinam  2022_seoul   272 Nov 14 18:39 .
-drwxr-xr-x  14 jinam  2022_seoul   476 Nov 14 18:36 ..
--rw-r--r--   1 jinam  2022_seoul     0 Nov 14 18:40 output
--rw-r--r--   1 jinam  2022_seoul  1767 Nov 14 15:28 pipe_bonus.c
--rw-r--r--   1 jinam  2022_seoul  1297 Nov 14 13:43 pipe_bonus.h
--rw-r--r--   1 jinam  2022_seoul   990 Nov 14 13:14 pipe_error_handling_bonus.c
--rw-r--r--   1 jinam  2022_seoul  2867 Nov 14 18:36 pipe_main_bonus.c
--rw-r--r--   1 jinam  2022_seoul  2161 Nov 14 13:17 pipe_parsing_args_bonus.c
