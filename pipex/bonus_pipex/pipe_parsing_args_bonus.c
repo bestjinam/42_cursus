@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 19:16:11 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 19:32:56 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ static char	*_get_path(char *cmd, char *paths[])
 	char	*cmd_path;
 
 	i = -1;
+
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (cmd);
 	while (paths[++i])
 	{
-		if (access(cmd, F_OK | X_OK) == 0)
-			return (cmd);
 		cmd_path = _make_whole_path(paths[i], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);

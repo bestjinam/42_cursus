@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 19:35:23 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 19:30:15 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static char	*_get_path(char *cmd, char *paths[])
 	char	*cmd_path;
 
 	i = -1;
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (cmd);
 	while (paths[++i])
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
@@ -78,6 +80,8 @@ t_cmd_node	**parsing_argv(int len, char **argv, char *envp[])
 	char		**envp_paths;
 
 	envp_paths = _parsing_envp(envp);
+	if (!envp_paths)
+		exit(1);
 	res = ft_malloc(sizeof(t_cmd_node *) * (len + 1));
 	res[len] = NULL;
 	i = -1;
