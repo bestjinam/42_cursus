@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:54:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/15 18:18:15 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/15 23:19:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_cmd_node
 	char				**cmd_args;
 }	t_cmd_node;
 
+void		get_trim_option(char **str);
 t_cmd_node	**parsing_argv(int len, char **argv, char *envp[]);
 void		io_setting(int i, t_cmd_node *cmd, int fd1, int fd2);
 void		exe_process(t_cmd_node *cmd, char *envp[]);
