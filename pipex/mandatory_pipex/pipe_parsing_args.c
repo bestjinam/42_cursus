@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:03:01 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/16 01:33:28 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:31:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static char	*_get_path(char *cmd, char *paths[])
 	}
 	if (ft_strchr(cmd, '/') != NULL && access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
+	perror("pipex");
 	return (NULL);
 }
 
@@ -86,7 +87,7 @@ t_cmd_node	**parsing_argv(int len, char **argv, char *envp[])
 	while (++i < len)
 	{
 		if (is_empty_str(argv[i]) == 1)
-			ft_exit("pipex : syntax error", EXIT_FAILURE);
+			argv[i] = "pipex_empty";
 		res[i] = ft_malloc(sizeof(t_cmd_node));
 		res[i]->cmd_args = ft_split(argv[i], ' ');
 		res[i]->cmd_path = _get_path(res[i]->cmd_args[0], envp_paths);

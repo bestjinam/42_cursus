@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/11/16 01:51:55 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/16 17:03:01 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -17,7 +17,7 @@ BONUS_NAME =		pipex
 
 # cmd & options 
 CC = 				cc
-CFLAGS =			-Wall -Wextra -Werror
+CFLAGS =			-Wall -Wextra -Werror -fsanitize=address -g3
 AR = 				ar
 ARFLAGS = 			crs
 RM = 				rm

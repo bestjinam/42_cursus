@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:54:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/15 18:18:15 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:38:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 typedef struct s_cmd_node
 {
 	int					len;
+	int					idx;
+	int					f1;
 	int					read_fd;
 	int					pipe[2];
 	char				executables;

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:53:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/16 01:55:48 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/16 17:15:45 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void	exe_process(t_cmd_node *cmd, char *envp[])
 		if (cmd->pipe[0] < 0 || cmd->pipe[1] < 0)
 			exit(1);
 		if (cmd->executables == 0)
-		{
-			ft_putstr_fd("pipex : command not found\n", 2);
 			exit(1);
-		}
 		dup2(cmd->pipe[0], 0);
 		close(cmd->pipe[0]);
 		dup2(cmd->pipe[1], 1);
@@ -101,7 +98,7 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_cmd_node	**cmd_paths;
 
-	if (argc > 1 && ft_strncmp("here_doc", argv[1], ft_strlen("here_doc")) == 0)
+	if (argc > 1 && ft_strncmp("here_doc", argv[1], ft_strlen(argv[1])) == 0)
 	{
 		pipe_bonus(argc, argv, envp);
 		exit(0);
