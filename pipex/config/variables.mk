@@ -5,9 +5,10 @@ LIB = $(LIB_DIR)/$(LIB_NAME)
 
 # file name
 
-M_FILES =			pipe_error_handling \
-					pipe_main \
-					pipe_parsing_args
+M_FILES =			files_utils \
+					pipex_error_handle \
+					pipex_main \
+					pipex_parsing_argv
 
 B_FILES =			pipe_error_handling_bonus \
 					pipe_main_bonus \
