@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_parsing_argv.c                               :+:      :+:    :+:   */
+/*   pipex_parsing_argv_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:52:23 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/17 17:22:16 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:21:42 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static char	*_make_whole_path(char *envpath, char *cmd)
 {
@@ -24,7 +24,7 @@ static char	*_make_whole_path(char *envpath, char *cmd)
 	return (res);
 }
 
-static char	**_parsing_envp(char *envp[])
+char	**parsing_envp(char *envp[])
 {
 	char	**res;
 	int		i;
@@ -41,7 +41,7 @@ static char	**_parsing_envp(char *envp[])
 	return (res);
 }
 
-static int	is_empty_str(char *str)
+int	is_empty_str(char *str)
 {
 	int			i;
 
@@ -54,7 +54,7 @@ static int	is_empty_str(char *str)
 	return (1);
 }
 
-static char	*_get_path(int idx, t_cmd *node, char *paths[])
+char	*get_path(int idx, t_cmd *node, char *paths[])
 {
 	int			i;
 	const char	*cmd = node->cmd_args[0];
@@ -87,7 +87,7 @@ t_cmd	**parsing_argv(int len, char **argv, char *envp[])
 	int					i;
 	char				**envp_paths;
 
-	envp_paths = _parsing_envp(envp);
+	envp_paths = parsing_envp(envp);
 	res = ft_malloc(sizeof(t_cmd *) * (len + 1));
 	res[len] = NULL;
 	i = -1;
@@ -98,13 +98,10 @@ t_cmd	**parsing_argv(int len, char **argv, char *envp[])
 		res[i] = ft_malloc(sizeof(t_cmd));
 		res[i]->files = (t_io_files *) file;
 		res[i]->cmd_args = ft_split(argv[i + 1], ' ');
-		res[i]->cmd_paths = _get_path(i, res[i], envp_paths);
+		res[i]->cmd_paths = get_path(i, res[i], envp_paths);
 		res[i]->execuatable = (res[i]->cmd_paths != NULL);
 		res[i]->len = len;
 	}
-	i = -1;
-	while (envp_paths && envp_paths[++i])
-		free(envp_paths[i]);
-	free(envp_paths);
+	free_envp_paths(envp_paths);
 	return (res);
 }

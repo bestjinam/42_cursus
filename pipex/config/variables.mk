@@ -10,10 +10,11 @@ M_FILES =			files_utils \
 					pipex_main \
 					pipex_parsing_argv
 
-B_FILES =			pipe_error_handling_bonus \
-					pipe_main_bonus \
-					pipe_bonus \
-					pipe_parsing_args_bonus
+B_FILES =			files_utils_bonus \
+					pipex_bonus_processing_bonus \
+					pipex_main_bonus \
+					pipex_error_handle_bonus \
+					pipex_parsing_argv_bonus
 # file directory
 
 OUT_DIR = 			objcs

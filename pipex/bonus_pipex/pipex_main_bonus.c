@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_main.c                                       :+:      :+:    :+:   */
+/*   pipex_main_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:48:40 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/17 17:09:02 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:16:27 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	exe_process(t_cmd *cmd, char *envp[])
 {
@@ -58,6 +58,8 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_cmd	**cmds;
 
+	if (argc > 1 && ft_strncmp("here_doc", argv[1], ft_strlen(argv[1])) == 0)
+		pipe_bonus_main(argc, argv, envp);
 	if (argc < 5)
 	{
 		ft_putstr_fd("pipex infile \"cmd1\" \"cmd2\" outfile", 2);
