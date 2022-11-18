@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:24:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/17 17:38:38 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/18 14:31:48 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
@@ -90,6 +90,5 @@ void	pipe_bonus_main(int argc, char **argv, char **envp)
 	here_doc_process(argv[2], fd);
 	cmds = parsing_argv_here_doc(argc - 4, argv + 2, envp, fd);
 	pipe_m_init_process(cmds, envp);
-	system("leaks pipex");
 	exit(0);
 }

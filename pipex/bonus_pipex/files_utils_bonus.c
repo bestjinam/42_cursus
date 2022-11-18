@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:14:14 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/17 17:35:04 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/18 14:40:49 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ t_io_files	*open_files(char *f1, char *f2)
 	}
 	if (res->f1 == -1)
 	{
-		ft_putstr_fd("pipex : No such file or directory : ", 2);
+		ft_putstr_fd("pipex : (No such file or directory)", 2);
+		ft_putstr_fd(" or (Permission Denied) : ", 2);
 		ft_putendl_fd(f1, 2);
+	}
+	if (res->f2 == -1)
+	{
+		ft_putstr_fd("pipex : Permission Denied : ", 2);
+		ft_putendl_fd(f2, 2);
 	}
 	return (res);
 }
