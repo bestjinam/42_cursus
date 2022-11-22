@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:14:14 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/18 14:40:49 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:14:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@
 void	get_random_tmp_file(char **str)
 {
 	const int	fd = open("/dev/urandom", O_RDONLY);
+	const char	*pool = "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz";
 	char		line[6];
+	size_t		i;
 
 	read(fd, line, 5);
+	i = 0;
+	while (i < 5)
+	{
+		line[i] = pool[line[i] % (ft_strlen(pool))];
+		i++;
+	}
 	line[5] = 0;
-	*str = ft_strjoin(line, "_pipex.tmp");
+	*str = ft_strjoin((const char *) line, "_pipex.tmp");
 	close(fd);
 }
 
@@ -33,22 +41,17 @@ t_io_files	*open_files(char *f1, char *f2)
 	{
 		res->f1 = 0;
 		res->f2 = open(f2, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (res->f2 == -1)
+			perror(f2);
 	}
 	else
 	{
 		res->f1 = open(f1, O_RDONLY);
+		if (res->f1 == -1)
+			perror(f1);
 		res->f2 = open(f2, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	}
-	if (res->f1 == -1)
-	{
-		ft_putstr_fd("pipex : (No such file or directory)", 2);
-		ft_putstr_fd(" or (Permission Denied) : ", 2);
-		ft_putendl_fd(f1, 2);
-	}
-	if (res->f2 == -1)
-	{
-		ft_putstr_fd("pipex : Permission Denied : ", 2);
-		ft_putendl_fd(f2, 2);
+		if (res->f2 == -1)
+			perror(f2);
 	}
 	return (res);
 }

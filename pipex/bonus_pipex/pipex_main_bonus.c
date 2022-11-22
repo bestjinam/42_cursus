@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:48:40 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/18 14:31:30 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:17:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	exe_process(t_cmd *cmd, char *envp[])
 		close(cmd->pipe[1]);
 		close(cmd->read_fd);
 		execve(cmd->cmd_paths, cmd->cmd_args, envp);
-		ft_putstr_fd("pipex : execve failed\n", 2);
-		exit(1);
+		ft_perror(cmd->cmd_paths);
 	}
 	close_fd(cmd);
 }

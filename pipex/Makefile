@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/11/17 17:09:46 by jinam            ###   ########.fr        #
+#    Updated: 2022/11/21 13:02:28 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -30,8 +30,10 @@ M_OBJCS = $(addprefix $(OUT_DIR)/$(M_DIR)/, $(addsuffix .o, $(M_FILES)))
 B_OBJCS = $(addprefix $(OUT_DIR)/$(B_DIR)/, $(addsuffix .o, $(B_FILES)))
 
 ifdef	WITH_BONUS
+	RM_OBJS = $(M_OBJCS)
 	OBJECTS = $(B_OBJCS)
 else
+	RM_OBJS = $(B_OBJCS)
 	OBJECTS = $(M_OBJCS)
 endif
 
@@ -42,6 +44,7 @@ bonus :
 
 $(NAME) : $(OBJECTS) 
 	@make -C $(LIB_DIR) printf_gnl
+	$(RM) $(RMFLAGS) $(RM_OBJS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
 
 .PHONY : all bonus

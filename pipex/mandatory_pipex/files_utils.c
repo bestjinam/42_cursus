@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:14:14 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/18 14:40:19 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/19 16:26:47 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,11 @@ t_io_files	*open_files(char *f1, char *f2)
 
 	res = ft_malloc(sizeof(t_io_files));
 	res->f1 = open(f1, O_RDONLY);
-	res->f2 = open(f2, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (res->f1 == -1)
-	{
-		ft_putstr_fd("pipex : (No such file or directory)", 2);
-		ft_putstr_fd(" or (Permission Denied) : ", 2);
-		ft_putendl_fd(f1, 2);
-	}
+		perror(f1);
+	res->f2 = open(f2, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (res->f2 == -1)
-	{
-		ft_putstr_fd("pipex : Permissison Denied : ", 2);
-		ft_putendl_fd(f2, 2);
-	}
+		perror(f2);
 	return (res);
 }
 

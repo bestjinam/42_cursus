@@ -6,11 +6,10 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:18:07 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/16 21:50:20 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:01:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "pipex_bonus.h"
 
