@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol_mangdelbrot_utils.c                        :+:      :+:    :+:   */
+/*   fractol_julia_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 22:02:23 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/30 16:06:22 by jinam            ###   ########.fr       */
+/*   Created: 2022/11/30 15:08:39 by jinam             #+#    #+#             */
+/*   Updated: 2022/11/30 19:00:38 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	draw_mandelbrot(t_mlx *mlx)
+void	draw_julia(t_mlx *mlx)
 {
 	int	i;
 	int	j;
@@ -24,7 +24,7 @@ void	draw_mandelbrot(t_mlx *mlx)
 		j = -1 * (VIEW / 2);
 		while (j < (VIEW / 2))
 		{
-			color = mb_get_color((int []){i, j}, &mlx->pnt, VIEW, mlx->m_cnt);
+			color = j_get_color((int []){i, j}, &mlx->pnt, VIEW, mlx->m_cnt);
 			my_mlx_pixel_put(&mlx->img, i + (VIEW / 2), j + (VIEW / 2), color);
 			j ++;
 		}
@@ -33,7 +33,7 @@ void	draw_mandelbrot(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img.img_ptr, 0, 0);
 }
 
-unsigned int	mb_get_color(int *xy, t_point *point, int line_len, int cnt)
+unsigned int	j_get_color(int *xy, t_point *point, int line_len, int cnt)
 {
 	double	x[3];
 	double	y[2];
@@ -43,13 +43,11 @@ unsigned int	mb_get_color(int *xy, t_point *point, int line_len, int cnt)
 	iter = 0;
 	x[0] = xy[0] * ((double) point->width / line_len) + point->x;
 	y[0] = xy[1] * ((double) point->height / line_len) + point->y;
-	x[1] = 0;
-	y[1] = 0;
-	while ((x[1] * x[1] + y[1] * y[1] <= 2 * 2) && (iter < 100))
+	while ((x[0] * x[0] + y[0] * y[0] <= 2 * 2) && (iter < 100))
 	{
-		x[2] = x[1] * x[1] - y[1] * y[1] + x[0];
-		y[1] = 2 * x[1] * y[1] + y[0];
-		x[1] = x[2];
+		x[2] = x[0] * x[0] - y[0] * y[0];
+		y[0] = 2 * x[0] * y[0] + point->j_c_y;
+		x[0] = x[2] + point->j_c_x;
 		iter ++;
 	}
 	return (get_color(iter, cnt));

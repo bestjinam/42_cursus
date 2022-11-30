@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:33:00 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/28 21:45:00 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/30 19:22:03 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,32 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_point
+{
+	long double	x;
+	long double	y;
+	long double	zoom_rate;
+	long double	width;
+	long double	height;
+	long double	j_c_x;
+	long double	j_c_y;
+	int			mouse_on;
+}	t_point;
+
 typedef struct s_mlx
 {
 	void			*mlx_ptr;
 	void			*win;
 	int				size[2];
 	struct s_img	img;
+	struct s_point	pnt;
 	int				type;
+	int				m_cnt;
 }	t_mlx;
 
 enum e_keycodes
 {
+	RESET = 15,
 	ESC = 53,
 	LEFT = 123,
 	RIGHT,
@@ -46,13 +61,5 @@ enum e_event
 	X_EVENT_KEY_RELEASE = 3,
 	X_EVENT_KEY_EXIT = 17
 };
-
-typedef struct s_point
-{
-	long double	x;
-	long double	y;
-	long double	width;
-	long double	height;
-}	t_point;
 
 #endif
