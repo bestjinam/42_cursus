@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:31:12 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/30 19:33:01 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/01 15:42:29 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ static void	_julia_process(t_mlx *mlx)
 {
 	mlx->type = 1;
 	draw_julia(mlx);
+	mlx_hook(mlx->win, 6, 0, switch_imgnum, mlx);
+	mlx_hook(mlx->win, 5, 0, mouseup_event, mlx);
+	mlx_mouse_hook(mlx->win, mouse_event, mlx);
+	mlx_key_hook(mlx->win, key_event, mlx);
+	mlx_loop(mlx->mlx_ptr);
+}
+
+
+static void	_custom_process(t_mlx *mlx)
+{
+	mlx->type = 2;
+	draw_custom(mlx);
 	mlx_mouse_hook(mlx->win, mouse_event, mlx);
 	mlx_key_hook(mlx->win, key_event, mlx);
 	mlx_loop(mlx->mlx_ptr);
@@ -62,5 +74,7 @@ int	main(int argc, char **argv)
 		_mangdelbrot_process(&mlx);
 	if (ft_strncmp("julia", argv[1], ft_strlen(argv[1])) == 0)
 		_julia_process(&mlx);
+	if (ft_strncmp("custom", argv[1], ft_strlen(argv[1])) == 0)
+		_custom_process(&mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:33:00 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/30 19:22:03 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/01 12:34:33 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_point
 	long double	height;
 	long double	j_c_x;
 	long double	j_c_y;
-	int			mouse_on;
+
 }	t_point;
 
 typedef struct s_mlx
@@ -43,6 +43,7 @@ typedef struct s_mlx
 	struct s_point	pnt;
 	int				type;
 	int				m_cnt;
+	int				mouse_on;
 }	t_mlx;
 
 enum e_keycodes

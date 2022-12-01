@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:08:39 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/30 19:00:38 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/01 15:48:33 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	draw_julia(t_mlx *mlx)
 
 unsigned int	j_get_color(int *xy, t_point *point, int line_len, int cnt)
 {
-	double	x[3];
-	double	y[2];
-	double	temp_x;
-	int		iter;
+	long double	x[3];
+	long double	y[2];
+	long double	temp_x;
+	int			iter;
 
 	iter = 0;
 	x[0] = xy[0] * ((double) point->width / line_len) + point->x;
 	y[0] = xy[1] * ((double) point->height / line_len) + point->y;
-	while ((x[0] * x[0] + y[0] * y[0] <= 2 * 2) && (iter < 100))
+	while ((x[0] * x[0] + y[0] * y[0] <= 2 * 2) && (iter < 50))
 	{
 		x[2] = x[0] * x[0] - y[0] * y[0];
 		y[0] = 2 * x[0] * y[0] + point->j_c_y;
