@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:52:23 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/17 17:22:16 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:02:25 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ static char	*_get_path(int idx, t_cmd *node, char *paths[])
 		return ((char *) cmd);
 	if (idx == 0 && node->files->f1 < 0)
 		return (NULL);
+	printf("%d: %d, %d\n", idx, node->len, node->files->f2);
+	if (idx == (node->len - 1) && node->files->f2 < 0)
+		return (NULL);
 	if (ft_strchr(cmd, '/') != NULL)
 		ft_putstr_fd("pipex : No such file or directory : ", 2);
 	else
@@ -97,10 +100,11 @@ t_cmd	**parsing_argv(int len, char **argv, char *envp[])
 			argv[i + 1] = "(NULL)";
 		res[i] = ft_malloc(sizeof(t_cmd));
 		res[i]->files = (t_io_files *) file;
+		res[i]->len = len;
 		res[i]->cmd_args = ft_split(argv[i + 1], ' ');
 		res[i]->cmd_paths = _get_path(i, res[i], envp_paths);
 		res[i]->execuatable = (res[i]->cmd_paths != NULL);
-		res[i]->len = len;
+
 	}
 	i = -1;
 	while (envp_paths && envp_paths[++i])
