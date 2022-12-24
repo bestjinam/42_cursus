@@ -6,13 +6,15 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 22:08:35 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/22 13:42:44 by jinam            ###   ########.fr       */
+/*   Updated: 2022/07/19 20:37:39 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
+	f(lst->content);
+	lst = lst->next;
 	while (lst)
 	{
 		f(lst->content);

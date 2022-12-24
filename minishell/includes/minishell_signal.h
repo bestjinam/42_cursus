@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   minishell_signal.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:09:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 14:05:02 by jinam            ###   ########.fr       */
+/*   Created: 2022/12/24 16:24:49 by jinam             #+#    #+#             */
+/*   Updated: 2022/12/24 16:35:00 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#ifndef MINISHELL_SIGNAL_H
+# define MINISHELL_SIGNAL_H
 
-void	*ft_malloc(size_t size)
-{
-	void	*res;
+#include <termios.h>
+#include <signal.h>
 
-	res = malloc(size);
-	if (!res)
-	{
-		perror("malloc");
-		exit(1);
-	}
-	return (res);
-}
+void	env_signal_setting(void);
+
+#endif

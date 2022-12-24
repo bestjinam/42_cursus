@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   ms_error_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:09:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 14:05:02 by jinam            ###   ########.fr       */
+/*   Created: 2022/12/24 17:10:11 by jinam             #+#    #+#             */
+/*   Updated: 2022/12/24 17:15:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
-void	*ft_malloc(size_t size)
+void	ft_error_msg(char *msg)
 {
-	void	*res;
+	ft_putstr_fd(msg, 2);
+	return ;
+}
 
-	res = malloc(size);
-	if (!res)
-	{
-		perror("malloc");
-		exit(1);
-	}
-	return (res);
+void	ft_exit(char *msg, int err_num)
+{
+	ft_error_msg(msg);
+	exit(err_num);
 }
