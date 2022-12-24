@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/17 22:10:18 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/14 03:54:20 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -46,8 +46,6 @@ static char	*_gnl_makeline(t_list *node, size_t size,
 	char			*res;
 
 	res = malloc(sizeof(char) * (res_len));
-	if (!res)
-		return (0);
 	if (*line)
 	{
 		_gnl_memmove(res, *line, node->last_len);
