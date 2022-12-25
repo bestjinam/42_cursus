@@ -2,14 +2,14 @@
 $(OUT_DIR)/$(M_DIR)/%.o : $(M_DIR)/%.c
 	@mkdir -p $(OUT_DIR)
 	@mkdir -p $(OUT_DIR)/$(M_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(RLCFLAGS) $< -o $@
 
-$(OUT_DIR)/$(B_DIR)/%.o : $(B_DIR)/%.c $(S_DIR)/%.c
+$(OUT_DIR)/$(B_DIR)/%.o : $(B_DIR)/%.c
 	@mkdir -p $(OUT_DIR)
 	@mkdir -p $(OUT_DIR)/$(B_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(RLCFLAGS) $< -o $@
 
 $(OUT_DIR)/$(S_DIR)/%.o : $(S_DIR)/%.c
 	@mkdir -p $(OUT_DIR)
 	@mkdir -p $(OUT_DIR)/$(S_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(RLCFLAGS) $< -o $@

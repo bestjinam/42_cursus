@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:30:26 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 18:38:45 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/24 21:17:14 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 
 t_info	g_info;
 
+void	_free_structures(t_cmd_list *lexer_list, t_cmd_tree *parser_tree)
+{
+	while ((lexer_list)->len)
+		cnode_delete(lexer_list, (lexer_list)->head->data);
+	tree_delete((parser_tree)->root);
+	(parser_tree)->root = NULL;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd_list	lexer_list;
 	t_cmd_tree	parser_tree;
 	int			tmp;
 	char		*line;
-	
+
 	ms_init_all(&g_info.env_list, &lexer_list, &parser_tree);
+	minishell_env_parser(argc, argv, envp);
 	g_info.return_code = 0;
 	while (1)
 	{
@@ -32,13 +41,12 @@ int	main(int argc, char **argv, char **envp)
 		minishell_lexer(line, &lexer_list);
 		parser_tree.curr = lexer_list.head;
 		tmp = minishell_parser(&parser_tree);
-		if (tmp != SUCCESS_PROMPT)
+		if (tmp != SUCCESS)
 		{
-			while (lexer_list.len)
-				cnode_delete(&lexer_list, lexer_list.head->data);
-			tree_delete(parser_tree.root);
-			parser_tree.root = NULL;
+			_free_structures(&lexer_list, &parser_tree);
+			continue ;
 		}
+		_free_structures(&lexer_list, &parser_tree);
 		free(line);
 	}
 	exit (0);

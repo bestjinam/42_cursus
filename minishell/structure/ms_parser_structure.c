@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:33:41 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 16:06:31 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/25 18:06:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -32,23 +32,21 @@ t_cmd_tnode	*tnode_new(t_list *str, t_list *re, int type)
 	res->redirection = re;
 	res->string = str;
 	res->type = type;
+	res->excutable = 0;
 	return (res);
 }
 
-t_cmd_tnode	*tnode_add(t_cmd_tnode **node, t_cmd_tnode *n)
+t_cmd_tnode	*tnode_add(t_cmd_tnode *node, t_cmd_tnode *n)
 {
-	if (!*node)
-		*node = n;
-	else
-	{
-	if ((*node)->l_node && (*node)->r_node)
+	if (!node)
 		return (NULL);
-	if (!(*node)->l_node)
-		(*node)->l_node = n;
-	else if (!(*node)->r_node)
-		(*node)->r_node = n;
-	}
-	return (*node);
+	if ((node)->l_node && (node)->r_node)
+		return (NULL);
+	if (!(node)->l_node)
+		(node)->l_node = n;
+	else if (!(node)->r_node)
+		(node)->r_node = n;
+	return (node);
 }
 
 t_cmd_tnode	*tnode_get_rlast(t_cmd_tnode *root)

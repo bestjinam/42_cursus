@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/12/24 20:04:10 by jinam            ###   ########.fr        #
+#    Updated: 2022/12/24 20:24:13 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -18,6 +18,8 @@ BONUS_NAME =		minishell
 # cmd & options 
 CC = 				cc
 CFLAGS =			-Wall -Wextra -Werror
+RLLFLAGS = 			-L/Users/jinam/.brew/opt/readline/lib -lreadline
+RLCFLAGS = 			-I/Users/jinam/.brew/opt/readline/include
 AR = 				ar
 ARFLAGS = 			crs
 RM = 				rm
@@ -44,9 +46,8 @@ bonus :
 
 $(NAME) : $(OBJECTS) 
 	@make -C $(LIB_DIR) printf_gnl
-	@make -C $(MLX_DIR)
 	$(RM) $(RMFLAGS) $(RM_OBJS)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(RLLFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
 
 .PHONY : all bonus
 

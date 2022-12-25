@@ -6,11 +6,12 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:28:41 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 16:32:57 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/24 21:18:36 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell_signal.h"
 #include <unistd.h>
+#include <stdio.h>
 #include <readline/readline.h>
 
 static void	_sig_handler(int signo)
@@ -19,14 +20,14 @@ static void	_sig_handler(int signo)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("",0);
+		rl_replace_line("", 0);
 	}
 	else if (signo == SIGQUIT)
 		rl_on_new_line();
 	rl_redisplay();
 }
 
-void	env_signal_setting()
+void	env_signal_setting(void)
 {
 	struct termios	term;
 
@@ -36,4 +37,3 @@ void	env_signal_setting()
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
-

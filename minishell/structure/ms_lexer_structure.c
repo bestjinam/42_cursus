@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 13:16:24 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 16:06:20 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/24 20:23:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ t_cmd_node	*cnode_new(char *data, int type)
 
 void	cnode_add_back(t_cmd_list *lst, t_cmd_node *n)
 {
-	t_cmd_node	*curr;
-
 	if (!lst->head)
 		lst->head = n;
 	else
