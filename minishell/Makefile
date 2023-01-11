@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/12/24 20:24:13 by jinam            ###   ########.fr        #
+#    Updated: 2022/12/26 19:45:52 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -17,7 +17,7 @@ BONUS_NAME =		minishell
 
 # cmd & options 
 CC = 				cc
-CFLAGS =			-Wall -Wextra -Werror
+CFLAGS =			-Wall -Wextra -Werror #-fsanitize=address -g3
 RLLFLAGS = 			-L/Users/jinam/.brew/opt/readline/lib -lreadline
 RLCFLAGS = 			-I/Users/jinam/.brew/opt/readline/include
 AR = 				ar

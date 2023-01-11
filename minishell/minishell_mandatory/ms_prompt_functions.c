@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:36:29 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 21:17:58 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/26 19:48:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	minishell_prompt(char **res)
 	{
 		printf("\033[1A\033[%dCexit", (int)ft_strlen("minishell$ "));
 		free(*res);
+		system("leaks minishell");
 		ft_exit("", 1);
 	}
 	if (_isspace(*res) == 1)

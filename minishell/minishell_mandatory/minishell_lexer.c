@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 20:27:15 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 21:16:55 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/27 17:17:25 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int	minishell_lexer(char *str, t_cmd_list *cmd_list)
 
 	i = 0;
 	_len = 0;
+	i += _pass_space(&str[i]);
 	while (i < str_len)
 	{
-		i += _pass_space(&str[i]);
 		type = _make_type(&str[i]);
 		_len = _str_len(&str[i], type);
 		if (_len == -1)
@@ -97,6 +97,7 @@ int	minishell_lexer(char *str, t_cmd_list *cmd_list)
 		}
 		cnode_add_back(cmd_list, cnode_new(ft_substr(str, i, _len), type));
 		i += _len;
+		i += _pass_space(&str[i]);
 	}
 	return (SUCCESS);
 }

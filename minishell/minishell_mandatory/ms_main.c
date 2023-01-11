@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:30:26 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 21:17:14 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/11 20:25:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,48 @@
 
 t_info	g_info;
 
-void	_free_structures(t_cmd_list *lexer_list, t_cmd_tree *parser_tree)
+void	_destroy_all(t_cmd_list *lexer_list, t_cmd_tree *parser, char *line)
 {
 	while ((lexer_list)->len)
 		cnode_delete(lexer_list, (lexer_list)->head->data);
-	tree_delete((parser_tree)->root);
-	(parser_tree)->root = NULL;
+	tree_delete((parser)->root);
+	(parser)->root = NULL;
+	free(line);
+}
+
+void	_show_cmd_list(t_cmd_node *curr)
+{
+	while (curr)
+	{
+		printf(">> %s\n", curr->data);
+		curr = curr->next;
+	}
+}
+
+void	__printf_contents(void *curr)
+{
+	printf("%s -> ", ((t_cmd_data *) curr)->string);
+}
+
+void	_show_cmd_tree(t_cmd_tnode *root)
+{
+	t_list	*curr;
+
+	if (!root)
+		return ;
+	curr = root->string;
+	if (curr)
+	{
+		printf("%p\n", root);
+		ft_lstiter(curr, __printf_contents);
+	}
+	else
+		printf("type : %d", root->type);
+	printf("\n");
+	printf("#################################################\n");
+	printf("%p %p \n", root->l_node, root->r_node);
+	_show_cmd_tree(root->l_node);
+	_show_cmd_tree(root->r_node);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -43,11 +79,13 @@ int	main(int argc, char **argv, char **envp)
 		tmp = minishell_parser(&parser_tree);
 		if (tmp != SUCCESS)
 		{
-			_free_structures(&lexer_list, &parser_tree);
+			_destroy_all(&lexer_list, &parser_tree, line);
 			continue ;
 		}
-		_free_structures(&lexer_list, &parser_tree);
-		free(line);
+		minishell_executer(parser_tree.root);
+		_show_cmd_tree(parser_tree.root);
+		_destroy_all(&lexer_list, &parser_tree, line);
 	}
+	system("leaks minishell");
 	exit (0);
 }

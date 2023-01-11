@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:11:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 18:29:29 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/26 16:34:03 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_info
 {
 	t_env_list	env_list;
 	int			return_code;
-} t_info;
+}	t_info;
 
 enum e_prompt_returns
 {

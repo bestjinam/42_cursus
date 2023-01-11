@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 20:52:28 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/24 21:03:43 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/11 18:28:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell_mandatory.h"
@@ -25,3 +25,22 @@ void	minishell_env_parser(int argc, char **argv, char **envp)
 		i ++;
 	}
 }
+
+char	**_parsing_envp(char *envp[])
+{
+	char	**res;
+	int		i;
+
+	i = -1;
+	res = NULL;
+	while (envp && envp[++i])
+	{
+		if (ft_memcmp(envp[i], "PATH=", 5) == 0)
+		{
+			res = ft_split(&envp[i][5], ':');
+		}
+	}
+	return (res);
+}
+
+

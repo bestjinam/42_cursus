@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:28:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/25 18:54:51 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/11 20:25:20 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	pu_is_operator(t_cmd_node *node)
 t_cmd_tnode	*pu_make_cmd_tnode(t_cmd_tree *t)
 {
 	t_cmd_tnode	*res;
+	t_list		*l;
 
 	res = ft_malloc(sizeof(t_cmd_tnode));
 	while (t->curr && (t->curr->type == STRING \
@@ -37,12 +38,14 @@ t_cmd_tnode	*pu_make_cmd_tnode(t_cmd_tree *t)
 		else
 		{
 			if (!t->curr->next || t->curr->next->type != STRING)
-			{
-				tree_delete(res);
-				return (NULL);
-			}
+				return (tree_delete(res));
+			printf("asdf\n");
 			ft_lstadd_back(&res->redirection, \
 					cmd_data_new(t->curr->next->data, t->curr->type));
+			l = ft_lstlast(res->redirection);
+			printf("qwer\n");
+			if (t->curr->type == RE_HEREDOC)
+				ms_heredoc(&g_info.env_list, l->content);
 			t->curr = t->curr->next;
 		}
 		t->curr = t->curr->next;
@@ -51,7 +54,7 @@ t_cmd_tnode	*pu_make_cmd_tnode(t_cmd_tree *t)
 }
 
 int	pu_br_redirect(t_cmd_tree *tree)
-{	
+{
 	t_list	*tmp;
 
 	while (tree->curr && pu_is_redirect(tree->curr->type))
@@ -60,6 +63,8 @@ int	pu_br_redirect(t_cmd_tree *tree)
 		ft_lstadd_back(&(tree->root)->redirection, tmp);
 		if (!tree->curr->next || tree->curr->next->type != STRING)
 			return (SYNTAX_ERROR);
+		if (tree->curr->type == RE_HEREDOC)
+			ms_heredoc(&g_info.env_list, tmp->content);
 		tree->curr = tree->curr->next->next;
 	}
 	return (SUCCESS);
@@ -68,8 +73,11 @@ int	pu_br_redirect(t_cmd_tree *tree)
 int	ms_parser_and_or(t_cmd_tree *tree)
 {
 	t_cmd_tnode	*node;
+	const int	type = tree->curr->type;
 
-	node = tnode_new(NULL, NULL, tree->curr->type);
+	if (!tree->curr->next || (tree->curr->next->type != STRING && !pu_is_redirect(tree->curr->next->type )))
+		return (SYNTAX_ERROR);
+	node = tnode_new(NULL, NULL, type);
 	tnode_add(node, tree->root);
 	tree->root = node;
 	tree->curr = tree->curr->next;

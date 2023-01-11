@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:33:41 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/25 18:06:26 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/29 13:15:39 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -57,13 +57,14 @@ t_cmd_tnode	*tnode_get_rlast(t_cmd_tnode *root)
 	return (tnode_get_rlast(root->r_node));
 }
 
-void	tree_delete(t_cmd_tnode *root)
+void	*tree_delete(t_cmd_tnode *root)
 {
 	if (!root)
-		return ;
+		return(0) ;
 	tree_delete(root->l_node);
 	tree_delete(root->r_node);
 	ft_lstclear(&root->redirection, free);
 	ft_lstclear(&root->string, free);
 	free(root);
+	return (0);
 }

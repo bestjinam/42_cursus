@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:26:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/25 18:54:04 by jinam            ###   ########.fr       */
+/*   Updated: 2022/12/29 13:32:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ms_parser_pipe(t_cmd_tree *tree)
 	t_cmd_tnode	*right_node;
 	t_cmd_tnode	*tmp;
 
+	if (!tree->curr->next)
+		return (SYNTAX_ERROR);
 	if (tree->root->type == STRING)
 	{
 		tmp = tnode_new(NULL, NULL, tree->curr->type);
@@ -61,8 +63,12 @@ static int	_make_br_tree(t_cmd_tree *tree)
 			res = ms_parser_pipe(tree);
 		else if (tree->curr->type == AND || tree->curr->type == OR)
 			res = ms_parser_and_or(tree);
+		else
+			res = SYNTAX_ERROR;
+		if (res != SUCCESS)
+			break ;
 	}
-	if (tree->curr->type != BR_CLOSE)
+	if (!tree->curr || tree->curr->type != BR_CLOSE)
 		return (SYNTAX_ERROR);
 	return (SUCCESS);
 }
@@ -77,10 +83,7 @@ int	ms_parser_bracket(t_cmd_tree *tree)
 	open = tnode_new(NULL, NULL, tree->curr->type);
 	b_tree->curr = tree->curr->next;
 	if (_make_br_tree(b_tree) == SYNTAX_ERROR)
-	{
-		//free b_tree, open;
-		return (SYNTAX_ERROR);
-	}
+		return (destroy_error_trees(b_tree, open));
 	tnode_add(open, b_tree->root);
 	open->r_node = tnode_new(NULL, NULL, BR_CLOSE);
 	tree->curr = b_tree->curr->next;
@@ -88,6 +91,7 @@ int	ms_parser_bracket(t_cmd_tree *tree)
 		tree->root = open;
 	else
 		tnode_get_rlast(tree->root)->r_node = open;
+	res = SUCCESS;
 	if (tree->curr && pu_is_redirect(tree->curr->type))
 		res = pu_br_redirect(tree);
 	free(b_tree);
@@ -102,14 +106,23 @@ int	minishell_parser(t_cmd_tree *tree)
 		return (SYNTAX_ERROR);
 	while (tree->curr)
 	{
-		if (tree->curr->type == STRING)
+		if (tree->curr->type == STRING || pu_is_redirect(tree->curr->type))
 			res = ms_parser_string(tree);
 		else if (tree->curr->type == PIPE)
 			res = ms_parser_pipe(tree);
 		else if (tree->curr->type == BR_OPEN)
-			res = ms_parser_bracket(tree);
+		{
+			if (pu_is_operator(tree->curr->next))
+				res = SYNTAX_ERROR;
+			else
+				res = ms_parser_bracket(tree);
+		}
 		else if (tree->curr->type == AND || tree->curr->type == OR)
 			res = ms_parser_and_or(tree);
+		else
+			res = SYNTAX_ERROR;
+		if (res != SUCCESS)
+			break ;
 	}
 	return (res);
 }
