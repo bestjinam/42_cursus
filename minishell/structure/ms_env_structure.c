@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 12:57:07 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 18:28:35 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/15 18:50:57 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ char	**enode_convert_char(t_env_list *lst)
 	i = 0;
 	while (curr)
 	{
+		if (!curr->val)
+		{
+			res[i] = NULL;
+			continue ;
+		}
 		tmp = ft_strjoin(curr->name, "=");
 		res[i] = ft_strjoin(tmp, curr->val);
 		free(tmp);

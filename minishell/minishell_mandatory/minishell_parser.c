@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:26:06 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/29 13:32:43 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/13 20:22:23 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	minishell_parser(t_cmd_tree *tree)
 			res = ms_parser_pipe(tree);
 		else if (tree->curr->type == BR_OPEN)
 		{
-			if (pu_is_operator(tree->curr->next))
+			if (!tree->curr->next || pu_is_operator(tree->curr->next))
 				res = SYNTAX_ERROR;
 			else
 				res = ms_parser_bracket(tree);

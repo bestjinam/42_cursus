@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/12 13:20:42 by jinam             #+#    #+#              #
-#    Updated: 2022/12/26 19:45:52 by jinam            ###   ########.fr        #
+#    Updated: 2023/01/15 12:48:53 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # target
@@ -31,12 +31,13 @@ include ./config/compile_rules.mk
 M_OBJCS = $(addprefix $(OUT_DIR)/$(M_DIR)/, $(addsuffix .o, $(M_FILES)))
 B_OBJCS = $(addprefix $(OUT_DIR)/$(B_DIR)/, $(addsuffix .o, $(B_FILES)))
 S_OBJCS = $(addprefix $(OUT_DIR)/$(S_DIR)/, $(addsuffix .o, $(S_FILES)))
+BUILT_OBJCS = $(addprefix $(OUT_DIR)/$(BUILT_DIR)/, $(addsuffix .o, $(BUILT_FILES)))
 ifdef	WITH_BONUS
 	RM_OBJS = $(M_OBJCS)
-	OBJECTS = $(B_OBJCS) $(S_OBJCS)
+	OBJECTS = $(B_OBJCS) $(S_OBJCS) $(BUILT_OBJCS)
 else
 	RM_OBJS = $(B_OBJCS)
-	OBJECTS = $(M_OBJCS) $(S_OBJCS)
+	OBJECTS = $(M_OBJCS) $(S_OBJCS) $(BUILT_OBJCS)
 endif
 
 all : $(NAME)

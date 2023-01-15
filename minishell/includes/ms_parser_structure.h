@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:26:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/29 13:16:02 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/12 17:01:11 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_cmd_tnode
 	t_list				*redirection;
 	int					type;
 	int					excutable;
+	int					is_fork;
 }	t_cmd_tnode;
 
 typedef struct s_cmd_tree

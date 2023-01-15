@@ -24,15 +24,25 @@ M_FILES = 			minishell_env_parser \
 					ms_signal_functions \
 					minishell_executer \
 					ms_execve_functions \
+					ms_exe_builtin_functions \
 					minishell_executer_utils
+					
 
 B_FILES = 			ms_error_handling \
 					ms_main \
 					ms_prompt_functions \
 					ms_signal_functions
+
+BUILT_FILES = 		built_error \
+					built_echo \
+					built_env \
+					built_pwd \
+					built_exit \
+					built_cd
 # file directory
 
 OUT_DIR = 			objcs
 B_DIR =				minishell_bonus
 M_DIR =				minishell_mandatory
 S_DIR =				structure
+BUILT_DIR =			builtin

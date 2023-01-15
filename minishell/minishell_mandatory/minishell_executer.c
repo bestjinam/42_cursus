@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 17:57:41 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 20:28:32 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/15 12:59:16 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ms_exe_fork_bracket(t_cmd_tnode *root, int wfd, int rfd, int remain)
 	pid = fork();
 	if (pid == 0)
 	{
+		root->is_fork = 1;
 		eu_fd_manage(wfd, rfd, remain);
 		re_res = minishell_redirector(root->redirection);
 		if (re_res == FILE_ERROR)
@@ -42,20 +43,27 @@ int	ms_exe_fork_bracket(t_cmd_tnode *root, int wfd, int rfd, int remain)
 
 int		ms_exe_fork_string(t_cmd_tnode *root, int wfd, int rfd, int remain)
 {
-	int		pid;
-	int		re_res;
+	int			pid;
+	int			re_res;
+	const int	cmd_id = eu_is_builtin(root);
+
 
 	pid = fork();
 	if (pid == 0)
 	{
+		root->is_fork = 1;
 		eu_fd_manage(wfd, rfd, remain);
 		re_res = minishell_redirector(root->redirection);
 		if (re_res == FILE_ERROR)
 			return (FILE_ERROR);
-		ms_execve_cmd(root);
-		// execve()
-		// exit
-	}
+
+		if (cmd_id != -1)
+		{
+			ms_exe_builtin(root, cmd_id);
+			exit(g_info.return_code);
+		}
+			ms_execve_cmd(root);
+		}
 	return (pid);
 }
 
@@ -107,12 +115,12 @@ void	ms_exe_string(t_cmd_tnode *root)
 {
 	const int	fd1 = dup(0);
 	const int	fd2 = dup(1);
+	const int	cmd_id = eu_is_builtin(root);
 	int			pid;
 
-	printf("asdf#####\n");
-	if (eu_is_builtin(root))
+	if (cmd_id != -1)
 	{
-		//ms_exe_builtin(root);
+		ms_exe_builtin(root, cmd_id);
 		dup2(fd1, 0);
 		dup2(fd2, 1);
 	}

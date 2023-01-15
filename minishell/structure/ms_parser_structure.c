@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:33:41 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/29 13:15:39 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/12 17:02:29 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -33,6 +33,7 @@ t_cmd_tnode	*tnode_new(t_list *str, t_list *re, int type)
 	res->string = str;
 	res->type = type;
 	res->excutable = 0;
+	res->is_fork = 0;
 	return (res);
 }
 

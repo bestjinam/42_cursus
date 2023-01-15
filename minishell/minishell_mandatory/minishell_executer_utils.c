@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:59:10 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 20:04:27 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/15 18:56:54 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell_mandatory.h"
@@ -44,17 +44,17 @@ void	eu_fd_manage(int wfd, int rfd, int remain)
 
 int	eu_is_builtin(t_cmd_tnode *root)
 {
-	const char		*list[7] = {"echo", "cd", "pwd", "export", \
-								"unset", "env", "exit"};
-	const char		*data = root->string->content;
+	const char			*list[7] = {"cd", "echo", "env", "pwd", "export", \
+								"unset","exit"};
+	const t_cmd_data	*data = root->string->content;
 	int			i;
 
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(list[i], data, ft_strlen(list[i]) + 1) == 0)
-			return (1);
+		if (ft_strncmp(list[i], data->string, ft_strlen(list[i]) + 1) == 0)
+			return (i);
 		i ++;
 	}
-	return (0);
+	return (-1);
 }

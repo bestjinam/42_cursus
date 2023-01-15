@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:29:23 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 19:25:48 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/12 17:14:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static const char	*_get_path(const char *cmd, const char *paths[])
 	return (NULL);
 }
 
-static const char **_make_argv(t_list *cmdlist)
+const char **_make_argv(t_list *cmdlist)
 {
 	const int	len = ft_lstsize(cmdlist);
 	int			i;

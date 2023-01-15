@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:30:26 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 20:25:24 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/15 18:20:35 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int	main(int argc, char **argv, char **envp)
 		tmp = minishell_parser(&parser_tree);
 		if (tmp != SUCCESS)
 		{
+			ft_error_msg("syntax error!\n");
 			_destroy_all(&lexer_list, &parser_tree, line);
 			continue ;
 		}
 		minishell_executer(parser_tree.root);
-		_show_cmd_tree(parser_tree.root);
 		_destroy_all(&lexer_list, &parser_tree, line);
 	}
 	system("leaks minishell");

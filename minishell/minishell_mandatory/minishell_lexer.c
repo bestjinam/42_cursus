@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 20:27:15 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/27 17:17:25 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/15 17:59:07 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,17 @@ static ssize_t	_string_len(char *str)
 	{
 		if (ft_strchr("<>()|& ", str[i]))
 			break ;
-		if (*str == '\'')
-			_len = ft_strchr(str + 1, '\'') - str;
-		else if (*str == '\"')
-			_len = ft_strchr(str + 1, '\"') - str;
+		if (str[i] == '\'')
+			_len = ft_strchr(&str[i + 1], '\'') - &str[i];
+		else if (str[i] == '\"')
+			_len = ft_strchr(&str[i + 1], '\"') - &str[i];
 		if (_len < 0)
 			return (-1);
+		else if (str[i] == '\'' || str[i] == '\"')
+			i += _len;
 		i ++;
 	}
-	_len += i;
-	return (_len);
+	return (i);
 }
 
 static ssize_t	_str_len(char *str, int type)
