@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:24:38 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/30 20:47:09 by jinam            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:18:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex_bonus.h"
@@ -38,9 +38,8 @@ void	here_doc_process(char *end, int *hd_fd)
 			free(line);
 			continue ;
 		}
-		if (ft_strncmp(line, end, ft_strlen(line) - 1) == 0  && (ft_strlen(line) - 1 == ft_strlen(end)))
+		if (ft_strncmp(line, end, ft_strlen(line) - 1) == 0)
 		{
-			ft_putstr_fd("??", 2);
 			free(line);
 			break ;
 		}
