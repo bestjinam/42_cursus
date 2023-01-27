@@ -34,10 +34,13 @@ B_FILES = 			ms_error_handling \
 					ms_signal_functions
 
 BUILT_FILES = 		built_error \
+					built_unset \
+					built_env_util \
 					built_echo \
 					built_env \
 					built_pwd \
 					built_exit \
+					built_export\
 					built_cd
 # file directory
 

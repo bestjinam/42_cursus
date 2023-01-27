@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:58:30 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 19:19:01 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/17 20:18:38 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <limits.h>
 #include <stdlib.h>
 
-void	cmd_pwd(const char **argv)
+void	cmd_pwd(char **argv)
 {
 	const t_env_node	*env = enode_find(&g_info.env_list, "PWD");
 	const char			*cwd = getcwd(NULL, PATH_MAX);

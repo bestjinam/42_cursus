@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:09:19 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 19:20:57 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/17 20:17:55 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/minishell_mandatory.h"
@@ -70,7 +70,7 @@ void	exec_cd(char *path)
 	setting_cwd(path, "PWD", 1);
 }
 
-void	cmd_cd(const char **argv)
+void	cmd_cd(char **argv)
 {
 	const t_env_node	*home_node = enode_find(&g_info.env_list, "HOME");
 

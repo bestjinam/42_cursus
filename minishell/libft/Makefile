@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 21:53:27 by jinam             #+#    #+#              #
-#    Updated: 2022/11/10 18:15:42 by jinam            ###   ########.fr        #
+#    Updated: 2023/01/18 17:10:08 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ LIBFT_FILES =	ft___lst_bonus \
 				ft_string_search \
 				ft_string_temp \
 				ft_malloc \
-				ft_string_temp_function
+				ft_string_temp_function ft_replace
 
 PRINTF_FILES = 	_printf_c \
 				_printf_d \

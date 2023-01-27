@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 17:57:41 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 12:59:16 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:45:07 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ int	ms_exe_fork_bracket(t_cmd_tnode *root, int wfd, int rfd, int remain)
 	return (pid);
 }
 
-int		ms_exe_fork_string(t_cmd_tnode *root, int wfd, int rfd, int remain)
+int	ms_exe_fork_string(t_cmd_tnode *root, int wfd, int rfd, int remain)
 {
 	int			pid;
 	int			re_res;
 	const int	cmd_id = eu_is_builtin(root);
-
 
 	pid = fork();
 	if (pid == 0)
@@ -56,17 +55,15 @@ int		ms_exe_fork_string(t_cmd_tnode *root, int wfd, int rfd, int remain)
 		re_res = minishell_redirector(root->redirection);
 		if (re_res == FILE_ERROR)
 			return (FILE_ERROR);
-
 		if (cmd_id != -1)
 		{
 			ms_exe_builtin(root, cmd_id);
 			exit(g_info.return_code);
 		}
-			ms_execve_cmd(root);
-		}
+		ms_execve_cmd(root);
+	}
 	return (pid);
 }
-
 
 void	ms_exe_wait_bracket(t_cmd_tnode *root, int wfd, int rfd)
 {
@@ -80,13 +77,13 @@ void	ms_exe_wait_bracket(t_cmd_tnode *root, int wfd, int rfd)
 
 int	ms_exe_pipe_cmd(t_cmd_tnode *root, int wfd, int rfd, int remain)
 {
-	int pid;
+	int	pid;
 
 	if (root->type == STRING)
 		pid = ms_exe_fork_string(root, wfd, rfd, remain);
 	else if (root->type == BR_OPEN)
 		pid = ms_exe_fork_bracket(root, wfd, rfd, remain);
-	else 
+	else
 		pid = -1;
 	return (pid);
 }
@@ -117,9 +114,13 @@ void	ms_exe_string(t_cmd_tnode *root)
 	const int	fd2 = dup(1);
 	const int	cmd_id = eu_is_builtin(root);
 	int			pid;
+	int			re_res;
 
 	if (cmd_id != -1)
 	{
+		re_res = minishell_redirector(root->redirection);
+		if (re_res == FILE_ERROR)
+			return ;
 		ms_exe_builtin(root, cmd_id);
 		dup2(fd1, 0);
 		dup2(fd2, 1);

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 20:52:28 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 18:28:37 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:43:28 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell_mandatory.h"
@@ -42,5 +42,3 @@ char	**_parsing_envp(char *envp[])
 	}
 	return (res);
 }
-
-

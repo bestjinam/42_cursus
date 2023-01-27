@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 19:30:16 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 20:06:36 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/17 20:18:18 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	_str_is_num(char *str)
 	return (1);
 }
 
-void	cmd_exit(const char **argv, int status)
+void	cmd_exit(char **argv, int status)
 {
 	if (status == 0)
 		ft_putendl_fd("exit", 2);
@@ -37,7 +37,7 @@ void	cmd_exit(const char **argv, int status)
 		exit(g_info.return_code);
 	else if (_str_is_num((char *) argv[1]) == 0)
 	{
-		ft_putstr_fd("bash: exit:", 2);
+		ft_putstr_fd("minishell: exit:", 2);
 		ft_putstr_fd((char *) argv[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		g_info.return_code = 255;
@@ -45,7 +45,7 @@ void	cmd_exit(const char **argv, int status)
 	}
 	else if (argv[2])
 	{
-		ft_putstr_fd("bash: exit:", 2);
+		ft_putstr_fd("minishell: exit:", 2);
 		ft_putstr_fd("too many arguments\n", 2);
 		g_info.return_code = 1;
 	}

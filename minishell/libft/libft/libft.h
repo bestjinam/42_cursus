@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:15:02 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/10 18:16:08 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/18 17:12:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,4 +147,5 @@ long	ft_atol_base(const char *str, char *base, int *flag);
 
 void	*ft_malloc(size_t size);
 
+char	*ft_str_replace(char *ori, char *rep, int start, int len);
 #endif

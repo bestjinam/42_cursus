@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 12:57:07 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 18:50:57 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/17 21:06:20 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@
 t_env_node	*enode_new(char *str)
 {
 	t_env_node	*res;
-	const char	**tmp = (const char **) ft_split(str, '=');
+	const char	*pos = ft_strchr(str, '=');
+	int			name_len;
 
+	name_len = pos - str;
 	res = ft_malloc(sizeof(t_env_node));
-	res->name = (char *) tmp[0];
-	res->val = (char *) tmp[1];
+	if (pos == NULL)
+		name_len = ft_strlen(str);
+	res->name = ft_substr(str, 0, name_len);
+	if (pos != NULL)
+		res->val = ft_substr(str, name_len + 1, ft_strlen(str) - name_len);
 	res->next = NULL;
-	free(tmp);
 	return (res);
 }
 
@@ -98,7 +102,7 @@ char	**enode_convert_char(t_env_list *lst)
 	{
 		if (!curr->val)
 		{
-			res[i] = NULL;
+			curr = curr->next;
 			continue ;
 		}
 		tmp = ft_strjoin(curr->name, "=");

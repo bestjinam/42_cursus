@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:10:11 by jinam             #+#    #+#             */
-/*   Updated: 2022/12/29 13:31:39 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:48:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void	ft_error_msg(char *msg)
 {
 	ft_putstr_fd(msg, 2);
-	return ;
 }
 
 void	ft_exit(char *msg, int err_num)

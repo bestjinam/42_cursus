@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:11:38 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/15 12:39:58 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:51:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void		ms_heredoc(t_env_list *env, t_cmd_data *data);
 void		ms_execve_cmd(t_cmd_tnode *node);
 void		ms_exe_builtin(t_cmd_tnode *node, int idx);
 
-const char **_make_argv(t_list *cmdlist);
+char		**_make_argv(t_list *cmdlist);
 
 #endif

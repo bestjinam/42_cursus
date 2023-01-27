@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:29:23 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/12 17:14:26 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/17 20:25:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static const char	*_get_path(const char *cmd, const char *paths[])
 	return (NULL);
 }
 
-const char **_make_argv(t_list *cmdlist)
+char **_make_argv(t_list *cmdlist)
 {
 	const int	len = ft_lstsize(cmdlist);
 	int			i;
@@ -73,12 +73,12 @@ const char **_make_argv(t_list *cmdlist)
 		cmdlist = cmdlist->next;
 	}
 	res[len] = 0;
-	return ((const char **)res);
+	return (res);
 }
 
 void	ms_execve_cmd(t_cmd_tnode *node)
 {
-	const char	**argvs = _make_argv(node->string);
+	const char	**argvs = (const char **)_make_argv(node->string);
 	const char	**envps = (const char **) enode_convert_char(&g_info.env_list);
 	const char	**path_envp = (const char **) _parsing_envp((char **) envps);
 	const char	*path = _get_path(argvs[0], path_envp); 

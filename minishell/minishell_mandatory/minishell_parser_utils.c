@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:28:02 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 20:25:20 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:53:43 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ t_cmd_tnode	*pu_make_cmd_tnode(t_cmd_tree *t)
 		{
 			if (!t->curr->next || t->curr->next->type != STRING)
 				return (tree_delete(res));
-			printf("asdf\n");
 			ft_lstadd_back(&res->redirection, \
 					cmd_data_new(t->curr->next->data, t->curr->type));
 			l = ft_lstlast(res->redirection);
-			printf("qwer\n");
 			if (t->curr->type == RE_HEREDOC)
 				ms_heredoc(&g_info.env_list, l->content);
 			t->curr = t->curr->next;
@@ -75,7 +73,8 @@ int	ms_parser_and_or(t_cmd_tree *tree)
 	t_cmd_tnode	*node;
 	const int	type = tree->curr->type;
 
-	if (!tree->curr->next || (tree->curr->next->type != STRING && !pu_is_redirect(tree->curr->next->type )))
+	if (!tree->curr->next || (tree->curr->next->type != STRING \
+							&& !pu_is_redirect(tree->curr->next->type)))
 		return (SYNTAX_ERROR);
 	node = tnode_new(NULL, NULL, type);
 	tnode_add(node, tree->root);

@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exe_builtin_functions.c                         :+:      :+:    :+:   */
+/*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 16:53:16 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/19 16:48:04 by jinam            ###   ########.fr       */
+/*   Created: 2023/01/18 16:52:55 by jinam             #+#    #+#             */
+/*   Updated: 2023/01/18 17:10:40 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell_mandatory.h"
-#include "../builtin/minishell_built.h"
+#include "libft.h"
 #include <stdlib.h>
 
-void	ms_exe_builtin(t_cmd_tnode *node, int idx)
+char	*ft_str_replace(char *ori, char *rep, int start, int len)
 {
-	char			**argv;
-	int				i;
-	const t_ms_fptr	bf[6] = {cmd_cd, cmd_echo, cmd_env, cmd_pwd, cmd_export, \
-							cmd_unset};
+	const	int	r_len = ft_strlen(ori) + ft_strlen(rep) - len + 1;
+	char	*res;
 
-	argv = _make_argv(node->string);
-	if (idx == 6)
-		cmd_exit(argv, node->is_fork);
-	else
-		bf[idx](argv);
-	i = 0;
-	free(argv);
+	res = malloc(r_len);
+	ft_strlcpy(res, ori, start + 1);
+	ft_strlcat(res, rep, r_len);
+	ft_strlcat(res, &ori[start + len], r_len);
+	return (res);
 }

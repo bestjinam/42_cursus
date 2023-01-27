@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:25:08 by jinam             #+#    #+#             */
-/*   Updated: 2023/01/11 19:34:13 by jinam            ###   ########.fr       */
+/*   Updated: 2023/01/19 16:48:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	_confirm_fd(char *str1, int fd1, int fd2)
 		perror(str1);
 	return (fd1 >= 0 && fd2 >= 0);
 }
-
 
 int	_access_data(void *raw)
 {
@@ -40,7 +39,7 @@ int	_access_data(void *raw)
 	else if (data->type == RE_OUT)
 		write_fd = open(data->string, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	else if (data->type == RE_APPEND)
-		write_fd = open(data->string, O_APPEND | O_CREAT, 0644);
+		write_fd = open(data->string, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (_confirm_fd(data->string, read_fd, write_fd) == 0)
 		return (FILE_ERROR);
 	dup2(read_fd, 0);
