@@ -3,107 +3,136 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dham <dham@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 20:29:54 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 03:54:20 by jinam            ###   ########.fr       */
+/*   Created: 2022/07/11 19:37:18 by dham              #+#    #+#             */
+/*   Updated: 2023/01/15 18:49:31 by dham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
-
-static void	*_gnl_memmove(void *s1, const void *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*tmp_s1;
-	unsigned char	*tmp_s2;
-
-	if (!s1 & !s2)
-		return (0);
-	tmp_s1 = (unsigned char *) s1;
-	tmp_s2 = (unsigned char *) s2;
-	if (s2 < s1)
-	{
-		i = n;
-		while (i > 0)
-		{
-			tmp_s1[i - 1] = tmp_s2[i - 1];
-			i --;
-		}
-	}
-	else if (s2 > s1)
-	{
-		i = -1;
-		while (++i < n)
-			tmp_s1[i] = tmp_s2[i];
-	}
-	return (s1);
-}
-
-static char	*_gnl_makeline(t_list *node, size_t size,
-						char **line, size_t option)
-{
-	const size_t	res_len = node->last_len + size + 1;
-	char			*res;
-
-	res = malloc(sizeof(char) * (res_len));
-	if (*line)
-	{
-		_gnl_memmove(res, *line, node->last_len);
-		free(*line);
-	}
-	_gnl_memmove(&res[node->last_len],
-		&node->buff[node->eol - size + 1], size + 1);
-	res[res_len - 1] = 0;
-	node->last_len += size;
-	if (option == IS_END)
-	{
-		node->last_len = 0;
-		node->eol ++;
-	}
-	node->new_len = 1;
-	*line = res;
-	return (res);
-}
-
-static void	_gnl_getline(int fd, t_list *node, size_t size)
-{
-	node->rbytes = read(fd, node->buff, size);
-	node->eol = 0;
-	node->new_len = 1;
-}
-
-static void	*_gnl_clear(t_list *node, char *line)
-{
-	if (line)
-		free(line);
-	node->eol = BUFFER_SIZE;
-	node->last_len = 0;
-	return (NULL);
-}
 
 char	*get_next_line(int fd)
 {
-	static t_list	node = {"", BUFFER_SIZE,
-		BUFFER_SIZE, 0, 0};
-	char			*line;
+	static t_backup	*backup;
+	t_backup		*fd_buf;
+	char			*re_str;
+	int				len;
 
-	line = (void *) 0;
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
-		return (_gnl_clear(&node, line));
-	while (1)
+	fd_buf = buffer_fd(&backup, fd);
+	if (!fd_buf)
+		return (NULL);
+	len = init_str(fd_buf, &re_str);
+	if (len < 0)
+		return (NULL);
+	if (fd_buf->newline_exist)
+		return (complete_str(fd_buf, re_str, len));
+	while (read_line(fd_buf, fd) == BUFFER_SIZE && !fd_buf->newline_exist)
 	{
-		if (node.eol == BUFFER_SIZE)
-			_gnl_getline(fd, &node, BUFFER_SIZE);
-		if (node.rbytes <= 0 || ((size_t)node.rbytes == node.eol))
-		{
-			_gnl_clear(&node, NULL);
-			return (line);
-		}
-		if (node.buff[node.eol] == '\n')
-			return (_gnl_makeline(&node, node.new_len, &line, IS_END));
-		if (node.eol == (size_t)node.rbytes - 1)
-			line = _gnl_makeline(&node, node.new_len, &line, NOT_END);
-		node.eol ++;
-		node.new_len ++;
+		re_str = add_buffer(re_str, fd_buf, len);
+		len += fd_buf->len;
+		if (!re_str)
+			return (NULL);
 	}
+	re_str = complete_str(fd_buf, re_str, len);
+	if ((!len && !fd_buf->len) || re_str == NULL)
+		del_eof_buf(&backup, fd_buf);
+	return (re_str);
+}
+
+int	init_str(t_backup *buf, char **dst)
+{
+	int	i;
+
+	if (buf->len <= 0 || buf->newline_exist)
+	{
+		*dst = NULL;
+		return (0);
+	}
+	*dst = malloc(buf->len);
+	if (!*dst)
+		return (-1);
+	i = 0;
+	while (i < buf->len)
+	{
+		(*dst)[i] = buf->buffer[i];
+		i++;
+	}
+	buf->len = 0;
+	return (i);
+}
+
+char	*add_buffer(char *s1, t_backup *buf, int len)
+{
+	char	*re_str;
+	int		i;
+
+	i = 0;
+	re_str = malloc(len + BUFFER_SIZE);
+	if (!re_str)
+		return (NULL);
+	while (i < len)
+	{
+		re_str[i] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (i < BUFFER_SIZE)
+	{
+		re_str[i + len] = buf->buffer[i];
+		i++;
+	}
+	free(s1);
+	return (re_str);
+}
+
+char	*complete_str(t_backup *buf, char *str, int len)
+{
+	int		i;
+	int		count;
+	char	*re_str;
+
+	if (buf->len <= 0 && !len)
+		return (NULL);
+	count = 0;
+	while (buf->buffer[count] != '\n' && count < buf->len)
+		count++;
+	if (buf->buffer[count] == '\n' && ++count)
+		buf->newline_exist--;
+	re_str = malloc(count + len + 1);
+	if (!re_str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		re_str[i] = str[i];
+		i++;
+	}
+	return (make_str(buf, str, re_str, (int [2]){len, count}));
+}
+
+char	*make_str(t_backup *buf, char *str, char *re_str, int arg[2])
+{
+	int	i;
+	int	len;
+	int	count;
+
+	len = arg[0];
+	count = arg[1];
+	i = 0;
+	while (i < count)
+	{
+		re_str[i + len] = buf->buffer[i];
+		i++;
+	}
+	re_str[count + len] = 0;
+	i = 0;
+	while (i < buf->len - count)
+	{
+		buf->buffer[i] = buf->buffer[i + count];
+		i++;
+	}
+	buf->len = buf->len - count;
+	free(str);
+	return (re_str);
 }
