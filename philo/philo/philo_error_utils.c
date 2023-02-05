@@ -6,14 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:03:15 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/03 14:47:33 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/05 16:45:59 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
 
-int	_str_is_digit(char *str)
+int	str_is_digit(char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:01:44 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/04 19:03:33 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/05 20:15:06 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "philo.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int	init_argvs(int argc, t_args *args, char **argv)
 {
@@ -31,7 +32,7 @@ int	init_argvs(int argc, t_args *args, char **argv)
 	i_idx = 0;
 	while (argv[i_idx])
 	{
-		if (!_str_is_digit(argv[i_idx]))
+		if (!str_is_digit(argv[i_idx]))
 		{
 			free(args->argv);
 			return (-1);
@@ -60,5 +61,6 @@ int	main(int argc, char **argv)
 		return (philo_main_exit());
 	}
 	tmp = run_philo_tycoon(&_sys);
+	printf("exit? %d\n", tmp);
 	return (0);
 }

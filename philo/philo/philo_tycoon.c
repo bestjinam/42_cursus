@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:33:29 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/04 17:10:29 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:20:47 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include <string.h>
 #include "philo.h"
 #include <stdio.h>
+#include <unistd.h>
 
 int	_organizing_table(t_system_info *_sys, int heads)
 {
 	int	i;
 
-	_sys->args.active = 1;
+	_sys->args.active = LIVE;
 	i = 0;
 	_sys->philos = malloc(sizeof(t_philo_info) * (heads));
 	_sys->forks = malloc(sizeof(t_fork) * (heads));
@@ -36,7 +37,7 @@ int	_organizing_table(t_system_info *_sys, int heads)
 		_sys->philos[i].args = &_sys->args;
 		_sys->philos[i].eats = 0;
 		_sys->philos[i].philo_thread = NULL;
-		_sys->philos[i].last_eat = _sys->args.start;
+		gettimeofday(&_sys->philos[i].last_eat, NULL);
 		i ++;
 	}
 	return (0);
@@ -56,7 +57,7 @@ void	_monitoring_table(t_system_info *_sys, int heads)
 	int	i;
 	int	cnt;
 
-	while (_sys->args.active)
+	while (_sys->args.active != DEAD)
 	{
 		cnt = 0;
 		i = 0;
@@ -68,10 +69,11 @@ void	_monitoring_table(t_system_info *_sys, int heads)
 				if (_sys->philos->eats >= _sys->args.argv[5])
 					cnt ++;
 				if (cnt == heads)
-					return ; 
+					return ;
 			}
 			i ++;
 		}
+		usleep(200);
 	}
 }
 
@@ -91,7 +93,8 @@ int	_activating_table(t_system_info *_sys, int heads)
 	i = 0;
 	while (i < heads)
 	{
-		pthread_join(_sys->philos[i].philo_thread, &ret_val);	
+		printf("%d\n", i);
+		pthread_join(_sys->philos[i].philo_thread, &ret_val);
 		if (ret_val == PTHREAD_CANCELED)
 			return (-1);
 		i ++;
