@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:27:27 by jinam             #+#    #+#             */
-/*   Updated: 2022/11/14 21:15:48 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/04 18:14:30 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_list
 	size_t			eol;
 	size_t			last_len;
 	size_t			new_len;
-	struct s_list	*next;
+	struct s_list	*	next;
 }					t_list;
 
 int		_gnl_find_node(t_list **head, t_list **node, int fd);
