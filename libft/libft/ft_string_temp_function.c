@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hello.c                                            :+:      :+:    :+:   */
+/*   ft_string_temp_function.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 14:54:51 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 14:55:23 by jinam            ###   ########.fr       */
+/*   Created: 2022/08/09 12:22:09 by jinam             #+#    #+#             */
+/*   Updated: 2022/08/12 16:45:34 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-void	hello(char *hello)
+int	ft_temp_print(t_temp_str *temp_str, int fd)
 {
-	printf("%s\n", hello);
+	size_t	res;
+	ssize_t	tmp;
+
+	res = 0;
+	while (1)
+	{
+		if (res == temp_str->len)
+			return (res);
+		tmp = write(fd, &temp_str->str[res], (temp_str->len - res));
+		if (tmp == -1)
+			return (-1);
+		if (tmp == 0)
+			return (res);
+		res += tmp;
+	}
 }

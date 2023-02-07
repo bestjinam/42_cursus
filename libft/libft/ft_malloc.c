@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hello.c                                            :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 14:54:51 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 14:55:23 by jinam            ###   ########.fr       */
+/*   Created: 2022/11/10 18:09:54 by jinam             #+#    #+#             */
+/*   Updated: 2022/11/14 14:05:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <stdio.h>
 
-void	hello(char *hello)
+void	*ft_malloc(size_t size)
 {
-	printf("%s\n", hello);
+	void	*res;
+
+	res = malloc(size);
+	if (!res)
+	{
+		perror("malloc");
+		exit(1);
+	}
+	return (res);
 }
