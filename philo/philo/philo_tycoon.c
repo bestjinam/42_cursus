@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:33:29 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 22:20:47 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 13:46:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	_organizing_table(t_system_info *_sys, int heads)
 		_sys->philos[i].args = &_sys->args;
 		_sys->philos[i].eats = 0;
 		_sys->philos[i].philo_thread = NULL;
+		pthread_mutex_init(&_sys->philos[i].leat_mx, NULL);
+		pthread_mutex_lock(&_sys->philos[i].leat_mx);
 		gettimeofday(&_sys->philos[i].last_eat, NULL);
+		pthread_mutex_unlock(&_sys->philos[i].leat_mx);
 		i ++;
 	}
 	return (0);
@@ -47,7 +50,9 @@ void	_eating_monitoring(t_philo_info *philo)
 {
 	int	gap;
 
+	pthread_mutex_lock(&philo->leat_mx);
 	gap = philo_timewatch(&philo->last_eat);
+	pthread_mutex_unlock(&philo->leat_mx);
 	if (gap > philo->args->argv[1])
 		philo_dying(philo);
 }
@@ -93,7 +98,6 @@ int	_activating_table(t_system_info *_sys, int heads)
 	i = 0;
 	while (i < heads)
 	{
-		printf("%d\n", i);
 		pthread_join(_sys->philos[i].philo_thread, &ret_val);
 		if (ret_val == PTHREAD_CANCELED)
 			return (-1);

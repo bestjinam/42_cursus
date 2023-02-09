@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:11:13 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 17:12:36 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/07 18:04:18 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo_info
 	int				id;
 	int				eats;
 	struct timeval	last_eat;
+	pthread_mutex_t	leat_mx;
 	pthread_t		philo_thread;
 	t_fork			*r_fork;
 	t_fork			*l_fork;

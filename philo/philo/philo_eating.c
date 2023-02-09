@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:35:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 22:20:11 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 13:46:06 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <pthread.h>
@@ -75,7 +75,12 @@ int	philo_eating(t_philo_info *philo)
 	philo_printf(philo, "is eating\n");
 	philo->eats ++;
 	ft_usleep(philo->args->argv[2]);
+	pthread_mutex_lock(&philo->leat_mx);
 	gettimeofday(&philo->last_eat, NULL);
+	pthread_mutex_unlock(&philo->leat_mx);
+	pthread_mutex_lock(&philo->args->print_mx);
+	printf("id : %d %ld %d\n", philo->id, philo->last_eat.tv_sec, philo->last_eat.tv_usec);
+	pthread_mutex_unlock(&philo->args->print_mx);
 	_releasing_forks(philo);
 	ret = LIVE;
 	pthread_mutex_lock(&philo->args->active_mx);
