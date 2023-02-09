@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:01:44 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/05 20:15:06 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:42:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,5 @@ int	main(int argc, char **argv)
 		return (philo_main_exit());
 	}
 	tmp = run_philo_tycoon(&_sys);
-	printf("exit? %d\n", tmp);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:33:29 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 13:46:10 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:37:48 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 #include <stdio.h>
 #include <unistd.h>
 
+/**
+ * @brief init system_info(making philo and forks)
+ * @param _sys [TODO:sys struct]
+ * @param heads [TODO:numbers of philo]
+ * @return [err : -1, success : 0]
+ */
 int	_organizing_table(t_system_info *_sys, int heads)
 {
 	int	i;
@@ -29,7 +35,7 @@ int	_organizing_table(t_system_info *_sys, int heads)
 		return (-1);
 	while (i < heads)
 	{
-		_sys->philos[i].id = i;
+		_sys->philos[i].id = i + 1;
 		_sys->forks[i].fork_st = AVAIL;
 		pthread_mutex_init(&_sys->forks[i].fork_mt, NULL);
 		_sys->philos[i].l_fork = &_sys->forks[i];
@@ -51,7 +57,7 @@ void	_eating_monitoring(t_philo_info *philo)
 	int	gap;
 
 	pthread_mutex_lock(&philo->leat_mx);
-	gap = philo_timewatch(&philo->last_eat);
+	gap = philo_timewatch(philo->last_eat);
 	pthread_mutex_unlock(&philo->leat_mx);
 	if (gap > philo->args->argv[1])
 		philo_dying(philo);
@@ -68,14 +74,17 @@ void	_monitoring_table(t_system_info *_sys, int heads)
 		i = 0;
 		while (i < heads)
 		{
-			_eating_monitoring(&_sys->philos[i]);
-			if (_sys->args.argc == 6)
+			if (_sys->args.argc == 5)
 			{
-				if (_sys->philos->eats >= _sys->args.argv[5])
+				if (_sys->philos->eats >= _sys->args.argv[4])
 					cnt ++;
+				else
+					_eating_monitoring(&_sys->philos[i]);
 				if (cnt == heads)
 					return ;
 			}
+			else
+				_eating_monitoring(&_sys->philos[i]);
 			i ++;
 		}
 		usleep(200);

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:35:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 13:46:06 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:06:56 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <pthread.h>
@@ -51,7 +51,11 @@ int	_preparing_forks(t_philo_info *philo)
 	}
 	ret = _grep_fork(philo->args, first);
 	if (ret != DEAD)
+	{
 		ret = _grep_fork(philo->args, last);
+		if (ret != DEAD)
+			philo_printf(philo, "has taken a fork\n");
+	}
 	return (ret);
 }
 
@@ -73,14 +77,9 @@ int	philo_eating(t_philo_info *philo)
 	if (ret == DEAD)
 		return (ret);
 	philo_printf(philo, "is eating\n");
+	philo_timestamp(&philo->leat_mx, &philo->last_eat);
 	philo->eats ++;
 	ft_usleep(philo->args->argv[2]);
-	pthread_mutex_lock(&philo->leat_mx);
-	gettimeofday(&philo->last_eat, NULL);
-	pthread_mutex_unlock(&philo->leat_mx);
-	pthread_mutex_lock(&philo->args->print_mx);
-	printf("id : %d %ld %d\n", philo->id, philo->last_eat.tv_sec, philo->last_eat.tv_usec);
-	pthread_mutex_unlock(&philo->args->print_mx);
 	_releasing_forks(philo);
 	ret = LIVE;
 	pthread_mutex_lock(&philo->args->active_mx);

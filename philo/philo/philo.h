@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:11:13 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/07 18:04:18 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:13:12 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*philo_gotchi(void *raw);
 
 //philo_gotchi_utils.c
 void	ft_usleep(int ms);
-int		philo_timewatch(struct timeval *last);
+int		philo_timewatch(struct timeval last);
 void	philo_printf(t_philo_info *philo, char *str);
 int		philo_dying(t_philo_info *philo);
 
@@ -82,5 +82,6 @@ int		philo_eating(t_philo_info *philo);
 //philo_error_utils.c
 int		str_is_digit(char *str);
 int		philo_main_exit(void);
+void	philo_timestamp(pthread_mutex_t *mx, struct timeval *time);
 
 #endif
