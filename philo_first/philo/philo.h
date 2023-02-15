@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:11:13 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 14:13:12 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/13 22:05:59 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ typedef struct s_args
 	int					*argv;
 	int					argc;
 	int					active;
+	int					printable;
 	pthread_mutex_t		active_mx;
+	pthread_mutex_t		ready_mx;
 	pthread_mutex_t		print_mx;
 }	t_args;
 
@@ -36,8 +38,9 @@ typedef struct s_philo_info
 {
 	int				id;
 	int				eats;
-	struct timeval	last_eat;
+	int				last_eat;
 	pthread_mutex_t	leat_mx;
+	pthread_mutex_t	eats_mx;
 	pthread_t		philo_thread;
 	t_fork			*r_fork;
 	t_fork			*l_fork;
@@ -71,7 +74,7 @@ int		run_philo_tycoon(t_system_info *_sys);
 void	*philo_gotchi(void *raw);
 
 //philo_gotchi_utils.c
-void	ft_usleep(int ms);
+void	ft_usleep(struct timeval strt, int ms);
 int		philo_timewatch(struct timeval last);
 void	philo_printf(t_philo_info *philo, char *str);
 int		philo_dying(t_philo_info *philo);
@@ -84,4 +87,6 @@ int		str_is_digit(char *str);
 int		philo_main_exit(void);
 void	philo_timestamp(pthread_mutex_t *mx, struct timeval *time);
 
+//philo_tycoon.c
+int		checking_eats(t_philo_info *philo);
 #endif

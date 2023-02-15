@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:33:29 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 19:31:21 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/10 18:54:26 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	_organizing_table(t_system_info *_sys, int heads)
 		return (-1);
 	while (i < heads)
 	{
+		_sys->philos[i].last_eat = 0;
 		_sys->philos[i].id = i + 1;
 		_sys->forks[i].fork_st = AVAIL;
 		pthread_mutex_init(&_sys->forks[i].fork_mt, NULL);
@@ -44,9 +45,7 @@ int	_organizing_table(t_system_info *_sys, int heads)
 		_sys->philos[i].eats = 0;
 		_sys->philos[i].philo_thread = NULL;
 		pthread_mutex_init(&_sys->philos[i].leat_mx, NULL);
-		pthread_mutex_lock(&_sys->philos[i].leat_mx);
-		gettimeofday(&_sys->philos[i].last_eat, NULL);
-		pthread_mutex_unlock(&_sys->philos[i].leat_mx);
+		pthread_mutex_init(&_sys->philos[i].eats_mx, NULL);
 		i ++;
 	}
 	return (0);
@@ -55,18 +54,17 @@ int	_organizing_table(t_system_info *_sys, int heads)
 int	_eating_monitoring(t_philo_info *philo)
 {
 	int	gap;
-	int	ret;
 
-	ret = LIVE;
+	gap = philo_timewatch(philo->args->start);
 	pthread_mutex_lock(&philo->leat_mx);
-	gap = philo_timewatch(philo->last_eat);
-	pthread_mutex_unlock(&philo->leat_mx);
-	if (gap > philo->args->argv[1])
+	if (gap - philo->last_eat > philo->args->argv[1])
 	{
+		pthread_mutex_unlock(&philo->leat_mx);
 		philo_dying(philo);
-		ret = DEAD;
+		return (DEAD);
 	}
-	return (ret);
+	pthread_mutex_unlock(&philo->leat_mx);
+	return (LIVE);
 }
 
 void	_monitoring_table(t_system_info *_sys, int heads)
@@ -76,13 +74,14 @@ void	_monitoring_table(t_system_info *_sys, int heads)
 
 	while (_sys->args.active != DEAD)
 	{
+		usleep(200);
 		cnt = 0;
 		i = 0;
 		while (i < heads)
 		{
 			if (_sys->args.argc == 5)
 			{
-				if (_sys->philos->eats >= _sys->args.argv[4])
+				if (checking_eats(&_sys->philos[i]))
 					cnt ++;
 				else if (_eating_monitoring(&_sys->philos[i]) == DEAD)
 					return ;
@@ -94,7 +93,6 @@ void	_monitoring_table(t_system_info *_sys, int heads)
 					return ;
 			i ++;
 		}
-		usleep(200);
 	}
 }
 
@@ -104,14 +102,15 @@ int	_activating_table(t_system_info *_sys, int heads)
 	void	*ret_val;
 
 	i = 0;
-	if (gettimeofday(&_sys->args.start, NULL) == -1)
-		return (-2);
 	while (i < heads)
 	{
 		pthread_create(&_sys->philos[i].philo_thread, NULL, \
 				philo_gotchi, &_sys->philos[i]);
 		i ++;
 	}
+	if (gettimeofday(&_sys->args.start, NULL) == -1)
+		return (-1);
+	pthread_mutex_unlock(&_sys->args.ready_mx);
 	_monitoring_table(_sys, heads);
 	i = 0;
 	while (i < heads)

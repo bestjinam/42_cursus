@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:08:06 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 17:54:25 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/13 22:17:02 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	philo_timestamp(pthread_mutex_t *mx, struct timeval *time)
 	pthread_mutex_unlock(mx);
 }
 
-void	ft_usleep(int ms)
+void	ft_usleep(struct timeval start, int ms)
 {
-	struct timeval	start;
 	int				gap;
 
-	gettimeofday(&start, NULL);
 	usleep(ms * 800);
 	while (1)
 	{
@@ -50,7 +48,8 @@ void	ft_usleep(int ms)
 void	philo_printf(t_philo_info *philo, char *str)
 {
 	pthread_mutex_lock(&philo->args->print_mx);
-	printf("%d %d %s", philo_timewatch(philo->args->start), philo->id, str);
+	if (philo->args->printable == AVAIL)
+		printf("%d %d %s", philo_timewatch(philo->args->start), philo->id, str);
 	pthread_mutex_unlock(&philo->args->print_mx);
 }
 
@@ -59,6 +58,9 @@ int	philo_dying(t_philo_info *philo)
 	pthread_mutex_lock(&philo->args->active_mx);
 	philo->args->active = DEAD;
 	pthread_mutex_unlock(&philo->args->active_mx);
-	philo_printf(philo, "died\n");
+	pthread_mutex_lock(&philo->args->print_mx);
+	philo->args->printable = UNAVAIL;
+	printf("%d %d %s", philo_timewatch(philo->args->start), philo->id, "died\n");
+	pthread_mutex_unlock(&philo->args->print_mx);
 	return (DEAD);
 }

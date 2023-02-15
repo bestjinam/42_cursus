@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:35:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/09 18:47:06 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/13 13:15:40 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <pthread.h>
@@ -14,7 +14,7 @@
 #include "philo.h"
 #include <unistd.h>
 
-int	_grep_fork(t_args *args, t_fork *fork)
+int	_grep_fork(t_philo_info *philo, t_args *args, t_fork *fork)
 {
 	while (1)
 	{
@@ -33,14 +33,18 @@ int	_grep_fork(t_args *args, t_fork *fork)
 	}
 	fork->fork_st = UNAVAIL;
 	pthread_mutex_unlock(&fork->fork_mt);
+	philo_printf(philo, "has taken a fork\n");
 	return (LIVE);
 }
 
 void	_ordering_forks(t_philo_info *philo, t_fork **first, t_fork **last)
 {
-	*first = philo->r_fork;
-	*last = philo->l_fork;
-	if (!philo->id % 2)
+	if (philo->id % 2)
+	{
+		*first = philo->r_fork;
+		*last = philo->l_fork;
+	}
+	else
 	{
 		*first = philo->l_fork;
 		*last = philo->r_fork;
@@ -49,26 +53,21 @@ void	_ordering_forks(t_philo_info *philo, t_fork **first, t_fork **last)
 
 int	_preparing_forks(t_philo_info *philo)
 {
-	t_fork	*first;
-	t_fork	*last;
-	int		ret;
-
-	_ordering_forks(philo, &first, &last);
-	ret = _grep_fork(philo->args, first);
-	if (ret != DEAD)
+	if (philo->id % 2)
 	{
-		ret = _grep_fork(philo->args, last);
-		if (ret != DEAD)
-			philo_printf(philo, "has taken a fork\n");
+		if (_grep_fork(philo, philo->args, philo->l_fork) == DEAD)
+			return (DEAD);
+		if (_grep_fork(philo, philo->args, philo->r_fork) == DEAD)
+			return (DEAD);
 	}
-	pthread_mutex_lock(&philo->args->active_mx);
-	if (philo->args->active == DEAD)
+	else
 	{
-		pthread_mutex_unlock(&philo->args->active_mx);
-		return (DEAD);
+		if (_grep_fork(philo, philo->args, philo->r_fork) == DEAD)
+			return (DEAD);
+		if (_grep_fork(philo, philo->args, philo->l_fork) == DEAD)
+			return (DEAD);
 	}
-	pthread_mutex_unlock((&philo->args->active_mx));
-	return (ret);
+	return (LIVE);
 }
 
 void	_releasing_forks(t_philo_info *philo)
@@ -85,18 +84,17 @@ int	philo_eating(t_philo_info *philo)
 {
 	int	ret;
 
-	ret = _preparing_forks(philo);
-	if (ret == DEAD)
-		return (ret);
+	if (_preparing_forks(philo) == DEAD)
+		return (DEAD);
 	philo_printf(philo, "is eating\n");
-	philo_timestamp(&philo->leat_mx, &philo->last_eat);
+	pthread_mutex_lock(&philo->leat_mx);
+	philo->last_eat = philo_timewatch(philo->args->start);
+	pthread_mutex_unlock(&philo->leat_mx);
+	pthread_mutex_lock(&philo->eats_mx);
 	philo->eats ++;
+	pthread_mutex_unlock(&philo->eats_mx);
 	ft_usleep(philo->args->argv[2]);
 	_releasing_forks(philo);
 	ret = LIVE;
-	pthread_mutex_lock(&philo->args->active_mx);
-	if (philo->args->active == DEAD)
-		ret = DEAD;
-	pthread_mutex_unlock(&philo->args->active_mx);
 	return (ret);
 }
