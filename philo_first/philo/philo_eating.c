@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:35:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/13 13:15:40 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 15:13:08 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <pthread.h>
@@ -82,7 +82,8 @@ void	_releasing_forks(t_philo_info *philo)
 
 int	philo_eating(t_philo_info *philo)
 {
-	int	ret;
+	int				ret;
+	struct timeval	start;
 
 	if (_preparing_forks(philo) == DEAD)
 		return (DEAD);
@@ -93,7 +94,8 @@ int	philo_eating(t_philo_info *philo)
 	pthread_mutex_lock(&philo->eats_mx);
 	philo->eats ++;
 	pthread_mutex_unlock(&philo->eats_mx);
-	ft_usleep(philo->args->argv[2]);
+	gettimeofday(&start, NULL);
+	ft_usleep(start, philo->args->argv[2]);
 	_releasing_forks(philo);
 	ret = LIVE;
 	return (ret);

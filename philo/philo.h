@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:36:58 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/15 20:50:10 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 16:59:19 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ enum e_err
 	FAIL,
 };
 
+void	ft_usleep(struct timeval start, int ms);
 void	ft_putstr(int fd, char *str);
 int		ft_isdigit(int c);
 int		str_is_digit(char *str);
@@ -94,5 +95,13 @@ void	destroy_jigsaw(t_sys *_sys);
 int		ft_atoi(const char *str);
 
 int		run_philo_game(t_sys *sys);
+
+void	*philo_gotchi(void *raw);
+
+int		jigsaw_watch(struct timeval last);
+void	jigsaw_printf(int id, t_sys_info *jigsaw, char *str);
+
+int		preparing_forks(t_philo *victim);
+void	releasing_forks(t_philo *victim);
 
 #endif

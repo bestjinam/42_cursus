@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 13:00:49 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/13 22:08:05 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 15:12:50 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	philo_sleeping(t_philo_info *philo, int time)
 	}
 	pthread_mutex_unlock(&philo->args->active_mx);
 	philo_printf(philo, "is sleeping\n");
-	gettimeofday(&start, NULL),
+	gettimeofday(&start, NULL);
 	ft_usleep(start, time);
 	return (LIVE);
 }

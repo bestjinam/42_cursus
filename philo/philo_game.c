@@ -6,11 +6,12 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:58:31 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/15 21:04:01 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 17:39:45 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
 /*
@@ -37,6 +38,7 @@ void	_activating_victim(int i, t_philo *victim, t_sys *sys)
 	victim->l_fork = &sys->forks[i];
 	victim->r_fork = &sys->forks[(i + 1) % sys->info.num];
 	pthread_mutex_init(&victim->l_fork->fork_mt, NULL);
+	victim->jigsaw = &sys->jigsaw;
 	victim->args = &sys->info;
 }
 
@@ -48,7 +50,6 @@ int	_organizing_table(t_sys *sys, int num)
 	while (i < num)
 	{
 		_activating_victim(i, &sys->victims[i], sys);
-		sys->victims->jigsaw = &sys->jigsaw;
 		pthread_create(&sys->victims[i].philo, NULL, \
 				philo_gotchi, &sys->victims[i]);
 		i ++;
@@ -73,7 +74,6 @@ int	_checking_victim(t_philo *victim)
 int	_run_jigsaw(t_sys *sys, t_philo **victims, int num)
 {
 	int	i;
-	int	cnt;
 
 	while (sys->jigsaw.active != DEAD)
 	{
@@ -93,6 +93,7 @@ int	_run_jigsaw(t_sys *sys, t_philo **victims, int num)
 			i ++;
 		}
 	}
+	return (DEAD);
 }
 
 int	run_philo_game(t_sys *sys)

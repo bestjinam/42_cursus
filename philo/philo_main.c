@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:21:01 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/15 20:49:51 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 17:05:17 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ int	_init_jigsaw(t_sys *sys)
 			return (MALLOC_FAIL);
 	}
 	return (SUCCESS);
+}
+
+void	destroy_jigsaw(t_sys *_sys)
+{
+	pthread_mutex_destroy(&_sys->jigsaw.active_mt);
+	pthread_mutex_destroy(&_sys->jigsaw.print_mt);
+	pthread_mutex_destroy(&_sys->jigsaw.ready_mt);
+	if (_sys->info.argc == 5)
+		pthread_mutex_destroy(&_sys->jigsaw.full_mt);
+	if (_sys->victims)
+		free(_sys->victims);
+	if (_sys->forks)
+		free(_sys->forks);
 }
 
 int	_init_room(int argc, char **argv, t_sys *_sys)
