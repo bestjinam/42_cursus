@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:58:31 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 17:39:45 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 18:02:30 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <stdio.h>
 /*
  	int				id;
 	int				eats;
@@ -61,14 +62,18 @@ int	_organizing_table(t_sys *sys, int num)
 
 int	_checking_victim(t_philo *victim)
 {
-	int	res;
+	int	gap;
 
-	res = ALIVE;
-	pthread_mutex_lock(&victim->eats_mt);
-	if (victim->eats >= victim->args->die)
-		res = DEAD;
-	pthread_mutex_unlock(&victim->eats_mt);
-	return (res);
+	gap = jigsaw_watch(victim->jigsaw->start);
+	pthread_mutex_lock(&victim->last_mt);
+	if (gap - victim->last_eat >= victim->args->die)
+	{
+		pthread_mutex_unlock(&victim->last_mt);
+		philo_dying(victim);
+		return (DEAD);
+	}
+	pthread_mutex_unlock(&victim->last_mt);
+	return (ALIVE);
 }
 
 int	_run_jigsaw(t_sys *sys, t_philo **victims, int num)

@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 20:38:53 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 17:23:35 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 18:14:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -55,7 +55,6 @@ int	philo_eating(t_philo *victim)
 
 	if (preparing_forks(victim) == DEAD)
 		return (DEAD);
-	printf("djsalkjda\n");
 	jigsaw_printf(victim->id, victim->jigsaw, "is eating\n");
 	pthread_mutex_lock(&victim->last_mt);
 	victim->last_eat = jigsaw_watch(victim->jigsaw->start);
@@ -63,13 +62,31 @@ int	philo_eating(t_philo *victim)
 	if (victim->args->argc == 5)
 	{
 		pthread_mutex_lock(&victim->eats_mt);
-			victim->eats --;
+		if (--victim->eats == 0)
+		{
+			pthread_mutex_lock(&victim->jigsaw->full_mt);
+			victim->jigsaw->full ++;
+			pthread_mutex_unlock(&victim->jigsaw->full_mt);
+		}
 		pthread_mutex_lock(&victim->eats_mt);
 	}
 	gettimeofday(&start, NULL);
 	ft_usleep(start, victim->args->eat);
 	releasing_forks(victim);
 	return (ALIVE);
+}
+
+int	philo_dying(t_philo *victim)
+{
+	pthread_mutex_lock(&victim->jigsaw->active_mt);
+	victim->jigsaw->active = DEAD;
+	pthread_mutex_unlock(&victim->jigsaw->active_mt);
+	pthread_mutex_lock(&victim->jigsaw->print_mt);
+	victim->jigsaw->print = UNAVAIL;
+	printf("%d %d %s", jigsaw_watch(victim->jigsaw->start), \
+			victim->id, "died\n");
+	pthread_mutex_unlock(&victim->jigsaw->print_mt);
+	return (DEAD);
 }
 
 // a(micro) = 500;
@@ -89,7 +106,10 @@ void	*philo_gotchi(void *raw)
 	while (1)
 	{
 		if (philo_eating(victim) != ALIVE)
+		{
+			printf("dajksdlaskd\n");
 			break ;
+		}
 		if (victim->args->argc == 5 && victim->eats == 0)
 			break ;
 		if (philo_sleeping(victim, victim->args->sleep) == DEAD)

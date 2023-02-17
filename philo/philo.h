@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:36:58 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 16:59:19 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 18:08:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		ft_atoi(const char *str);
 int		run_philo_game(t_sys *sys);
 
 void	*philo_gotchi(void *raw);
+int		philo_dying(t_philo *victim);
 
 int		jigsaw_watch(struct timeval last);
 void	jigsaw_printf(int id, t_sys_info *jigsaw, char *str);

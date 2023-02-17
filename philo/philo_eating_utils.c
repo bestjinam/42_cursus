@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:46:32 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 17:27:28 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/17 18:15:03 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	preparing_forks(t_philo *victim)
 	{
 		if (_grep_fork(victim, victim->l_fork) == DEAD)
 			return (DEAD);
+		printf("whdkllfjsdlkfjsld\n");
 		if (_grep_fork(victim, victim->r_fork) == DEAD)
 			return (DEAD);
 	}
