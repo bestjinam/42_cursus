@@ -5,106 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 14:21:01 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 17:05:17 by jinam            ###   ########.fr       */
+/*   Created: 2023/02/19 13:14:09 by jinam             #+#    #+#             */
+/*   Updated: 2023/02/19 17:07:18 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <string.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
-int	_init_argvs(int argc, t_args *args, char **argv)
+int	_init_args(int argc, t_args *args, char **argv)
 {
 	int	i;
 
-	if (argc < 5 || argc > 6)
+	if (argc < 4 || argc > 5)
 		return (FEW_ARGS);
 	i = 1;
-	while (i < argc)
+	while (i < argc + 1)
 	{
 		if (!str_is_digit(argv[i]) || ft_atoi(argv[i]) < 0)
 			return (INVALID);
 		i ++;
 	}
-	args->argc = argc - 1;
+	args->argc = argc;
 	args->num = ft_atoi(argv[1]);
-	args->die = ft_atoi(argv[2]);
-	args->eat = ft_atoi(argv[3]);
-	args->sleep = ft_atoi(argv[4]);
+	args->die_t = ft_atoi(argv[2]);
+	args->eat_t = ft_atoi(argv[3]);
+	args->sleep_t = ft_atoi(argv[4]);
 	args->eat_cnt = 0;
-	if (argc == 6)
+	if (argc == 5)
 		args->eat_cnt = ft_atoi(argv[5]);
-	if (args->num == 0 || (argc == 6 && args->eat_cnt == 0))
-		return (ZERO);
+	if (args->num == 0 || (argc == 5 && args->eat_cnt == 0))
+		return (INVALID);
 	return (SUCCESS);
 }
 
-int	_init_jigsaw(t_sys *sys)
+int	_init_table(int argc, t_watchdog *watchdog, t_speaker *speaker)
 {
-	if (pthread_mutex_init(&sys->jigsaw.active_mt, NULL) || \
-	pthread_mutex_init(&sys->jigsaw.print_mt, NULL) || \
-	pthread_mutex_init(&sys->jigsaw.ready_mt, NULL))
+	if (pthread_mutex_init(&watchdog->active_mt, NULL) || \
+			pthread_mutex_init(&watchdog->ready_mt, NULL) || \
+			pthread_mutex_init(&speaker->print_mt, NULL))
 		return (MALLOC_FAIL);
-	sys->jigsaw.print = AVAIL;
-	sys->jigsaw.active = ALIVE;
-	if (sys->info.argc == 5)
+	speaker->print = AVAIL;
+	watchdog->active = ALIVE;
+	if (argc == 5)
 	{
-		sys->jigsaw.full = 0;
-		if (pthread_mutex_init(&sys->jigsaw.full_mt, NULL))
+		watchdog->full = 0;
+		if (pthread_mutex_init(&watchdog->full_mt, NULL))
 			return (MALLOC_FAIL);
 	}
 	return (SUCCESS);
 }
 
-void	destroy_jigsaw(t_sys *_sys)
+int	_destroy_table(int err, t_room *room)
 {
-	pthread_mutex_destroy(&_sys->jigsaw.active_mt);
-	pthread_mutex_destroy(&_sys->jigsaw.print_mt);
-	pthread_mutex_destroy(&_sys->jigsaw.ready_mt);
-	if (_sys->info.argc == 5)
-		pthread_mutex_destroy(&_sys->jigsaw.full_mt);
-	if (_sys->victims)
-		free(_sys->victims);
-	if (_sys->forks)
-		free(_sys->forks);
+	int	res;
+	int	i;
+
+	res = SUCCESS;
+	if (err == MALLOC_FAIL)
+		res = FAIL;
+	pthread_mutex_destroy(&room->watchdog.active_mt);
+	pthread_mutex_destroy(&room->watchdog.ready_mt);
+	pthread_mutex_destroy(&room->speaker.print_mt);
+	if (room->args.argc == 5)
+		pthread_mutex_destroy(&room->watchdog.full_mt);
+	if (room->victims)
+	{
+		i = -1;
+		while (++i < room->args.num)
+		{
+			pthread_mutex_destroy(&room->victims[i].eats_mt);
+			pthread_mutex_destroy(&room->victims[i].last_mt);
+			if (room->forks)
+				pthread_mutex_destroy(&room->forks[i].fork_mt);
+		}
+		free(room->victims);
+	}
+	free(room->forks);
+	return (res);
 }
 
-int	_init_room(int argc, char **argv, t_sys *_sys)
+int	_init_room(int argc, char **argv, t_room *room)
 {
 	int	tmp;
 
-	memset(_sys, 0, sizeof(t_sys));
-	tmp = _init_argvs(argc, &_sys->info, &argv[0]);
+	memset(room, 0, sizeof(t_room));
+	tmp = _init_args(argc, &room->args, &argv[0]);
 	if (tmp != SUCCESS)
-	{
-		if (tmp == FEW_ARGS)
-			return (philo_err_exit());
-		else if (tmp == INVALID)
-			ft_putstr(2, "valid argument required\n");
-		return (tmp);
-	}
-	tmp = _init_jigsaw(_sys);
+		return (philo_err_exit(tmp));
+	tmp = _init_table(argc, &room->watchdog, &room->speaker);
 	if (tmp == MALLOC_FAIL)
-	{
-		destroy_jigsaw(_sys);
-		return (tmp);
-	}
-	_sys->victims = malloc(sizeof(t_philo) * _sys->info.num);
-	_sys->forks = malloc(sizeof(t_fork) * _sys->info.num);
-	if (!_sys->victims || !_sys->forks)
-		return (MALLOC_FAIL);
-	return (tmp);
+		return (_destroy_table(tmp, room));
+	room->victims = malloc(sizeof(t_philo) * room->args.num);
+	room->forks = malloc(sizeof(t_fork) * room->args.num);
+	if (!room->victims || !room->forks)
+		return (_destroy_table(MALLOC_FAIL, room));
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
-	t_sys	_sys;
-	int		tmp;
+	t_room	room;
+	int		res;
 
-	tmp = _init_room(argc, argv, &_sys);
-	if (tmp != SUCCESS)
+	res = _init_room(argc - 1, argv, &room);
+	if (res != SUCCESS)
 		return (1);
-	tmp = run_philo_game(&_sys);
+	res = run_philo_game(&room);
+	if (res == FAIL)
+		return (_destroy_table(res, &room));
 }

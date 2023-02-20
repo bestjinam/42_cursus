@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:02:49 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/13 17:06:50 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/20 15:05:54 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	_atoi_conv(const char *str, int sign)
 	while (ft_isdigit(str[idx]))
 	{
 		res *= 10;
-		res += (str[idx] - '0');
+		res += (str[idx] - '0') * sign;
 		idx ++;
 	}
 	return (res);

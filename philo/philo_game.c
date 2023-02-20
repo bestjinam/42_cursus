@@ -5,57 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 16:58:31 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/17 18:02:30 by jinam            ###   ########.fr       */
+/*   Created: 2023/02/19 15:48:25 by jinam             #+#    #+#             */
+/*   Updated: 2023/02/20 15:04:34 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <sys/time.h>
 #include <unistd.h>
-#include <stdio.h>
-/*
- 	int				id;
-	int				eats;
-	int				last_eat;
-	pthread_mutex_t	last_mt;
-	pthread_mutex_t	eats_mt;
-	pthread_t		philo;
-	t_fork			*r_fork;
-	t_fork			*l_fork;
-	t_args			*args;
-	t_sys_info		*info;
-	*/
-void	_activating_victim(int i, t_philo *victim, t_sys *sys)
+
+int	_activating_victim(int i, t_philo *victim, t_room *room)
 {
 	victim->id = i + 1;
 	victim->eats = 0;
-	if (sys->info.argc == 5)
-		victim->eats = sys->info.eat_cnt;
+	if (room->args.argc == 5)
+		victim->eats = room->args.eat_cnt;
 	victim->last_eat = 0;
-	pthread_mutex_init(&victim->last_mt, NULL);
-	pthread_mutex_init(&victim->last_mt, NULL);
-	victim->l_fork = &sys->forks[i];
-	victim->r_fork = &sys->forks[(i + 1) % sys->info.num];
-	pthread_mutex_init(&victim->l_fork->fork_mt, NULL);
-	victim->jigsaw = &sys->jigsaw;
-	victim->args = &sys->info;
+	victim->l_fork = &room->forks[i];
+	victim->r_fork = &room->forks[(i + 1) % room->args.num];
+	if (pthread_mutex_init(&victim->last_mt, NULL) || \
+			(victim->eats && pthread_mutex_init(&victim->eats_mt, NULL)) || \
+			pthread_mutex_init(&victim->l_fork->fork_mt, NULL))
+		return (MALLOC_FAIL);
+	victim->watchdog = &room->watchdog;
+	victim->speaker = &room->speaker;
+	victim->args = &room->args;
+	return (SUCCESS);
 }
 
-int	_organizing_table(t_sys *sys, int num)
+int	_organizing_table(t_room *room, int num)
 {
 	int	i;
 
 	i = 0;
 	while (i < num)
 	{
-		_activating_victim(i, &sys->victims[i], sys);
-		pthread_create(&sys->victims[i].philo, NULL, \
-				philo_gotchi, &sys->victims[i]);
+		if (_activating_victim(i, &room->victims[i], room) == MALLOC_FAIL)
+			return (FAIL);
+		pthread_create(&room->victims[i].philo, NULL, philo_tycoon, \
+				&room->victims[i]);
 		i ++;
 	}
-	if (gettimeofday(&sys->jigsaw.start, NULL) == -1)
+	if (gettimeofday(&room->watchdog.start, NULL) == -1)
 		return (FAIL);
 	return (SUCCESS);
 }
@@ -64,36 +54,35 @@ int	_checking_victim(t_philo *victim)
 {
 	int	gap;
 
-	gap = jigsaw_watch(victim->jigsaw->start);
 	pthread_mutex_lock(&victim->last_mt);
-	if (gap - victim->last_eat >= victim->args->die)
+	gap = philo_watch(victim->watchdog->start) - victim->last_eat;
+	pthread_mutex_unlock(&victim->last_mt);
+	if (gap >= victim->args->die_t)
 	{
-		pthread_mutex_unlock(&victim->last_mt);
 		philo_dying(victim);
 		return (DEAD);
 	}
-	pthread_mutex_unlock(&victim->last_mt);
 	return (ALIVE);
 }
 
-int	_run_jigsaw(t_sys *sys, t_philo **victims, int num)
+int	_run_monitor(t_room *room, int num)
 {
 	int	i;
 
-	while (sys->jigsaw.active != DEAD)
+	while (checking_vital(&room->watchdog) == ALIVE)
 	{
 		usleep(200);
-		if (sys->info.argc == 5)
+		if (room->args.argc == 5)
 		{
-			pthread_mutex_lock(&sys->jigsaw.full_mt);
-			if (sys->jigsaw.full == num)
-				return (FINISH);
-			pthread_mutex_unlock(&sys->jigsaw.full_mt);
+			pthread_mutex_lock(&room->watchdog.full_mt);
+			if (room->watchdog.full == num - 1)
+				return (COMPLETE);
+			pthread_mutex_unlock(&room->watchdog.full_mt);
 		}
 		i = 0;
 		while (i < num)
 		{
-			if (_checking_victim(victims[i]) == DEAD)
+			if (_checking_victim(&room->victims[i]) == DEAD)
 				return (DEAD);
 			i ++;
 		}
@@ -101,23 +90,23 @@ int	_run_jigsaw(t_sys *sys, t_philo **victims, int num)
 	return (DEAD);
 }
 
-int	run_philo_game(t_sys *sys)
+int	run_philo_game(t_room *room)
 {
 	int	res;
 	int	i;
 
-	pthread_mutex_lock(&sys->jigsaw.ready_mt);
-	res = _organizing_table(sys, sys->info.num);
+	pthread_mutex_lock(&room->watchdog.ready_mt);
+	res = _organizing_table(room, room->args.num);
 	if (res == FAIL)
-		return (FAIL);
-	pthread_mutex_unlock(&sys->jigsaw.ready_mt);
-	res = _run_jigsaw(sys, &sys->victims, sys->info.num);
-	if (res == FINISH)
-		pthread_mutex_unlock(&sys->jigsaw.full_mt);
+		return (res);
+	pthread_mutex_unlock(&room->watchdog.ready_mt);
+	res = _run_monitor(room, room->args.num);
+	if (res == COMPLETE)
+		pthread_mutex_unlock(&room->watchdog.full_mt);
 	i = 0;
-	while (i < sys->info.num)
+	while (i < room->args.num)
 	{
-		pthread_join(sys->victims[i].philo, NULL);
+		pthread_join(room->victims[i].philo, NULL);
 		i ++;
 	}
 	return (res);
