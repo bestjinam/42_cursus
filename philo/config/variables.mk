@@ -3,11 +3,10 @@
 
 M_FILES =			philo_main \
 					philo_main_utils \
-					philo_gotchi \
-					philo_gotchi_utils \
+					philo_game \
+					philo_game_utils \
 					philo_tycoon \
 					philo_tycoon_utils \
-					philo_eating \
-					philo_error_utils
+					ft_atoi
 # file directory
 OUT_DIR = 			objcs

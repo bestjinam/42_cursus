@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:48:25 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/20 15:04:34 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/20 18:20:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	_run_monitor(t_room *room, int num)
 		if (room->args.argc == 5)
 		{
 			pthread_mutex_lock(&room->watchdog.full_mt);
-			if (room->watchdog.full == num - 1)
+			if (room->watchdog.full == num)
 				return (COMPLETE);
 			pthread_mutex_unlock(&room->watchdog.full_mt);
 		}

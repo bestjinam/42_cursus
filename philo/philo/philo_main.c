@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:14:09 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/19 17:07:18 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/26 20:08:35 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	_init_args(int argc, t_args *args, char **argv)
 	i = 1;
 	while (i < argc + 1)
 	{
-		if (!str_is_digit(argv[i]) || ft_atoi(argv[i]) < 0)
+		if (!str_is_digit(argv[i]) && ft_atoi(argv[i]) < 0)
 			return (INVALID);
 		i ++;
 	}
@@ -104,8 +104,14 @@ int	_init_room(int argc, char **argv, t_room *room)
 	return (SUCCESS);
 }
 
+void	ft_leaks(void)
+{
+	system("leaks philo");
+}
+
 int	main(int argc, char **argv)
 {
+	atexit(ft_leaks);
 	t_room	room;
 	int		res;
 
@@ -113,6 +119,5 @@ int	main(int argc, char **argv)
 	if (res != SUCCESS)
 		return (1);
 	res = run_philo_game(&room);
-	if (res == FAIL)
-		return (_destroy_table(res, &room));
+	return (_destroy_table(res, &room));
 }

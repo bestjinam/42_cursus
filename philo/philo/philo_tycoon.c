@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:37:08 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/19 20:50:10 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/20 18:20:04 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	philo_eating(t_philo *victim)
 	if (victim->args->argc == 5)
 	{
 		pthread_mutex_lock(&victim->eats_mt);
-		if (victim->eats --)
+		if (-- victim->eats)
 			pthread_mutex_unlock(&victim->eats_mt);
 		else
 		{
