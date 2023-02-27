@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:23:19 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/20 15:04:02 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/27 16:06:10 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	str_is_digit(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '+')
+		i ++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

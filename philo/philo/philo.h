@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:03:03 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/19 19:44:34 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/27 16:10:50 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ enum e_status
 {
 	SUCCESS,
 	FAIL,
-	FEW_ARGS,
+	INVALID_ARGS,
 	INVALID,
 	MALLOC_FAIL,
 	AVAIL,

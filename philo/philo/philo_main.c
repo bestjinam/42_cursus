@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:14:09 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/26 20:08:35 by jinam            ###   ########.fr       */
+/*   Updated: 2023/02/27 16:11:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	_init_args(int argc, t_args *args, char **argv)
 	int	i;
 
 	if (argc < 4 || argc > 5)
-		return (FEW_ARGS);
+		return (INVALID_ARGS);
 	i = 1;
 	while (i < argc + 1)
 	{
-		if (!str_is_digit(argv[i]) && ft_atoi(argv[i]) < 0)
+		if (!str_is_digit(argv[i]) || ft_atoi(argv[i]) < 0)
 			return (INVALID);
 		i ++;
 	}
@@ -63,7 +63,7 @@ int	_destroy_table(int err, t_room *room)
 	int	i;
 
 	res = SUCCESS;
-	if (err == MALLOC_FAIL)
+	if (err == MALLOC_FAIL || err == FAIL)
 		res = FAIL;
 	pthread_mutex_destroy(&room->watchdog.active_mt);
 	pthread_mutex_destroy(&room->watchdog.ready_mt);
@@ -104,14 +104,16 @@ int	_init_room(int argc, char **argv, t_room *room)
 	return (SUCCESS);
 }
 
+/*
 void	ft_leaks(void)
 {
 	system("leaks philo");
 }
+	atexit(ft_leaks);
+	*/
 
 int	main(int argc, char **argv)
 {
-	atexit(ft_leaks);
 	t_room	room;
 	int		res;
 
@@ -119,5 +121,7 @@ int	main(int argc, char **argv)
 	if (res != SUCCESS)
 		return (1);
 	res = run_philo_game(&room);
-	return (_destroy_table(res, &room));
+	if (res == FAIL)
+		return (_destroy_table(FAIL, &room));
+	return (_destroy_table(SUCCESS, &room));
 }
