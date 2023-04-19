@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:12:51 by jinam             #+#    #+#             */
-/*   Updated: 2023/04/18 21:40:37 by jinam            ###   ########.fr       */
+/*   Updated: 2023/04/19 16:44:00 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,23 @@ void	Ifile::read(void)
 void	Ifile::replace(std::string s1, std::string s2)
 {
 	size_t	fidx;
+	const size_t	s1_len = s1.length();
 
-	(void) s2;
-	(void) s1;
-	std::cout << data;
+	fidx = data.find(s1, 0);
+	while (fidx != std::string::npos)
+	{
+		data.erase(fidx, s1_len);
+		data.insert(fidx, s2);
+		fidx = data.find(s1, fidx + s2.length());
+	}
+}
+
+int		Ifile::write(std::string f1)
+{
+	std::ofstream	fout;
+
+	fout.open(f1 + ".replace");
+	fout << data;
+	fout.close();
+	return (0);
 }

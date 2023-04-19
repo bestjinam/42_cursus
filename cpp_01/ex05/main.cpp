@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 18:13:37 by jinam             #+#    #+#             */
-/*   Updated: 2023/04/19 16:46:33 by jinam            ###   ########.fr       */
+/*   Created: 2023/04/19 19:05:07 by jinam             #+#    #+#             */
+/*   Updated: 2023/04/19 21:23:49 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Ifile.hpp"
+#include "Harl.hpp"
 
-void	ft_exit(void)
+int	main(void)
 {
-	system("leaks Sed");
-}
+	Harl	h;
 
-int	main(int argc, char **argv)
-{
-	Ifile	input(argv[1]);
-
-	if (argc != 4)
-		return (1);
-
-	input.read();
-	input.replace(argv[2], argv[3]);
-	input.write(argv[1]);
-	return (0);
+	std::cout << ">> DEBUG <<" << std::endl;
+	h.complain("DEBUG");
+	std::cout << std::endl;
+	std::cout << ">> INFO <<" << std::endl;
+	h.complain("INFO");
+	std::cout << std::endl;
+	std::cout << ">> WARNING <<" << std::endl;
+	h.complain("WARNING");
+	std::cout << std::endl;
+	std::cout << ">> ERROR <<" << std::endl;
+	h.complain("ERROR");
+	std::cout << std::endl;
 }
