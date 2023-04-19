@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/11 17:26:49 by jinam             #+#    #+#              #
-#    Updated: 2023/03/11 18:54:17 by jinam            ###   ########.fr        #
+#    Updated: 2023/04/16 20:50:43 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = megaphone
 
 # Cmd & Options 
-CC 			= g++
+CC 			= c++
 CXXFLAGS 	= -Wall -Wextra -Werror
 RM			= rm
 RMFLAGS		= -f
@@ -25,7 +25,7 @@ OBJECTS		= $(addprefix $(OUT_DIR)/, $(addsuffix .o, $(FILE)))
 # Compile rules
 $(OUT_DIR)/%.o	: %.cpp
 	@mkdir -p $(OUT_DIR)
-	$(CC) -c $(FXXFLAGS) $< -o $@
+	$(CC) -c $(CXXFLAGS) $< -o $@
 
 debug	:
 	make WITH_NOFLAGS=1 all

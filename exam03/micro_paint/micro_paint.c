@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   micro_paint.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 15:16:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/02/28 15:48:01 by jinam            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 
 typedef struct s_zone
 {
@@ -34,9 +22,9 @@ typedef struct s_draw
 	char	c;
 }	t_draw;
 
-char	**g_tab;
 t_zone	g_zone;
 t_draw	g_draw;
+char	**g_tab;
 
 int	ft_strlen(char *str)
 {
@@ -61,32 +49,24 @@ int	ft_exit(int err)
 	{
 		if (err == 1)
 			ft_putstr("Error: argument\n");
-		else
+		else if (err == 2)
+			ft_putstr("Error: Operation file corrupted\n");
+		else if (err == 3)
 		{
 			ft_putstr("Error: Operation file corrupted\n");
-			if (err == 3)
-			{
-				i = -1;
-				while (g_tab[++i])
-					free(g_tab[i]);
-				free(g_tab);
-			}
+			i = -1;
+			while (g_tab[++i])
+				free(g_tab[i]);
+			free(g_tab);
 		}
 		return (1);
 	}
-	i = -1;
-	while (g_tab[++i])
-		free(g_tab[i]);
-	free(g_tab);
 	return (0);
 }
 
 int	init_zone(FILE *fp)
 {
-	int	tmp;
-
-	tmp = fscanf(fp, "%d %d %c\n", &g_zone.w, &g_zone.h, &g_zone.bg);
-	if (tmp != 3)
+	if (fscanf(fp, "%d %d %c\n", &g_zone.w, &g_zone.h, &g_zone.bg) != 3)
 		return (-1);
 	if (g_zone.w <= 0 || g_zone.w > 300)
 		return (-1);
@@ -114,19 +94,18 @@ void	init_tab(void)
 int	is_it(float x, float y)
 {
 	if ((x < g_draw.x || x > g_draw.x2) || (y < g_draw.y || y > g_draw.y2))
-		return (0);
+		return (-1);
 	else if (g_draw.r == 'R')
-		return (1);
-	else if (g_draw.r == 'r' && ((x - g_draw.x < 1.0f || g_draw.x2 - x < 1.0f) || \
-				(y - g_draw.y < 1.0f || g_draw.y2 - y < 1.0f)))
-		return (1);
-	return (0);
+		return (0);
+	else if (g_draw.r == 'r' && ((x - g_draw.x < 1.0f || g_draw.x2 - x < 1.0f) || (y - g_draw.y< 1.0f || g_draw.y2 - y < 1.0f)))
+		return (0);
+	return (-1);
 }
 
-void	drawing_shapes(void)
+void	drawing_shape(void)
 {
-	int	x;
 	int	y;
+	int	x;
 
 	y = 0;
 	while (y < g_zone.h)
@@ -134,7 +113,7 @@ void	drawing_shapes(void)
 		x = 0;
 		while (x < g_zone.w)
 		{
-			if (is_it((float)x, (float) y) == 1)
+			if (is_it((float) x, (float) y) == 0)
 				g_tab[y][x] = g_draw.c;
 			x ++;
 		}
@@ -146,17 +125,15 @@ int	read_shapes(FILE *fp)
 {
 	int	tmp;
 
-	tmp = fscanf(fp, "%c %f %f %f %f %c\n", &g_draw.r, &g_draw.x, &g_draw.y, &g_draw.w, &g_draw.h, & g_draw.c);
+	tmp = fscanf(fp, "%c %f %f %f %f %c\n", &g_draw.r, &g_draw.x, &g_draw.y, &g_draw.w, &g_draw.h, &g_draw.c);
 	while (tmp == 6)
 	{
-		if (g_draw.w <= 0 || g_draw.h <= 0)
-			return (-1);
-		if (g_draw.r != 'r' && g_draw.r != 'R')
+		if ((g_draw.w <= 0) || (g_draw.h <= 0) || (g_draw.r != 'r' && g_draw.r != 'R'))
 			return (-1);
 		g_draw.x2 = g_draw.x + g_draw.w;
 		g_draw.y2 = g_draw.y + g_draw.h;
-		drawing_shapes();
-		tmp = fscanf(fp, "%c %f %f %f %f %c\n", &g_draw.r, &g_draw.x, &g_draw.y, &g_draw.w, &g_draw.h, & g_draw.c);
+		drawing_shape();
+		tmp = fscanf(fp, "%c %f %f %f %f %c\n", &g_draw.r, &g_draw.x, &g_draw.y, &g_draw.w, &g_draw.h, &g_draw.c);
 	}
 	if (tmp != EOF)
 		return (-1);

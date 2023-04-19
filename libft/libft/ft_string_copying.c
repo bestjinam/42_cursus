@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:09:50 by jinam             #+#    #+#             */
-/*   Updated: 2022/07/19 21:04:47 by jinam            ###   ########.fr       */
+/*   Updated: 2023/04/15 17:57:07 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memcpy(void *s1, const void *s2, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		tmp_s1[i] = tmp_s2[i];
+		tmp_s1[i] = tmp_s2[i];AAAA
 		i ++;
 	}
 	return (s1);
