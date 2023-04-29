@@ -6,13 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:23:28 by jinam             #+#    #+#             */
-/*   Updated: 2023/04/04 11:34:37 by jinam            ###   ########.fr       */
+/*   Updated: 2023/04/27 20:33:01 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <stdio.h>
 
 void	ft_putstr_fd(char *str)
 {
@@ -28,6 +29,7 @@ int	ft_execute(char **argv, int i, int tmp_fd, char **env)
 {
 	argv[i] = NULL;
 	close(tmp_fd);
+	printf("argv[0] : %s i : %d\n", argv[0], i);
 	execve(argv[0], argv, env);
 	ft_putstr_fd("error: cannot execute ");
 	ft_putstr_fd(argv[0]);
@@ -40,11 +42,13 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	int	i;
 	int	pid;
+	int	w;
 	int	fd[2];
 	int	tmp_fd;
 
 	pid = 0;
 	i = 0;
+	w = 0;
 	tmp_fd = dup(0);
 	while (argv[i] && argv[i + 1])
 	{
@@ -96,12 +100,15 @@ int	main(int argc, char **argv, char **env)
 			{
 				close(fd[1]);
 				close(tmp_fd);
-				waitpid(-1, 0, 0);
+				//waitpid(-1, 0, 0);
+				w ++;
 				tmp_fd = dup(fd[0]);
 				close(fd[0]);
 			}
 		}
 	}
+	while (w-- != 0)
+		waitpid(-1, 0, 0);
 	close (tmp_fd);
 	return (0);
 }
