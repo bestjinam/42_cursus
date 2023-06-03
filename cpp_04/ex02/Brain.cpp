@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:51:04 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/02 19:00:41 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/04 01:31:41 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 Brain::Brain()
 {
     std::cout << " Brain default Constructor called" << std::endl;
-    _idx = 0;
+    _idx = -1;
 }
 
 Brain::~Brain()
@@ -42,13 +42,13 @@ std::string Brain::getIdea(int idx)
     if (idx <= _idx)
         return (_ideas[idx]);
     else
-        return NULL;
+        return "";
 }
 
 void Brain::setIdea(std::string think)
 {
+    _idx++;
     if (_idx == 100)
         _idx = 0;
     _ideas[_idx] = think;
-    _idx++;
 }

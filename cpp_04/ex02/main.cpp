@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:22:40 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/02 21:12:46 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/04 01:30:56 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
         const std::string str = "I love cookie!";
         for (int i = 0; i != 100; i++)
         {
-            ((Dog*)dog)->setIdea(str + std::to_string(i));
+            ((Dog*)dog)->setIdea(str);
             std::cout << "in dog's brain : " + ((Dog*)dog)->getIdea(i) << std::endl;
         }
         Dog cp_dog = *(Dog*)dog;
@@ -51,7 +51,8 @@ int main(int argc, char** argv)
 
         for (int i = 0; i != 100; i++)
         {
-            std::cout << "in copy dog's brain : " + ((Dog*)dog)->getIdea(i) << std::endl;
+            std::cout << "in copy dog's brain [" << i << "] : "
+                      << ((Dog*)dog)->getIdea(i) << std::endl;
         }
 
         // delete dog and cat

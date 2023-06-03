@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:51:04 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/02 19:00:41 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/04 01:32:12 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 Brain::Brain()
 {
     std::cout << " Brain default Constructor called" << std::endl;
-    _idx = 0;
+    _len = 0;
 }
 
 Brain::~Brain()
@@ -30,7 +30,7 @@ Brain::Brain(const Brain& ref)
 Brain& Brain::operator=(const Brain& ref)
 {
     std::cout << " Brain copy assignment operator called" << std::endl;
-    for (int i = 0; i != ref._idx + 1; i++)
+    for (int i = 0; i != ref._len + 1; i++)
     {
         _ideas[i] = ref._ideas[i];
     }
@@ -39,16 +39,16 @@ Brain& Brain::operator=(const Brain& ref)
 
 std::string Brain::getIdea(int idx)
 {
-    if (idx <= _idx)
+    if (idx < _len)
         return (_ideas[idx]);
     else
-        return NULL;
+        return "";
 }
 
 void Brain::setIdea(std::string think)
 {
-    if (_idx == 100)
-        _idx = 0;
-    _ideas[_idx] = think;
-    _idx++;
+    if (_len == 100)
+        _len = 0;
+    _ideas[_len] = think;
+    _len++;
 }

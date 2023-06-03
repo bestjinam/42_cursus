@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 11:11:51 by jinam             #+#    #+#              #
-#    Updated: 2023/06/02 18:19:04 by jinam            ###   ########.fr        #
+#    Updated: 2023/06/04 01:24:08 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = Polymorphism
 
 # Cmd & Options
 CXX			= c++
-CXXFLAGS	= -Wall -Werror -Wextra -std=c++98 -g3
+CXXFLAGS	= -Wall -Werror -Wextra -std=c++98 # -g3 -fsanitize=address
 RM 			= rm
 RMFLAGS		= -f
 OUT_DIR		= objs

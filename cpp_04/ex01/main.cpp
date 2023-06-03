@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:22:40 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/02 21:14:16 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/04 01:24:24 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ int main(int argc, char** argv)
 
     const std::string argv_str = argv[1];
     atexit(ft_exit);
+    if (argv_str.compare("0") == 0)
+    {
+        Dog dog;
+        std::cout << std::endl;
+        Dog cp_dog(dog);
+        std::cout << std::endl;
+        Dog cp_operator_dog = dog;
+        std::cout << std::endl;
+
+        std::cout << "dog's brain adress : ";
+        std::cout << &dog.getBrain() << std::endl;
+        std::cout << "cp_dog's brain adress : ";
+        std::cout << &(cp_dog).getBrain() << std::endl;
+        std::cout << "cp_operator_dog's brain adress : ";
+        std::cout << &(cp_operator_dog).getBrain() << std::endl;
+    }
     if (argv_str.compare("1") == 0)
     {
         const Animal* dog = new Dog();
@@ -40,14 +56,10 @@ int main(int argc, char** argv)
         const std::string str = "I love cookie!";
         for (int i = 0; i != 100; i++)
         {
-            ((Dog*)dog)->setIdea(str + std::to_string(i));
-            std::cout << "in dog's brain : " + ((Dog*)dog)->getIdea(i) << std::endl;
+            ((Dog*)dog)->setIdea(str);
+            std::cout << "in dog's brain [" << i << "]: " << ((Dog*)dog)->getIdea(i) << std::endl;
         }
         Dog cp_dog = *(Dog*)dog;
-        std::cout << "dog's brain adress : ";
-        std::cout << &((Dog*)dog)->getBrain() << std::endl;
-        std::cout << "cp_dog's brain adress : ";
-        std::cout << &(cp_dog).getBrain() << std::endl;
 
         for (int i = 0; i != 100; i++)
         {
@@ -55,7 +67,7 @@ int main(int argc, char** argv)
         }
 
         // delete dog and cat
-        std::cout << "delete :dog: and :cat:" << std::endl;
+        std::cout << "delete 🐶 and 😸" << std::endl;
         delete dog;
         delete cat;
     }

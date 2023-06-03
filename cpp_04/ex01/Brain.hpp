@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:38:40 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/02 19:00:34 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/04 01:14:04 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ class Brain
 {
 private:
     std::string _ideas[100];
-    int _idx;
+    int _len;
 
 public:
     Brain();
