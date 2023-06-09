@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FlagTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/23 16:47:04 by jinam             #+#    #+#             */
-/*   Updated: 2023/04/29 15:19:57 by jinam            ###   ########.fr       */
+/*   Created: 2023/04/27 19:34:44 by jinam             #+#    #+#             */
+/*   Updated: 2023/04/29 15:40:14 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FlagTrap.hpp"
-#include "ScavTrap.hpp"
-#include <iostream>
+#ifndef FLAGTRAP_HPP
+#define FLAGTRAP_HPP
+#include "ClapTrap.hpp"
 
-int main(void)
+class FlagTrap : virtual public ClapTrap
 {
-    FlagTrap f1("Flag 1");
-    ScavTrap s1("Scav 1");
+private:
+public:
+    FlagTrap();
+    FlagTrap(std::string name);
+    ~FlagTrap();
+    FlagTrap(const FlagTrap& ref);
+    FlagTrap& operator=(const FlagTrap& ref);
+    void highFivesGuys(void);
+};
 
-    f1.showStats();
-    f1.highFivesGuys();
-
-    s1.showStats();
-}
+#endif

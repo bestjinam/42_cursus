@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/23 16:47:04 by jinam             #+#    #+#             */
-/*   Updated: 2023/04/29 15:19:57 by jinam            ###   ########.fr       */
+/*   Created: 2023/04/27 16:48:19 by jinam             #+#    #+#             */
+/*   Updated: 2023/04/29 15:40:28 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
+#include "ClapTrap.hpp"
 
-#include "FlagTrap.hpp"
-#include "ScavTrap.hpp"
-#include <iostream>
-
-int main(void)
+class ScavTrap : virtual public ClapTrap
 {
-    FlagTrap f1("Flag 1");
-    ScavTrap s1("Scav 1");
+private:
+public:
+    ScavTrap();
+    ScavTrap(std::string name);
+    ~ScavTrap();
+    ScavTrap(const ScavTrap& ref);
+    ScavTrap& operator=(const ScavTrap& ref);
+    void attack(const std::string& target);
+    void guardGate(void);
+};
 
-    f1.showStats();
-    f1.highFivesGuys();
-
-    s1.showStats();
-}
+#endif

@@ -2,8 +2,7 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.hpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jinam <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */ /*   By: jinam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:16:37 by jinam             #+#    #+#             */
 /*   Updated: 2023/04/27 18:37:14 by jinam            ###   ########.fr       */
@@ -31,6 +30,7 @@ public:
     void attack(const std::string& target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
+    void showStats(void);
 };
 
 #endif
