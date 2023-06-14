@@ -6,12 +6,12 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:05 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 17:52:19 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/08 16:54:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
+#include "Form.hpp"
 #include <iostream>
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() {}
@@ -95,30 +95,16 @@ void Bureaucrat::decrementGrade()
     _initGrade(_grade + 1);
 }
 
-void Bureaucrat::signForm(AForm& form)
+void Bureaucrat::signForm(Form& form)
 {
     try
     {
         form.beSigned(*this);
         std::cout << _name << " signed " << form.getName() << std::endl;
     }
-    catch (AForm::GradeTooLowException& e)
+    catch (Form::GradeTooLowException& e)
     {
         std::cout << _name << " couldn't sign " << form.getName()
-                  << ", because " << e.what() << std::endl;
-    }
-}
-
-void Bureaucrat::executeForm(AForm const& form)
-{
-    try
-    {
-        std::cout << _name << " executed " << form.getName() << std::endl;
-        form.execute(*this);
-    }
-    catch (AForm::GradeTooLowException& e)
-    {
-        std::cout << _name << " couldn't execute " << form.getName()
                   << ", because " << e.what() << std::endl;
     }
 }
@@ -132,6 +118,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& ref)
     }
     return *this;
 }
+
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& ref)
 {
     out << ref.getName() << ", bureaucrat grade " << ref.getGrade() << "." << std::endl;

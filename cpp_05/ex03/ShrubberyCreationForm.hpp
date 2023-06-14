@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 16:05:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 01:46:33 by jinam            ###   ########.fr       */
+/*   Created: 2023/06/13 16:38:51 by jinam             #+#    #+#             */
+/*   Updated: 2023/06/14 16:51:58 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM
-#define PRESIDENTIALPARDONFORM
+#ifndef SHRUBBERYCREATIONFORM_HPP
+#define SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
-class PresidentialPardonForm : public AForm
+class ShrubberyCreationForm : public AForm
 {
 private:
     std::string _target;
-    static const int PR_EXEC = 5;
-    static const int PR_SIGN = 25;
+    static const int SH_EXEC = 137;
+    static const int SH_SIGN = 145;
+
 public:
-    PresidentialPardonForm();
-    PresidentialPardonForm(std::string target);
-    virtual ~PresidentialPardonForm();
-    PresidentialPardonForm(const PresidentialPardonForm& ref);
-    PresidentialPardonForm& operator=(const PresidentialPardonForm& ref);
+	static const std::string SH_NAME;
+    ShrubberyCreationForm();
+    ShrubberyCreationForm(std::string target);
+    virtual ~ShrubberyCreationForm();
+    ShrubberyCreationForm(const ShrubberyCreationForm& ref);
+    ShrubberyCreationForm& operator=(const ShrubberyCreationForm& ref);
     virtual void execute(Bureaucrat const& executor) const;
 };
+
 #endif

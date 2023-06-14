@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 16:05:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 01:46:33 by jinam            ###   ########.fr       */
+/*   Created: 2023/06/13 23:31:31 by jinam             #+#    #+#             */
+/*   Updated: 2023/06/14 16:52:05 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM
-#define PRESIDENTIALPARDONFORM
-
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 #include "AForm.hpp"
-class PresidentialPardonForm : public AForm
+#include <string>
+
+class RobotomyRequestForm : public AForm
 {
 private:
     std::string _target;
-    static const int PR_EXEC = 5;
-    static const int PR_SIGN = 25;
+    static const int RO_EXEC = 45;
+    static const int RO_SIGN = 72;
+
 public:
-    PresidentialPardonForm();
-    PresidentialPardonForm(std::string target);
-    virtual ~PresidentialPardonForm();
-    PresidentialPardonForm(const PresidentialPardonForm& ref);
-    PresidentialPardonForm& operator=(const PresidentialPardonForm& ref);
+	static const std::string RO_NAME;
+	RobotomyRequestForm();
+	RobotomyRequestForm(std::string	target);
+	~RobotomyRequestForm();
+	RobotomyRequestForm(const RobotomyRequestForm& ref);
+	RobotomyRequestForm& operator=(const RobotomyRequestForm& ref);
     virtual void execute(Bureaucrat const& executor) const;
 };
 #endif

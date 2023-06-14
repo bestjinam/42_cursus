@@ -6,20 +6,22 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 01:44:42 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 10:47:42 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:42:37 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
 #include <iostream>
 
+const std::string PresidentialPardonForm::PR_NAME = "PresidentialPardonForm";
+
 PresidentialPardonForm::PresidentialPardonForm()
-	: AForm("PresidentialPardonForm", PR_SIGN, PR_EXEC)
+	: AForm(PR_NAME, PR_SIGN, PR_EXEC)
 {
 }
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target)
-	: AForm("PresidentialPardonForm", PR_SIGN, PR_EXEC), _target(target)
+	: AForm(PR_NAME, PR_SIGN, PR_EXEC), _target(target)
 {
 }
 PresidentialPardonForm::~PresidentialPardonForm()

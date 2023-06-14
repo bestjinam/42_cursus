@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:05 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 17:52:19 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/14 17:52:46 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& ref)
     }
     return *this;
 }
+
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& ref)
 {
     out << ref.getName() << ", bureaucrat grade " << ref.getGrade() << "." << std::endl;

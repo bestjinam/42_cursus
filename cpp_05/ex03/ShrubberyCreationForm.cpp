@@ -6,12 +6,14 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:54:08 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 10:46:54 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:43:28 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
+
+const std::string ShrubberyCreationForm::SH_NAME = "ShrubberyCreationForm";
 
 ShrubberyCreationForm::ShrubberyCreationForm()
     : AForm("ShrubberyCreationForm", SH_SIGN, SH_EXEC)

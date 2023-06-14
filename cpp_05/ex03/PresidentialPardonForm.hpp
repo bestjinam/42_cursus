@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:05:47 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 01:46:33 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:52:13 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ private:
     static const int PR_EXEC = 5;
     static const int PR_SIGN = 25;
 public:
+	static const std::string PR_NAME;
     PresidentialPardonForm();
     PresidentialPardonForm(std::string target);
     virtual ~PresidentialPardonForm();

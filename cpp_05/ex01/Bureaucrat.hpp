@@ -6,7 +6,7 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:30:22 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/14 10:27:42 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/08 15:27:29 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <ostream>
 #include <string>
 
-class AForm;
+class Form;
 class Bureaucrat
 {
 private:
@@ -26,21 +26,7 @@ private:
     // noncopyable
     // Bureaucrat& operator=(const Bureaucrat& ref);
     // Bureaucrat(const Bureaucrat& ref);
-public:
-    Bureaucrat();
-    Bureaucrat(std::string name);
-    Bureaucrat(std::string name, int grade);
-    ~Bureaucrat();
-    Bureaucrat(const Bureaucrat& ref);
-    Bureaucrat& operator=(const Bureaucrat& ref);
-    std::string getName() const;
-    int getGrade() const;
-    void decrementGrade(int n);
-    void incrementGrade(int n);
-    void decrementGrade();
-    void incrementGrade();
-    void signForm(AForm& form);
-    void executeForm(AForm const &form);
+
 public:
     class GradeTooHighException : public std::exception
     {
@@ -62,7 +48,19 @@ public:
         GradeTooLowException(std::string _m);
         virtual const char* what() const throw();
     };
-
+    Bureaucrat();
+    Bureaucrat(std::string name);
+    Bureaucrat(std::string name, int grade);
+    ~Bureaucrat();
+    Bureaucrat(const Bureaucrat& ref);
+    Bureaucrat& operator=(const Bureaucrat& ref);
+    std::string getName() const;
+    int getGrade() const;
+    void decrementGrade(int n);
+    void incrementGrade(int n);
+    void decrementGrade();
+    void incrementGrade();
+    void signForm(Form& form);
 };
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& bu);

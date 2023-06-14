@@ -6,126 +6,105 @@
 /*   By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:27:26 by jinam             #+#    #+#             */
-/*   Updated: 2023/06/08 17:43:52 by jinam            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:19:39 by jinam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 #include <iostream>
 
-void _formMakingTest()
+void _formExecuteTest(AForm &form)
 {
-    Form f1;
-    Form f2("new form 1", 150);
-    Form f3("new form 2", 1);
+    Bureaucrat b1("b1", 1);
 
-    Form f4(f2);
-    Form f5 = f3;
+    std::cout << ">>_formMakingTest <<\n";
+    std::cout << b1 << std::endl;
+    std::cout << form;
+    form.execute(b1);
 
-    std::cout << "f1's info(null)" << std::endl;
-    std::cout << f1;
-    std::cout << std::endl;
-    std::cout << "f2's info(new form 1, 150)" << std::endl;
-    std::cout << f2;
-    std::cout << std::endl;
-    std::cout << "f3's info(new form 2, 1)" << std::endl;
-    std::cout << f3;
-    std::cout << std::endl;
-    std::cout << "======= copy ========" << std::endl;
-    std::cout << std::endl;
-    std::cout << "f4's info(copy)" << std::endl;
-    std::cout << f4;
-    std::cout << std::endl;
-    std::cout << "f5's info(assignment operator)" << std::endl;
-    std::cout << f5;
-    std::cout << std::endl;
 }
 
-void _formMakingExceptionTest()
+void _formMakingExceptionTest(AForm &form)
 {
-    Form f1("Lowest form", 151);
-    Form f2("Highest form", 0);
+    Bureaucrat b1("b1", 150);
 
-    std::cout << f1;
+    std::cout << ">>_formMakingExceptionTest <<\n";
+    std::cout << b1 << std::endl;
+    std::cout << form << std::endl;
+    form.execute(b1);
 }
 
-void _formBeSignedTest()
+void _bureaucratSignFormTest(AForm &form)
 {
-    Form a("a", 1);
-    Bureaucrat b("b", 1);
-
-    std::cout << a;
-    std::cout << std::endl;
-    a.beSigned(b);
-    std::cout << a;
+    std::cout << ">>_bureaucratSignFormTest <<\n";
+    Bureaucrat b1("b1", 1);
+    b1.signForm(form);
+    std::cout << form <<std::endl;
 }
 
-void _formBesignedExceptionTest()
+void _bureaucratExecuteFormTest(AForm &form)
 {
-    Form a("a", 1);
-    Bureaucrat b("b", 3);
-
-    std::cout << a;
-    std::cout << std::endl;
-    a.beSigned(b);
-    std::cout << a;
+    std::cout << ">>_bureaucratExecuteFormTest <<\n";
+    Bureaucrat b1("b1", 1);
+    b1.executeForm(form);
 }
 
-void _bureaucratSignFormTest()
+void _bureaucratExecuteFormExceptionTest(AForm &form)
 {
-    Form a("a", 5);
-    Bureaucrat b("b", 3);
-
-    b.signForm(a);
+    std::cout << ">>_bureaucratExecuteFormExceptionTest <<\n";
+    Bureaucrat b1("b1", 150);
+    b1.executeForm(form);
 }
 
-void _bureaucratSignFormExceptionTest()
+void    ft_exit(void)
 {
-    Form a("a", 1);
-    Bureaucrat b("b", 3);
-
-    b.signForm(a);
+    system("leaks Bureaucrat");
 }
-int main(int argc, char** argv)
+
+int main()
 {
-    if (argc != 2)
-    {
-        std::cout << "./Bureaucrat [option]" << std::endl;
-        return 1;
-    }
+    AForm *forms[3];
+
+    forms[0] = new ShrubberyCreationForm("Target1");
+    forms[1] = new RobotomyRequestForm("Target2");
+    forms[2] = new PresidentialPardonForm("Target3");
+    std::string str;
+    atexit(ft_exit);
+    int ret = 0;
     try
     {
-        std::string str = argv[1];
-        if (str.compare("0") == 0)
+        for (int i = 0; i != 3; i++)
         {
-            _formMakingTest();
+            std:: cout << i << std::endl;
+            std::cout << "Press Enter ...\n";
+            std::getline(std::cin, str); 
+            _formExecuteTest(*forms[i]);
+            std::cout << std::endl;
+            _bureaucratSignFormTest(*forms[i]);
+            std::cout << std::endl;
+            _bureaucratExecuteFormTest(*forms[i]);
+            // _formMakingExceptionTest(*forms[i]);
+            // std::cout << std::endl;
         }
-        else if (str.compare("1") == 0)
+        std::cout << "press e button..\n";
+        std::getline(std::cin, str); 
+        if (str.compare("e") == 0)
         {
-            _formMakingExceptionTest();
-        }
-        else if (str.compare("2") == 0)
-        {
-            _formBeSignedTest();
-        }
-        else if (str.compare("3") == 0)
-        {
-            _formBesignedExceptionTest();
-        }
-        else if (str.compare("4") == 0)
-        {
-            _bureaucratSignFormTest();
-        }
-        else if (str.compare("5") == 0)
-        {
-            _bureaucratSignFormExceptionTest();
+            // _formMakingExceptionTest(*forms[0]);
+            _bureaucratExecuteFormExceptionTest(*forms[0]);
         }
     }
     catch (std::exception& e)
     {
         std::cout << e.what();
-        return 1;
+        ret = 1;
     }
-    return 0;
+    delete forms[0];
+    delete forms[1];
+    delete forms[2];
+    return ret;
 }

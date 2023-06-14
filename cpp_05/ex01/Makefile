@@ -6,7 +6,7 @@
 #    By: jinam <jinam@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 11:11:51 by jinam             #+#    #+#              #
-#    Updated: 2023/06/14 10:53:34 by jinam            ###   ########.fr        #
+#    Updated: 2023/06/07 18:53:45 by jinam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CXXFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 			= rm
 RMFLAGS		= -f
 OUT_DIR		= objs
-FILE		= main Bureaucrat AForm ShrubberyCreationForm RobotomyRequestForm PresidentialPardonForm
+FILE		= main Bureaucrat Form
 OBJECTS		= $(addprefix $(OUT_DIR)/, $(addsuffix .o, $(FILE)))
 
 # Compile rules
